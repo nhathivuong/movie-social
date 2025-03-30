@@ -1,12 +1,20 @@
+import {useState} from "react"
+
 const SignUp = () => {
+    const [src, setSrc] = useState()
+    const [file, setFile] = useState()
+
+    const handleSignUp = () => {
+
+    }
     return <>
-    <form>
-        <label>Name</label>
-        <input/>
-        <label>Username</label>
-        <input/>
-        <label>Email</label>
-        <input/>
+    <form onSubmit={handleSignUp}>
+        <label htmlFor="full-name">Full Name</label>
+        <input type="text" id="full-name" name="full-name"/>
+        <label htmlFor="username">Username</label>
+        <input type="text" id="username" name="username"/>
+        <label htmlFor="email">Email</label>
+        <input type="email" id="email" name="email"/>
         <label htmlFor="image">
         <input
         id="image"
@@ -31,3 +39,5 @@ const SignUp = () => {
     </form>
     </>
 }
+
+export default SignUp
