@@ -5,7 +5,7 @@ export const UserContext = createContext()
 
 // this is used to have the logged in user
 const UserProvider = ({children}) =>{
-    //this usestate will store the username
+    //this usestate will store the name , username and src
     const [loggedInUser, setLoggedInUser] = useState(null);
     
     //will set the loggedInUser from the localstorage on mount
@@ -15,7 +15,7 @@ const UserProvider = ({children}) =>{
             fetch(`/user/${loggedInUsername}`)
             .then(res => res.json())
             .then(data => {
-                if(data.status === 200){setLoggedInUser(data.user.username)}
+                if(data.status === 200){setLoggedInUser(data.user)}
             })
             .catch((error) => console.error(error))
         }

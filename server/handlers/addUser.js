@@ -5,10 +5,10 @@ const {v4: uuidv4 } = require("uuid")
 
 // this creates and account when a user sign up to the website
 const addUser = async(req, res) => {
-    const { name, email, username, picture } = req.body
+    const { name, email, username, src } = req.body
 
     // checks if the body is filled properly
-    if(!name ||!email ||!username ||!picture){
+    if(!name ||!email ||!username || !src){
         return res.status(404).json({
             status: 404,
             message: "The request is missing data"
@@ -20,13 +20,13 @@ const addUser = async(req, res) => {
         name: name,
         username: username,
         email: email,
-        pic: picture,
-        bio: "",
-        followers: [],
-        favorites: [],
-        reviews: [],
-        likes: [],
-        comment: [],
+        src: src,
+        // bio: "",
+        // followers: [],
+        // favorites: [],
+        // reviews: [],
+        // likes: [],
+        // comment: [],
         status: "active"
     }
     const client = new MongoClient(MONGO_URI)
@@ -51,14 +51,19 @@ const addUser = async(req, res) => {
         }
         //creates the user in the database
         await db.collection("users").insertOne(newUser)
+        
         res.status(201).json({
             status: 201,
-            data: newUser,
+            user:{
+                name: newUser.name,
+                username: newUser.username,
+                src: newUser.src
+            },
             message: `${username} account has been created`
         })
     }
     catch(error){
-        return res.status(500).json({
+        return res.status(502).json({
             status:502,
             message: error.message
         })

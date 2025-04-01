@@ -2,38 +2,37 @@ const {MongoClient} = require("mongodb")
 require("dotenv").config()
 const {MONGO_URI} = process.env
 
-// this find the user in the database it is used to get user's info
-const getUser = async(req, res) =>{
-    const {username} = req.params
+const logIn = async(req, res) =>{
+    const {username} = req.body
+
     if(!username){
         return res.status(404).json({
             status:404,
-            message: "The username was not found in params"
+            message: "please enter a username"
         })
     }
-
     const client = new MongoClient(MONGO_URI)
     try{
         await client.connect()
         const db = client.db("movie")
-        const foundUser = await db.collection("users").findOne({username: username})
-        if(!foundUser){
+        const user = await db.collection("users").findOne({username: username})
+        if(!user){
             return res.status(404).json({
-                status:404,
+                status: 404,
                 message: `${username} was not found`
             })
         }
         res.status(200).json({
-            status:200,
+            status: 200,
             user: {
-                name: foundUser.name,
-                username: foundUser.username,
-                src: foundUser.src
+                name: user.name,
+                username: user.username,
+                src: user.src
             }
         })
     }
     catch(error){
-        res.status(502).json({
+        res.statue(502).json({
             status:502,
             message: error.message
         })
@@ -41,6 +40,5 @@ const getUser = async(req, res) =>{
     finally{
         await client.close()
     }
-};
-
-module.exports = getUser
+}
+module.exports = logIn

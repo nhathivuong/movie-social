@@ -12,16 +12,24 @@ app.use(morgan("tiny"));
 const {
     addUser,
     getUser,
+    getUsers,
+    logIn
 } = require("./handlers")
 
 // this creates and account when a user sign up to the website
 app.post("/user", addUser);
 
-// this is used to login an user
+// this is used to get userinfo
 app.get("/user/:username", getUser);
 
+// this get all the users basic info(name, username, src)
+app.get("/users", getUsers)
+
+// login the user
+app.post("/login", logIn)
+
 app.use('*', (req, res) => {
-    res.status(404).json({status: 404, message: "This isn't the endpoint you're looking for!"});
+    res.status(404).json({status: 404, message: "Endpoint not found!"});
     });
     
 app.listen(PORT, () => {console.log("Server listening on port ", PORT);});

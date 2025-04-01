@@ -1,19 +1,21 @@
 // dependencies
 import {useContext, useState} from "react"
+import { useNavigate } from "react-router-dom"
 // context
-import { UserContext } from "../contexts/UserContext"
+import { UserContext} from "../contexts/UserContext"
 
 const SignUp = () => {
     const [src, setSrc] = useState()
     const [file, setFile] = useState()
-    const {setLoggedInUser} = useContext(UserContext)
+    const {setLoggedInUser, logIn} = useContext(UserContext)
+    const navigate = useNavigate()
 
     const handleSignUp = () => {
         const body = JSON.stringify({
-            fullname: document.getElementById("fullname").value,
-            usersame: document.getElementById("username").value,
+            name: document.getElementById("fullname").value,
+            username: document.getElementById("username").value,
             email: document.getElementById("email").value,
-            picture: document.getElementById("image").value,
+            src: src
         })
         const options = {
             method:"POST",
@@ -24,21 +26,28 @@ const SignUp = () => {
             body,
         }
         fetch("/user", options)
-        .then(res => res.json())
+        .then(res => {
+            if(!res.ok){
+                throw new Error("the user was not logged in")
+            }
+            return res.json()
+        })
         .then(data => {
             if(data.status === 201){
-                setLoggedInUser(data.data.username)
+                setLoggedInUser(data.user);
+                logIn(data.user);
+                navigate(`/user/${data.user.username}`)
             }
         })
     }
     return <>
     <form onSubmit={handleSignUp}>
         <label htmlFor="fullname">Full Name</label>
-        <input type="text" id="fullname" name="fullname"/>
+        <input type="text" id="fullname" name="fullname" required/>
         <label htmlFor="username">Username</label>
-        <input type="text" id="username" name="username"/>
+        <input type="text" id="username" name="username" required/>
         <label htmlFor="email">Email</label>
-        <input type="email" id="email" name="email"/>
+        <input type="email" id="email" name="email" required/>
         <label htmlFor="image">
         <input
         id="image"
@@ -55,7 +64,7 @@ const SignUp = () => {
             };
             reader.readAsDataURL(selectedFile);
         }}
-        ></input>
+        required></input>
         <p>Selected File: {file ? file.name : 'None'}</p>
         {src && <img src={src} alt="your face"/>}
         </label>
