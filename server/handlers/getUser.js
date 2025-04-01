@@ -37,6 +37,6 @@ const getUser = async(req, res) =>{
     finally{
         await client.close()
     }
-}
+};
 
-export default getUser
+module.exports = getUser

@@ -66,5 +66,6 @@ const addUser = async(req, res) => {
     finally{
         await client.close()
     }
-}
-export default addUser
+};
+
+module.exports = addUser

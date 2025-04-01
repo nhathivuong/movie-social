@@ -1,9 +1,9 @@
 const LogIn = () =>{
-    return <form onSubmit={handleSubmit}>
+    return <form onSubmit={handleLogin}>
             <label htmlFor="username">Username</label>
             <input id="username" name="username" placeholder="your username"/>
-            <button disabled={status !== "idle"}>Log in</button>
+            <button >Log in</button>
         </form>
 }
-// rememeber me to auto login
+// remember me to auto login
 export default LogIn
