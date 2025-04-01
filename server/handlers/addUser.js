@@ -3,12 +3,18 @@ require("dotenv").config()
 const { MONGO_URI } = process.env
 const {v4: uuidv4 } = require("uuid")
 
-const DATABASE = "movie";
-const USER_COLLECTION = "users";
-
+// this creates and account when a user sign up to the website
 const addUser = async(req, res) => {
     const { name, email, username, picture } = req.body
-    // validation
+
+    // checks if the body is filled properly
+    if(!name ||!email ||!username ||!picture){
+        return res.status(404).json({
+            status: 404,
+            message: "The request is missing data"
+        })
+    }
+    
     const newUser = {
         _id: uuidv4(),
         name: name,
@@ -27,6 +33,23 @@ const addUser = async(req, res) => {
     try{
         await client.connect()
         const db = client.db("movie")
+
+        // checks if the user(username or email) already exist in the database
+        const usernameTaken = await db.collection("users").findOne({username: username})
+        if(usernameTaken){
+            return res.status(400).json({
+                status:400,
+                message: "The username is already taken"
+            })
+        }
+        const emailTaken = await db.collection("users").findOne({email: email})
+        if(emailTaken){
+            return res.status(400).json({
+                status:400,
+                message: "The email is already taken"
+            })
+        }
+        //creates the user in the database
         await db.collection("users").insertOne(newUser)
         res.status(201).json({
             status: 201,
