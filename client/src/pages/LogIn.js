@@ -2,12 +2,13 @@
 import { useContext } from "react"
 //context
 import { UserContext } from "../contexts/UserContext"
-import { useNavigate } from "react-router-dom"
-
+import { NavLink, useNavigate } from "react-router-dom"
+import styled from "styled-components"
 const LogIn = () =>{
     const {logIn, setLoggedInUser} = useContext( UserContext )
     const navigate = useNavigate()
-    const handleLogIn = () =>{
+    const handleLogIn = (event) =>{
+        event.preventDefault()
         const options = {
             method: "POST",
             headers:{
@@ -25,6 +26,7 @@ const LogIn = () =>{
         })
         .then(data => {
             if(data.status === 200){
+                console.log(data.user)
                 setLoggedInUser(data.user)
                 logIn(data.user)
                 navigate(`/user/${data.user.username}`)
@@ -32,11 +34,51 @@ const LogIn = () =>{
         })
         .catch(error => console.error(error.message))
     }
-    return <form onSubmit={handleLogIn}>
+    return <LogInBox>
+        <h2>Log In</h2>
+        <LogInForm onSubmit={handleLogIn}>
             <label htmlFor="username">Username</label>
-            <input id="username" name="username" placeholder="your username" required/>
-            <button >Log in</button>
-        </form>
+            <UserInput id="username" name="username" placeholder="your username" required/>
+            <LogInButton type="submit">Log in</LogInButton>
+        </LogInForm>
+        <p>New here? <SignUp to="/signUp">Sign Up</SignUp></p>
+        </LogInBox>
 }
 // remember me to auto login
+
+const LogInBox = styled.div`
+    width:30svw;
+    margin: 2rem auto;
+    padding: 1rem;
+    display:flex;
+    flex-direction:column;
+    border-radius: 10px;
+    background-color: black;
+    gap: 0.5rem;
+`
+const LogInForm = styled.form`
+    display:flex;
+    flex-direction:column;
+    gap: 0.5rem;
+`
+const UserInput = styled.input`
+    height: 2rem;
+    border-radius: 5px;
+`
+const LogInButton = styled.button`
+    height: 2rem;
+    border-radius: 5px;
+    background-color: var(--color-green);
+    border: none;
+    text-transform: uppercase;
+    font-weight:bold;
+    color: var(--color-light);
+    text-shadow: 0 0 1px black;
+    box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark-green) inset;
+    cursor: pointer;
+`
+const SignUp = styled(NavLink)`
+    color: var(--color-green);
+`
+
 export default LogIn
