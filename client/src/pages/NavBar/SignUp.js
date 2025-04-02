@@ -3,7 +3,7 @@ import {useContext, useState} from "react"
 import { NavLink, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 // context
-import { UserContext} from "../contexts/UserContext"
+import { UserContext} from "../../contexts/UserContext"
 
 const SignUp = () => {
     const [src, setSrc] = useState()

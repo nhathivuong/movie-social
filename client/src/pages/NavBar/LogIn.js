@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 
 //context
-import { UserContext } from "../contexts/UserContext"
+import { UserContext } from "../../contexts/UserContext"
 
 const LogIn = () =>{
     const {logIn, setLoggedInUser} = useContext( UserContext )

@@ -3,7 +3,7 @@ import { useContext } from "react"
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
 //context
-import { AllUsersContext } from "../contexts/AllUsersContext"
+import { AllUsersContext } from "../../contexts/AllUsersContext"
 
 const ProfilePage = () =>{
     const { allUsers } = useContext(AllUsersContext)
