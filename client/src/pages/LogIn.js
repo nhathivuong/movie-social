@@ -1,9 +1,11 @@
 //dependencies
 import { useContext } from "react"
-//context
-import { UserContext } from "../contexts/UserContext"
 import { NavLink, useNavigate } from "react-router-dom"
 import styled from "styled-components"
+
+//context
+import { UserContext } from "../contexts/UserContext"
+
 const LogIn = () =>{
     const {logIn, setLoggedInUser} = useContext( UserContext )
     const navigate = useNavigate()
@@ -38,7 +40,7 @@ const LogIn = () =>{
         <h2>Log In</h2>
         <LogInForm onSubmit={handleLogIn}>
             <label htmlFor="username">Username</label>
-            <UserInput id="username" name="username" placeholder="your username" required/>
+            <UserInput id="username" name="username" required/>
             <LogInButton type="submit">Log in</LogInButton>
         </LogInForm>
         <p>New here? <SignUp to="/signUp">Sign Up</SignUp></p>

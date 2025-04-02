@@ -5,7 +5,6 @@ import styled from "styled-components"
 // context
 import { UserContext} from "../contexts/UserContext"
 
-
 const SignUp = () => {
     const [src, setSrc] = useState()
     const [file, setFile] = useState()

@@ -1,7 +1,10 @@
+//dependencies 
 import { useContext } from "react"
-import { AllUsersContext } from "../contexts/AllUsersContext"
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
+//context
+import { AllUsersContext } from "../contexts/AllUsersContext"
+
 const ProfilePage = () =>{
     const { allUsers } = useContext(AllUsersContext)
     const { username } = useParams()
@@ -32,5 +35,6 @@ const Profile = styled.div`
 `
 const Picture = styled.img`
     width: 150px;
+    border-radius:50%;
 `
 export default ProfilePage

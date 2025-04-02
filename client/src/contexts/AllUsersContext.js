@@ -5,6 +5,7 @@ export const AllUsersContext = createContext()
 const AllUsersProvider = ({children}) => {
     const [allUsers, setAllUsers] = useState();
 
+    //returns an array with all the users' keys
     useEffect(() =>{
         const getAllUsers = () =>{
             fetch("/users")

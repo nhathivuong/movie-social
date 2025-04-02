@@ -1,11 +1,12 @@
 // dependencies
 import { useContext } from "react"
+import { NavLink } from "react-router-dom"
 import styled from "styled-components"
 
 // context
 import { UserContext } from "./contexts/UserContext"
-import { NavLink } from "react-router-dom"
 
+// this display the navigation bar
 const Header = () => {
     const {loggedInUser, logOut} = useContext(UserContext)
 
