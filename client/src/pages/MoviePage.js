@@ -1,27 +1,34 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { NavLink, useParams } from "react-router-dom"
 import styled from "styled-components"
-import MoviePoster from "./MoviePoster"
+
+//icons
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
+
+// component
+import Recommendations from "./MoviePageElement/Recommendations"
+import Reviews from "./MoviePageElement/Review"
+
 // this page gives all the informations for the selected movie
 const MoviePage = () =>{
     const [movieInfos , setMovieInfos] = useState()
     const [movieRecommendation, setMovieRecommendation] = useState()
-    const [recommendations, setRecommendations] = useState()// contains 8 random recommendations
     const [movieCast, setMovieCast] = useState()
-    const [movieCrew, setMovieCrew] = useState()
     const [directors, setDirectors] = useState() // contains the directors
     const [movieReviews, setMovieReviews] = useState()
     const {movieId} = useParams()
+    const castRef = useRef()
 
     useEffect(()=>{
         setMovieInfos()
         setMovieRecommendation()
         setMovieCast()
-        setMovieCrew()
+        setDirectors()
         setMovieReviews()
         const fetchMoviePage = async() => {
             try {
-                //getting movie detail, movie recommendations and 
+                //getting movie details, credits and reviews
                 const movieDetails = `https://api.themoviedb.org/3/movie/${movieId}?language=en-US`
                 const credits = `https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US`
                 const recommendations = `https://api.themoviedb.org/3/movie/${movieId}/recommendations?language=en-US&page=1`;
@@ -40,19 +47,12 @@ const MoviePage = () =>{
                     fetch(recommendations, options).then(res => res.json()),
                     fetch(reviews, options).then(res => res.json())
                     ])
+                //sets all the info needed for the page
                 setMovieInfos(json1)
-                setMovieCast(json2.cast)
-                setMovieCrew(json2.crew)
+                setMovieCast(json2.cast) //limited to 20 for performance
+                setDirectors(json2.crew.filter((crew) => crew.job === "Director"))
                 setMovieRecommendation(json3.results)
                 setMovieReviews(json4.results)
-                //only keeps the directors from the crew
-                if(movieCrew){
-                    setDirectors(movieCrew.filter((crew) => crew.job === "Director"))
-                }
-                //randomise 8 recommendations
-                if(movieRecommendation){
-                    setRecommendations([...movieRecommendation].sort(() => Math.random() - 0.5).slice(0, 8))
-                }
             }
             catch(error){
                 console.error(error.message)
@@ -61,80 +61,175 @@ const MoviePage = () =>{
         fetchMoviePage()
     }, [movieId])
 
-    return <>{movieInfos && <>
+    // loads the initial information
+    if(!movieInfos || !movieCast?.length || !directors?.length){
+        return <Loading>Loading...</Loading>
+    }
+
+    // Arrow buttons click/scroll functions
+    const arrowRightClick = (ref) => {
+        ref.current.style.scrollBehavior = "smooth";
+        ref.current.scrollLeft += 495;
+    }
+    const arrowLeftClick = (ref) => {
+        ref.current.style.scrollBehavior = "smooth";
+        ref.current.scrollLeft -= 495;
+    }
+    return <>
     <Backdrop 
         src={movieInfos.backdrop_path 
         ? `https://image.tmdb.org/t/p/original${movieInfos.backdrop_path}` 
         : "/assets/no_backdrop.jpg"} 
         alt={`${movieInfos.title} backdrop`}/>
-    <img 
-        src={movieInfos.poster_path 
-        ? `https://image.tmdb.org/t/p/original${movieInfos.poster_path}` 
-        : "/assets/no_poster.jpg"} 
-        alt={`${movieInfos.title} poster`} width={300}/>
-    <div>
-        <h2>{movieInfos.title}</h2>
-        <p>{movieInfos.release_date}</p>
-        {(movieInfos.title !== movieInfos.original_title) && <h3>movieInfos.original_title</h3>}
-        <p>{movieInfos.tagline}</p>
-        <h4>Genres:</h4>
-        <ul>{movieInfos.genres.map((genre)=>{
-            return <li key={genre.id}><NavLink to={`/browse?genre=${genre.name.toLowerCase()}`} state={{genreId: genre.id}}>{genre.name}</NavLink></li>
-        })}</ul>
-        <h4>Rating:</h4>
-        <p>{movieInfos.vote_average}</p>
-        <p>{movieInfos.vote_count}</p>
-        <h4>Directors:</h4>
-        {directors && <ul>{directors.map((director)=>{
-            return <li key={director.id}>{director.name}</li>
-        })}</ul>}
-        <h4>Overview:</h4>
-        <p>{movieInfos.overview}</p>
-    </div>
-    <div>
-        <h4>Cast</h4>
-        {movieCast && <ul>{movieCast.map((cast)=>{
-            return <li>
-                <img src={cast.profile_path 
-                ? `https://image.tmdb.org/t/p/original${cast.profile_path}` 
-                : "/assets/no_profile.jpg"} 
-                alt={`${cast.name} profile picture`} width={100}/>
-                <h5>{cast.character}</h5>
-                <p>{cast.name}</p>
-            </li>
-        })}</ul>}
-    </div>
-    <div>
-        <h4>Recommendations</h4>
-        {recommendations 
-        ?<div>{recommendations.map((movie) => {
-            return <MoviePoster key={movie.id} movie={movie}/>
-        })}</div>
-        :<p>recommendations</p>}
-    </div>
-    <div>
-        <h4>Reviews</h4>
-        {movieReviews 
-        ?<div>{movieReviews.map((review) => {
-            return <div>
-                <img src={review.author_details.avatar_path
-                ? `https://image.tmdb.org/t/p/original${review.author_details.avatar_path}` 
-                : "/assets/default_picture.svg"} 
-                alt={`${review.author_details.username} profile picture`} width={100}/>
-                <h5>{review.author_details.username}</h5>
-                <p>{review.author_details.rating}</p>
-                <p>{review.content}</p>
-            </div>
-        })}</div>
-        :<p>No Reviews</p>}
-    </div>
-    </>
-    }</>
-    
+    <MovieInfos>
+        <Synopsis>
+            <img 
+                src={movieInfos.poster_path 
+                ? `https://image.tmdb.org/t/p/original${movieInfos.poster_path}` 
+                : "/assets/no_poster.jpg"} 
+                alt={`${movieInfos.title} poster`} width={300}/>
+            <Details>
+                <TitleYear>
+                    <h2>{movieInfos.title}</h2>
+                    <p>({movieInfos.release_date.split("-")[0]})</p>
+                </TitleYear>
+                {(movieInfos.title !== movieInfos.original_title) && <h3>{movieInfos.original_title}</h3>}
+                <p>{movieInfos.tagline}</p>
+                <Genres>
+                    <h4>Genres:</h4>
+                    <List>{movieInfos.genres.map((genre)=>{
+                        return <li key={genre.id}><GenreLink to={`/browse?genre=${genre.name.toLowerCase()}`} state={{genreId: genre.id}}>{genre.name}</GenreLink></li>
+                    })}</List>
+                </Genres>
+                <Rating>
+                <h4>Average Rating:</h4>
+                <MovieAverage>{movieInfos.vote_average.toFixed(1)}/10</MovieAverage>
+                <p>({movieInfos.vote_count} votes)</p>
+                </Rating>
+                <Directors>
+                <h4>Directors:</h4>
+                {directors && <List>{directors.map((director)=>{
+                    return <li key={director.id}>{director.name}</li>
+                })}</List>}
+                </Directors>
+                <Overview>Overview:</Overview>
+                <p>{movieInfos.overview}</p>
+            </Details>
+        </Synopsis>
+        <div>
+            <h2>Cast</h2>
+            <ScrollWrapper>
+            <Arrows onClick={() => arrowLeftClick(castRef)}><LeftArrow/></Arrows>
+            {movieCast && <CastGrid ref={castRef}>{movieCast.map((cast)=>{
+                return <li key={cast.id}>
+                    <img src={cast.profile_path 
+                    ? `https://image.tmdb.org/t/p/original${cast.profile_path}` 
+                    : "/assets/no_profile.jpg"} 
+                    alt={`${cast.name} profile picture`} width={150}/>
+                    <h3>{cast.character}</h3>
+                    <p>{cast.name}</p>
+                </li>
+            })}</CastGrid>}
+            <Arrows onClick={() => arrowRightClick(castRef)}><RightArrow/></Arrows>
+            </ScrollWrapper>
+        </div>
+        <Recommendations movieId={movieId} movieRecommendation={movieRecommendation}/>
+        <Reviews movieReviews={movieReviews}/>
+    </MovieInfos>
+    </>    
 }
+
+//these are organise by order of appearance
+const Loading = styled.h1`
+    margin: 4rem auto;
+    width: fit-content;
+`
 const Backdrop = styled.img`
     width:100%;
     height: 30vh;
     object-fit: cover;
+    filter: brightness(30%);
 `
+const MovieInfos = styled.div`
+    position:relative;
+    top: -20vh;
+    margin: 0 4em;
+`
+const Synopsis = styled.div`
+    display:flex;
+    flex-direction:row;
+    gap: 2rem;
+`
+const Details = styled.div`
+    margin-top: 20vh;
+    padding-top: 1rem;
+`
+const TitleYear = styled.div`
+    display:flex;
+    flex-direction: row;
+    align-items:baseline;
+    gap: 1rem;
+`
+const Genres = styled.div`
+    margin-top: 0.7rem;
+    display:flex;
+    flex-direction: row;
+`
+const List = styled.ul`
+    display:flex;
+    flex-direction: row;
+    list-style: none;
+    padding-left: 1rem;
+    gap: 0.5rem;
+`
+const GenreLink = styled(NavLink)`
+    color:var(--color-green);
+`
+const Rating = styled(Genres)`
+    margin-top: 0.3rem;
+`
+const MovieAverage = styled.p`
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+`
+const Directors = styled(Rating)`
+    margin-bottom: 0.7rem;
+`
+const Overview = styled.h4`
+    margin-bottom: 0.3rem;
+`
+const ScrollWrapper = styled.div`
+    display:flex;
+    flex-direction:row;
+`
+const Arrows = styled.button`
+    padding: 5px 8px;
+    cursor: pointer;
+    height: 150px;
+    background:none;
+    margin: 4rem 1rem;
+    color: var(--color-light);
+    border:none;
+    &:hover{
+        background-color: var(--color-green)
+    }
+`
+const LeftArrow = styled(IoIosArrowBack)`
+    font-size: 2rem;
+`
+const RightArrow = styled(IoIosArrowForward)`
+    font-size: 2rem;
+`
+const CastGrid = styled.ul`
+    display: flex;
+    flex-direction:row;
+    gap: 15px;
+    margin: 1rem auto;
+    list-style: none;
+    overflow-x: scroll;
+    &::-webkit-scrollbar{
+        display: none;
+    }
+`
+
 export default MoviePage
