@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
-import SignUp from "./pages/NavBar/SignUp"
+import SignUp from "./pages/Profile/SignUp"
 import Header from "./Header"
-import LogIn from "./pages/NavBar/LogIn"
+import LogIn from "./pages/Profile/LogIn"
 import Home from "./pages/Home"
-import ProfilePage from "./pages/NavBar/ProfilePage"
+import ProfilePage from "./pages/Profile/ProfilePage"
 import BrowseMovies from "./pages/BrowseMovies"
 import MoviePage from "./pages/MoviePage"
 const App = () => {

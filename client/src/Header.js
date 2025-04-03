@@ -91,11 +91,11 @@ const SearchInput = styled.input`
     width: 30dvw;
     padding: 0.3rem;
     border-radius: 30px;
-    border: 3px solid var(--color-green);
-    box-shadow: 0 0 4px var(--color-green);
+    border: 3px solid var(--color-accent);
+    box-shadow: 0 0 4px var(--color-accent);
     &:focus{
-        border: 2px solid var(--color-dark-green);
-        outline: 2px solid var(--color-green);
+        border: 2px solid var(--color-dark-accent);
+        outline: 2px solid var(--color-accent);
     }
 `
 const SearchButton = styled.button `
@@ -106,8 +106,8 @@ const SearchButton = styled.button `
     height: 27px;
     border-radius: 30px;
     cursor: pointer;
-    border: 2px solid var(--color-green);
-    background-color: var(--color-green);
+    border: 2px solid var(--color-accent);
+    background-color: var(--color-accent);
 `
 const NavGenreSection = styled(NavSection)`
     width:100%;

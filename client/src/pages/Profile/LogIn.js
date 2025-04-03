@@ -70,21 +70,21 @@ const UserInput = styled.input`
 const LogInButton = styled.button`
     height: 2rem;
     border-radius: 5px;
-    background-color: var(--color-green);
+    background-color: var(--color-accent);
     border: none;
     text-transform: uppercase;
     font-weight:bold;
     color: var(--color-light);
     text-shadow: 0 0 1px black;
-    box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark-green) inset;
+    box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark-accent) inset;
     cursor: pointer;
     &:active{
         background: transparent;
-        outline: 2px solid var(--color-green);
+        outline: 2px solid var(--color-accent);
     }
 `
 const SignUp = styled(NavLink)`
-    color: var(--color-green);
+    color: var(--color-accent);
 `
 
 export default LogIn

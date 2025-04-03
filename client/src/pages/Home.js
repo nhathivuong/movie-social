@@ -155,12 +155,12 @@ const Arrows = styled.button`
     color: var(--color-light);
     border:none;
     &:hover{
-        background-color: var(--color-green);
-        box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark-green) inset;
+        background-color: var(--color-accent);
+        box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark-accent) inset;
     }
     &:active{
         background: transparent;
-        outline: 2px solid var(--color-green);
+        outline: 2px solid var(--color-accent);
     }
 `
 const LeftArrow = styled(IoIosArrowBack)`

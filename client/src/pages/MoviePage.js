@@ -126,7 +126,7 @@ const MoviePage = () =>{
                     ? `https://image.tmdb.org/t/p/original${cast.profile_path}` 
                     : "/assets/no_profile.jpg"} 
                     alt={`${cast.name} profile picture`} width={150}/>
-                    <h3>{cast.character}</h3>
+                    <Character>{cast.character}</Character>
                     <p>{cast.name}</p>
                 </li>
             })}</CastGrid>}
@@ -183,7 +183,7 @@ const List = styled.ul`
     gap: 0.5rem;
 `
 const GenreLink = styled(NavLink)`
-    color:var(--color-green);
+    color:var(--color-accent);
 `
 const Rating = styled(Genres)`
     margin-top: 0.3rem;
@@ -211,7 +211,7 @@ const Arrows = styled.button`
     color: var(--color-light);
     border:none;
     &:hover{
-        background-color: var(--color-green)
+        background-color: var(--color-accent)
     }
 `
 const LeftArrow = styled(IoIosArrowBack)`
@@ -230,6 +230,10 @@ const CastGrid = styled.ul`
     &::-webkit-scrollbar{
         display: none;
     }
+`
+
+const Character = styled.h3`
+    color: var(--color-accent);
 `
 
 export default MoviePage
