@@ -154,6 +154,7 @@ const Arrows = styled.button`
     margin:35px 1rem;
     color: var(--color-light);
     border:none;
+    border-radius: 5px;
     &:hover{
         background-color: var(--color-accent);
         box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark-accent) inset;
