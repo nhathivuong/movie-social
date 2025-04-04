@@ -22,8 +22,8 @@ time, mark, audio, video {
 /* The colors */
 :root{
     --color-dark: #131515;
-    --color-dark-green: #00272B;
-    --color-green: #9AE19D;
+    --color-dark-accent: #00272B;
+    --color-accent: #9AE19D;
     --color-light: #EEEEEE;
     background-color: #00272B;
 }
@@ -37,14 +37,14 @@ body{
 }
 h1{
     font-size: 3rem;
-    color:var(--color-green);
-    text-shadow: 2px 2px 0 var(--color-dark-green), 3px 3px 0 var(--color-light);
+    color:var(--color-accent);
+    text-shadow: 2px 2px 0 var(--color-dark-accent), 3px 3px 0 var(--color-light);
     padding: 0.5rem;
 }
 h2{
     font-size: 2rem;
     color:var(--color-light);
-    text-shadow: 0 0 3px var(--color-green);
+    text-shadow: 0 0 3px var(--color-accent);
 }
 
 /* other */
