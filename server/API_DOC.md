@@ -8,6 +8,7 @@
 | `"/user"` | `POST`  | Returns an object containing all the user's keys |
 | `"/user/:username"` | `GET`  | Returns a single user object with all the user keys |
 | `"/login"` | `POST`  | Returns a `username` object|
+| `"/user/:username"` | `PATCH`  | Returns the modified user object with all the user keys|
 ---
 
 ## Responses Overview
@@ -116,5 +117,32 @@ On success
 ```
 
 Unsuccessful status codes: 404, 502.
+
+---
+
+### "/user/:username" (PATCH)
+
+On success
+```js
+{
+  "status": 200,
+  "user": {
+        _id,
+        name,
+        username,
+        email,
+        src,
+        bio,
+        // followers: [],
+        // favorites: [],
+        // reviews: [],
+        // likes: [],
+        // comment: [],
+        status: "active"
+    },
+}
+```
+
+Unsuccessful status codes: 400, 404, 502.
 
 ---
