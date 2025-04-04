@@ -5,7 +5,7 @@ export const UserContext = createContext()
 
 // this is used to have the logged in user
 const UserProvider = ({children}) =>{
-    //this usestate will store the name , username and src
+    //this usestate will store all the user's key
     const [loggedInUser, setLoggedInUser] = useState(null);
     
     //will set the loggedInUser from the localstorage on mount
