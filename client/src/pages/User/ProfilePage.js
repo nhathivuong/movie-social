@@ -21,6 +21,9 @@ const ProfilePage = () =>{
                 <p>@{loggedInUser.username}</p>
             </NameAlign>
             <BioText>Creative thinker fueled by coffee and late-night ideas. I build things on the web, sketch on napkins, and chase inspiration like it’s going out of style. Always learning, always curious. Let's make something awesome. ✨</BioText>
+            <form>
+                <FollowButton>follow</FollowButton>
+            </form>
         </Profile>
         <div>
             <h3>Lists</h3>
@@ -64,5 +67,23 @@ const NameAlign = styled.div`
 const BioText = styled.p`
     margin-top: 0.5rem;
     color: var(--color-dark-accent);
+`
+const FollowButton = styled.button`
+    margin: 0.5rem auto;
+    padding: 0.3rem 1rem;
+    border-radius: 5px;
+    background-color: var(--color-dark-accent);
+    border: none;
+    text-transform: uppercase;
+    font-weight:bold;
+    color: var(--color-light);
+    text-shadow: 0 0 1px black;
+    box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark) inset;
+    cursor: pointer;
+    &:active{
+        background: transparent;
+        box-shadow: 0 0 2px var(--color-dark) inset;
+        outline: 2px solid var(--color-dark-accent);
+    }
 `
 export default ProfilePage
