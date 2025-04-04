@@ -3,8 +3,8 @@ import { useLocation } from "react-router-dom"
 import styled from "styled-components"
 
 //components
-import SearchbyGenre from "./Search/SearchbyGenre"
-import SearchedMovies from "./Search/SearchedMovies"
+import SearchbyGenre from "./SearchbyGenre"
+import SearchedMovies from "./SearchedMovies"
 
 // here will house all the research components
 const BrowseMovies = () => {

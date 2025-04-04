@@ -7,8 +7,8 @@ import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 
 // component
-import Recommendations from "./MoviePageElement/Recommendations"
-import Reviews from "./MoviePageElement/Review"
+import Recommendations from "./Recommendations"
+import Reviews from "./Review"
 
 // this page gives all the informations for the selected movie
 const MoviePage = () =>{
