@@ -25,11 +25,7 @@ const getUser = async(req, res) =>{
         }
         res.status(200).json({
             status:200,
-            user: {
-                name: foundUser.name,
-                username: foundUser.username,
-                src: foundUser.src
-            }
+            user: foundUser // check when password is implemented
         })
     }
     catch(error){

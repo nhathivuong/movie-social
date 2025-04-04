@@ -54,11 +54,7 @@ const addUser = async(req, res) => {
         
         res.status(201).json({
             status: 201,
-            user:{
-                name: newUser.name,
-                username: newUser.username,
-                src: newUser.src
-            },
+            user:newUser, //check with password
             message: `${username} account has been created`
         })
     }

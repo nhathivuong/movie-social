@@ -24,11 +24,7 @@ const logIn = async(req, res) =>{
         }
         res.status(200).json({
             status: 200,
-            user: {
-                name: user.name,
-                username: user.username,
-                src: user.src
-            }
+            user: user // when password is added will have to remove it 
         })
     }
     catch(error){
