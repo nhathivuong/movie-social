@@ -8,7 +8,7 @@ import { IoIosArrowForward } from "react-icons/io";
 
 // component
 import Recommendations from "./Recommendations"
-import Reviews from "./Review"
+import Reviews from "./Reviews"
 
 // this page gives all the informations for the selected movie
 const MoviePage = () =>{
@@ -83,11 +83,15 @@ const MoviePage = () =>{
         alt={`${movieInfos.title} backdrop`}/>
     <MovieInfos>
         <Synopsis>
-            <img 
-                src={movieInfos.poster_path 
-                ? `https://image.tmdb.org/t/p/original${movieInfos.poster_path}` 
-                : "/assets/no_poster.jpg"} 
-                alt={`${movieInfos.title} poster`} width={300}/>
+            <div>
+                <img 
+                    src={movieInfos.poster_path 
+                    ? `https://image.tmdb.org/t/p/original${movieInfos.poster_path}` 
+                    : "/assets/no_poster.jpg"} 
+                    alt={`${movieInfos.title} poster`} width={300}/>
+                <NavLink>Write a Review</NavLink>
+                <button>Add to WatchList</button>
+            </div>
             <Details>
                 <TitleYear>
                     <h2>{movieInfos.title}</h2>
