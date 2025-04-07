@@ -21,12 +21,10 @@ const addUser = async(req, res) => {
         username: username,
         email: email,
         src: src,
-        // bio: "",
+        lists: [],
         // followers: [],
         // favorites: [],
         // reviews: [],
-        // likes: [],
-        // comment: [],
         status: "active"
     }
     const client = new MongoClient(MONGO_URI)
