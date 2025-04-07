@@ -14,7 +14,8 @@ const {
     getUser,
     getUsers,
     logIn,
-    updateUser
+    updateUser,
+    addList
 } = require("./handlers")
 
 // this creates and account when a user sign up to the website
@@ -31,6 +32,9 @@ app.post("/login", logIn)
 
 //changes the user information 
 app.patch("/user/:username", updateUser)
+
+// either add a movie to a list or create a list
+app.post("/movie/:movieId", addList)
 
 app.use('*', (req, res) => {
     res.status(404).json({status: 404, message: "Endpoint not found!"});

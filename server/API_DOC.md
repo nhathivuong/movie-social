@@ -9,6 +9,7 @@
 | `"/user/:username"` | `GET`  | Returns a single user object with all the user keys |
 | `"/login"` | `POST`  | Returns a `username` object|
 | `"/user/:username"` | `PATCH`  | Returns the modified user object with all the user keys|
+| `"/movie/:movieId"` | `POST`  | Returns a feedback message |
 ---
 
 ## Responses Overview
@@ -61,11 +62,7 @@ On success
         email,
         src,
         bio,
-        followers: [],
-        favorites: [],
-        reviews: [],
-        likes: [],
-        comment: [],
+        lists,
         status: "active"
     },
 }
@@ -88,11 +85,7 @@ On success
         email,
         src,
         bio,
-        followers: [],
-        favorites: [],
-        reviews: [],
-        likes: [],
-        comment: [],
+        lists,
         status: "active"
     },
 }
@@ -109,9 +102,14 @@ On success
 {
   "status": 200,
   "user": {
-    name,
-    username,
-    src
+        _id,
+        name,
+        username,
+        email,
+        src,
+        bio,
+        lists,
+        status: "active"
     }
 }
 ```
@@ -133,16 +131,26 @@ On success
         email,
         src,
         bio,
-        // followers: [],
-        // favorites: [],
-        // reviews: [],
-        // likes: [],
-        // comment: [],
+        lists,
         status: "active"
     },
 }
 ```
 
 Unsuccessful status codes: 400, 404, 502.
+
+---
+
+### "/movie/:movieId" (POST)
+
+On success
+```js
+{
+  "status": 201,
+  "message": `${listName} was created` or `${movieTitle} was added to ${listName}`,
+}
+```
+
+Unsuccessful status codes: 404, 409, 502.
 
 ---
