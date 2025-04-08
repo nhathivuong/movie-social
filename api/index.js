@@ -1,7 +1,11 @@
 const express = require("express");
 const morgan = require("morgan");
 
+const PORT = 4000;
+
 const app = express();
+
+app.get("/", (req, res) => res.send("Express on Vercel"));
 
 app.use(express.json());
 app.use(morgan("tiny"));
@@ -65,3 +69,5 @@ app.get("/api/genres", getGenres)
 app.use('*', (req, res) => {
     res.status(404).json({status: 404, message: "Endpoint not found!"});
     });
+    
+app.listen(PORT, () => {console.log("Server listening on port ", PORT);});
