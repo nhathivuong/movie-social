@@ -65,5 +65,3 @@ app.get("/api/genres", getGenres)
 app.use('*', (req, res) => {
     res.status(404).json({status: 404, message: "Endpoint not found!"});
     });
-    
-app.listen(PORT, () => {console.log("Server listening on port ", PORT);});
