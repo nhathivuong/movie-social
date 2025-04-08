@@ -18,7 +18,7 @@ const {
     getUser,
     getUsers,
     logIn,
-    updateUser,
+    // updateUser,
     addList,
     movieDetails,
     searchGenre,
@@ -39,8 +39,8 @@ app.get("/users", getUsers)
 // login the user
 app.post("/login", logIn)
 
-//changes the user information 
-app.patch("/user/:username", updateUser)
+// //changes the user information 
+// app.patch("/user/:username", updateUser)
 
 // either add a movie to a list or create a list
 app.post("/movie/:movieId", addList)
