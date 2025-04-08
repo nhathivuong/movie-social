@@ -1,11 +1,11 @@
 const express = require("express");
 const morgan = require("morgan");
+require("dotenv").config()
+const {BACKEND_URL} = process.env
 
-const PORT = 4000;
+const PORT = BACKEND_URL || 4000;
 
 const app = express();
-
-app.get("/", (req, res) => res.send("Express on Vercel"));
 
 app.use(express.json());
 app.use(morgan("tiny"));
