@@ -7,9 +7,7 @@ const addList = require("./handlers/addList")
 const movieDetails = require("./handlers/movieDetails")
 const searchGenre = require("./handlers/searchGenre")
 const searchQuery = require("./handlers/searchQuery")
-const upcomingMovies = require("./handlers/upcomingMovies")
-const popularMovies = require("./handlers/popularMovies")
-const topMovies = require("./handlers/topMovies")
+const homeMovies = require("./handlers/homeMovies")
 const getGenres = require("./handlers/getGenres")
 
 module.exports = {
@@ -22,8 +20,6 @@ module.exports = {
     movieDetails,
     searchGenre,
     searchQuery,
-    upcomingMovies,
-    popularMovies,
-    topMovies,
+    homeMovies,
     getGenres
 }

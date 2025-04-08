@@ -18,49 +18,65 @@ const Home = () => {
     const topRef = useRef()
 
     useEffect(()=>{
-        //this gets the upcoming movies
-        const upcomingMovies = async() => {
-            try {
-                const response = await fetch("/api/upcoming");
-                const data = await response.json();
-                if (data.status === 200) {
-                    setUpcomingMovies(data.upcomingMovies);
-                }
-            }
-            catch(error){
-                console.error(error.message)
-            }
-        }
+        // //this gets the upcoming movies
+        // const upcomingMovies = async() => {
+        //     try {
+        //         const response = await fetch("/api/upcoming");
+        //         const data = await response.json();
+        //         if (data.status === 200) {
+        //             setUpcomingMovies(data.upcomingMovies);
+        //         }
+        //     }
+        //     catch(error){
+        //         console.error(error.message)
+        //     }
+        // }
         
-        //this gets the popular movies
-        const popularMovies = async() =>{
+        // //this gets the popular movies
+        // const popularMovies = async() =>{
+        //     try {
+        //         const response = await fetch("/api/popular");
+        //         const data = await response.json();
+        //         if (data.status === 200) {
+        //             setPopularMovies(data.popularMovies);
+        //         }
+        //     }
+        //     catch(error){
+        //         console.error(error.message)
+        //     }
+        // }
+        // //this gives you the top rated movies
+        // const topMovies = async() =>{
+        //     try {
+        //         const response = await fetch("/api/top-rated");
+        //         const data = await response.json();
+        //         if (data.status === 200) {
+        //             setTopMovies(data.topMovies);
+        //         }
+        //     }
+        //     catch(error){
+        //         console.error(error.message)
+        //     }
+        // }
+        // upcomingMovies()
+        // popularMovies()
+        // topMovies()
+        const homeMovies = async() =>{
             try {
-                const response = await fetch("/api/popular");
+                const response = await fetch("/api/home");
                 const data = await response.json();
                 if (data.status === 200) {
-                    setPopularMovies(data.popularMovies);
+                    console.log(data.upcomingMovies)
+                    setUpcomingMovies(data.upcomingMovies)
+                    setPopularMovies(data.popularMovies)
+                    setTopMovies(data.topRatedMovies)
                 }
             }
             catch(error){
                 console.error(error.message)
             }
         }
-        //this gives you the top rated movies
-        const topMovies = async() =>{
-            try {
-                const response = await fetch("/api/top-rated");
-                const data = await response.json();
-                if (data.status === 200) {
-                    setTopMovies(data.topMovies);
-                }
-            }
-            catch(error){
-                console.error(error.message)
-            }
-        }
-        upcomingMovies()
-        popularMovies()
-        topMovies()
+        homeMovies()
     },[])
 
     // Arrow buttons click/scroll functions

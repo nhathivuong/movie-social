@@ -5,6 +5,8 @@ const {BACKEND_URL} = process.env
 
 const PORT = BACKEND_URL || 4000;
 
+// const PORT = 4000;
+
 const app = express();
 
 app.use(express.json());
@@ -24,6 +26,7 @@ const {
     upcomingMovies,
     popularMovies,
     topMovies,
+    homeMovies,
     getGenres
 } = require("./handlers")
 
@@ -54,14 +57,8 @@ app.get("/api/genre/:genreId", searchGenre)
 // searches movies based on a query from the tmdb API
 app.get("/api/search/:query", searchQuery)
 
-// gives you upcoming movies from the tmdb API
-app.get("/api/upcoming", upcomingMovies)
-
-// gives you popular movies from the tmdb API
-app.get("/api/popular", popularMovies)
-
-// gives you top rated movies from the tmdb API
-app.get("/api/top-rated", topMovies)
+// give you all the movies(upcoming, top rated and popular) for the homepage from the tmdb API
+app.get("/api/home", homeMovies)
 
 //gives you a list of all official genres from the tmdb API
 app.get("/api/genres", getGenres)
