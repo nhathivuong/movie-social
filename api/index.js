@@ -23,9 +23,6 @@ const {
     movieDetails,
     searchGenre,
     searchQuery,
-    upcomingMovies,
-    popularMovies,
-    topMovies,
     homeMovies,
     getGenres
 } = require("./handlers")
