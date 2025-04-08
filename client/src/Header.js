@@ -17,19 +17,20 @@ const Header = () => {
 
     //gets all the official movie genres
     useEffect(()=>{
-        const url = 'https://api.themoviedb.org/3/genre/movie/list?language=en';
-        const options = {
-        method: 'GET',
-        headers: {
-            accept: 'application/json',
-            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3Yzc1OTMwMjU1YWVjYzI2ZWU5MDIxYjliNjkwNzczZiIsIm5iZiI6MTc0MzA0NTg1OS40LCJzdWIiOiI2N2U0YzRlM2Y4NDY3OTRlOTkxMDk5NGUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.rm5e7ovYbkMaOkH0I5hy-CjAPUSSUYyR1ov3TEgRWjY'
+        const getGenres = async() =>{
+            try {
+                const response = await fetch("/api/genres");
+                const data = await response.json();
+                if (data.status === 200) {
+                    console.log(data.genres)
+                    setGenresList(data.genres);
+                }
+            }
+            catch(error){
+                console.error(error.message)
+            }
         }
-        };
-
-        fetch(url, options)
-        .then(res => res.json())
-        .then(json => setGenresList(json.genres))
-        .catch(err => console.error(err));
+        getGenres()
     },[])
 
     //to complete handles the search bar

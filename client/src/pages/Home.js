@@ -19,52 +19,44 @@ const Home = () => {
 
     useEffect(()=>{
         //this gets the upcoming movies
-        const upcomingMovies = () =>{
-            const url = 'https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1';
-            const options = {
-                method: 'GET',
-                headers: {
-                    accept: 'application/json',
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3Yzc1OTMwMjU1YWVjYzI2ZWU5MDIxYjliNjkwNzczZiIsIm5iZiI6MTc0MzA0NTg1OS40LCJzdWIiOiI2N2U0YzRlM2Y4NDY3OTRlOTkxMDk5NGUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.rm5e7ovYbkMaOkH0I5hy-CjAPUSSUYyR1ov3TEgRWjY'
+        const upcomingMovies = async() => {
+            try {
+                const response = await fetch("/api/upcoming");
+                const data = await response.json();
+                if (data.status === 200) {
+                    setUpcomingMovies(data.upcomingMovies);
                 }
-            };
-            
-            fetch(url, options)
-            .then(res => res.json())
-            .then(json => setUpcomingMovies(json.results))
-            .catch(err => console.error(err));
-        }
-        //this gets the popular movies
-        const popularMovies = () =>{
-            const url = 'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1';
-            const options = {
-                method: 'GET',
-                headers: {
-                    accept: 'application/json',
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3Yzc1OTMwMjU1YWVjYzI2ZWU5MDIxYjliNjkwNzczZiIsIm5iZiI6MTc0MzA0NTg1OS40LCJzdWIiOiI2N2U0YzRlM2Y4NDY3OTRlOTkxMDk5NGUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.rm5e7ovYbkMaOkH0I5hy-CjAPUSSUYyR1ov3TEgRWjY'
             }
-            };
-            
-            fetch(url, options)
-            .then(res => res.json())
-            .then(json => setPopularMovies(json.results))
-            .catch(err => console.error(err));
+            catch(error){
+                console.error(error.message)
+            }
+        }
+        
+        //this gets the popular movies
+        const popularMovies = async() =>{
+            try {
+                const response = await fetch("/api/popular");
+                const data = await response.json();
+                if (data.status === 200) {
+                    setPopularMovies(data.popularMovies);
+                }
+            }
+            catch(error){
+                console.error(error.message)
+            }
         }
         //this gives you the top rated movies
-        const topMovies = () =>{
-            const url = 'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1';
-            const options = {
-            method: 'GET',
-            headers: {
-                accept: 'application/json',
-                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3Yzc1OTMwMjU1YWVjYzI2ZWU5MDIxYjliNjkwNzczZiIsIm5iZiI6MTc0MzA0NTg1OS40LCJzdWIiOiI2N2U0YzRlM2Y4NDY3OTRlOTkxMDk5NGUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.rm5e7ovYbkMaOkH0I5hy-CjAPUSSUYyR1ov3TEgRWjY'
+        const topMovies = async() =>{
+            try {
+                const response = await fetch("/api/top-rated");
+                const data = await response.json();
+                if (data.status === 200) {
+                    setTopMovies(data.topMovies);
+                }
             }
-            };
-
-            fetch(url, options)
-            .then(res => res.json())
-            .then(json => setTopMovies(json.results))
-            .catch(err => console.error(err));
+            catch(error){
+                console.error(error.message)
+            }
         }
         upcomingMovies()
         popularMovies()
