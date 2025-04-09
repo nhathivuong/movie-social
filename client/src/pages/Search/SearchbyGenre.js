@@ -10,7 +10,7 @@ const SearchbyGenre = ({genreId}) => {
         setMoviesbyGenre()
         const fetchMovies = async() => {
             try {
-                const response = await fetch(`/api/genre/${genreId}`);
+                const response = await fetch(`https://movie-social-backend.vercel.app/api/genre/${genreId}`);
                 const data = await response.json();
                 if (data.status === 200) {
                     setMoviesbyGenre(data.moviesByGenre);

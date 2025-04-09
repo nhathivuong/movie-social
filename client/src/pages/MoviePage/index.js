@@ -39,7 +39,7 @@ const MoviePage = () =>{
         setMovieReviews()
         const fetchMoviePage = async() => {
             try {
-                const response = await fetch(`/api/movie/${movieId}`);
+                const response = await fetch(`https://movie-social-backend.vercel.app/api/movie/${movieId}`);
                 const data = await response.json();
         
                 if (data.status === 200) {

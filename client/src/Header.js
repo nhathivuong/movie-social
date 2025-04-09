@@ -20,7 +20,7 @@ const Header = () => {
     useEffect(()=>{
         const getGenres = async() =>{
             try {
-                const response = await fetch("/api/genres");
+                const response = await fetch("https://movie-social-backend.vercel.app/api/genres");
                 const data = await response.json();
                 if (data.status === 200) {
                     setGenresList(data.genres);

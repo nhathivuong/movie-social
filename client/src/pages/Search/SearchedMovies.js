@@ -8,7 +8,7 @@ const SearchedMovies = ({search}) => {
         setMoviesSearched()
         const fetchMovies = async() => {
             try {
-                const response = await fetch(`/api/search/${search}`);
+                const response = await fetch(`https://movie-social-backend.vercel.app/api/search/${search}`);
                 const data = await response.json();
                 if (data.status === 200) {
                     setMoviesSearched(data.moviesSearched);

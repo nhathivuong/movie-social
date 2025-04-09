@@ -19,7 +19,7 @@ const WriteReview = ({loggedInUser, movieId, setListVisible, reviewVisible, setR
             },
             body
         }
-        fetch(`/movie/${movieId}/review`, options)
+        fetch(`https://movie-social-backend.vercel.app/movie/${movieId}/review`, options)
         .then(res => {
             if(!res.ok){
                 throw new Error("The review was not created")

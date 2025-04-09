@@ -12,7 +12,7 @@ const UserProvider = ({children}) =>{
     useEffect(()=>{
         const loggedInUsername = localStorage.getItem("username")
         if(loggedInUsername){
-            fetch(`/user/${loggedInUsername}`)
+            fetch(`https://movie-social-backend.vercel.app/user/${loggedInUsername}`)
             .then(res => res.json())
             .then(data => {
                 if(data.status === 200){setLoggedInUser(data.user)}

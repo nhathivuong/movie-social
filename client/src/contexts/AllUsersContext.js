@@ -8,7 +8,7 @@ const AllUsersProvider = ({children}) => {
     //returns an array with all the users' username, name and src keys
     useEffect(() =>{
         const getAllUsers = () =>{
-            fetch("/users")
+            fetch("https://movie-social-backend.vercel.app/users")
             .then(res => {
                 if (!res.ok) throw new Error("Failed to fetch users");
                 return res.json()})
