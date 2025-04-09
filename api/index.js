@@ -1,11 +1,8 @@
 const express = require("express");
 const morgan = require("morgan");
 require("dotenv").config()
-const {BACKEND_URL} = process.env
 
-// const PORT = BACKEND_URL || 4000;
-
-const PORT = 4000;
+const port = process.env.PORT || 4000;
 
 const app = express();
 
@@ -68,4 +65,4 @@ app.use('*', (req, res) => {
     res.status(404).json({status: 404, message: "Endpoint not found!"});
     });
     
-app.listen(PORT, () => {console.log("Server listening on port ", PORT);});
+app.listen(port, () => {console.log("Server listening on port ", port);});
