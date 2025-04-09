@@ -27,7 +27,7 @@ const SignUp = () => {
             },
             body,
         }
-        fetch("https://movie-social-backend.vercel.app/user", options)
+        fetch("https://movie-social.onrender.com/user", options)
         .then(res => {
             if(!res.ok){
                 throw new Error("the user was not logged in")

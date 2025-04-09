@@ -20,7 +20,7 @@ const Home = () => {
     useEffect(()=>{
         const homeMovies = async() =>{
             try {
-                const response = await fetch("https://movie-social-backend.vercel.app/api/home");
+                const response = await fetch("https://movie-social.onrender.com/api/home");
                 const data = await response.json();
                 if (data.status === 200) {
                     setUpcomingMovies(data.upcomingMovies)

@@ -30,7 +30,7 @@ const SaveList = ({loggedInUser, movieId, listVisible, setListVisible, setReview
             },
             body: JSON.stringify({username: loggedInUser.username, movieTitle: movieInfos.title, movieSrc: movieInfos.poster_path, listName: listName })
         }
-        fetch(`https://movie-social-backend.vercel.app/movie/${movieId}/list`, options)
+        fetch(`https://movie-social.onrender.com/movie/${movieId}/list`, options)
         .then(res => {
             if(!res.ok){
                 throw new Error("the movie was not added")
