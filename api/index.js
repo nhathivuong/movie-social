@@ -20,6 +20,7 @@ const {
     logIn,
     // updateUser,
     addList,
+    addReview,
     movieDetails,
     searchGenre,
     searchQuery,
@@ -43,7 +44,10 @@ app.post("/login", logIn)
 // app.patch("/user/:username", updateUser)
 
 // either add a movie to a list or create a list
-app.post("/movie/:movieId", addList)
+app.post("/movie/:movieId/list", addList)
+
+// creates a review
+app.post("/movie/:movieId/review", addReview)
 
 // gets all the movie details from the tmdb API
 app.get("/api/movie/:movieId", movieDetails)

@@ -4,6 +4,7 @@ const getUsers = require("./handlers/getUsers")
 const logIn = require("./handlers/logIn")
 // const updateUser = require("./handlers/updateUser")
 const addList = require("./handlers/addList")
+const addReview = require("./handlers/addReview")
 const movieDetails = require("./handlers/movieDetails")
 const searchGenre = require("./handlers/searchGenre")
 const searchQuery = require("./handlers/searchQuery")
@@ -17,6 +18,7 @@ module.exports = {
     logIn,
     // updateUser,
     addList,
+    addReview,
     movieDetails,
     searchGenre,
     searchQuery,

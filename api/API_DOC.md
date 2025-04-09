@@ -9,7 +9,8 @@
 | `"/user/:username"` | `GET`  | Returns a single user object with all the user keys |
 | `"/login"` | `POST`  | Returns a `username` object|
 | `"/user/:username"` | `PATCH`  | Returns the modified user object with all the user keys|
-| `"/movie/:movieId"` | `POST`  | Returns a feedback message |
+| `"/movie/:movieId/list"` | `POST`  | Returns a feedback message |
+|`"/movie/:movieId/review"`| `POST` | Returns the review object|
 ---
 
 ## Responses Overview
@@ -141,7 +142,7 @@ Unsuccessful status codes: 400, 404, 502.
 
 ---
 
-### "/movie/:movieId" (POST)
+### "/movie/:movieId/list" (POST)
 
 On success
 ```js
@@ -152,5 +153,26 @@ On success
 ```
 
 Unsuccessful status codes: 404, 409, 502.
+
+---
+
+### "/movie/:movieId/review" (POST)
+
+On success
+```js
+{
+  "status": 201,
+  "review": {
+    _id
+    movieId,
+    username,
+    rating,
+    content,
+    createdAt
+  },
+}
+```
+
+Unsuccessful status codes: 400, 409, 502.
 
 ---

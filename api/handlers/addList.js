@@ -6,8 +6,8 @@ const addList = async(req, res) =>{
     const {movieId} = req.params
     const {username, movieTitle, movieSrc, listName} = req.body
     if(!movieId||!username||!movieTitle||!movieSrc||!listName){
-        return res.status(404).json({
-            status:404,
+        return res.status(400).json({
+            status:400,
             message: "The request is missing data"
         })
     }
