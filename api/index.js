@@ -7,14 +7,17 @@ const port = process.env.PORT || 4000;
 
 const app = express();
 
-app.use(express.json());
-app.use(morgan("tiny"));
-
 app.use(cors({
     origin: 'https://movie-social-delta.vercel.app/',
     methods: ['GET', 'POST', 'PATCH'],
     credentials: true,
 }));
+
+//middleware
+app.use(express.json());
+app.use(morgan("tiny"));
+
+
 
 //handlers
 const {
