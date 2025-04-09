@@ -11,8 +11,11 @@ app.use(express.json());
 app.use(morgan("tiny"));
 
 app.use(cors({
-  origin: 'https://movie-social-delta.vercel.app/',
+    origin: 'https://movie-social-delta.vercel.app/',
+    methods: ['GET', 'POST', 'PATCH'],
+    credentials: true,
 }));
+
 //handlers
 const {
     addUser,
