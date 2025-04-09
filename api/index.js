@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 require("dotenv").config()
+const cors = require('cors');
 
 const port = process.env.PORT || 4000;
 
@@ -9,6 +10,9 @@ const app = express();
 app.use(express.json());
 app.use(morgan("tiny"));
 
+app.use(cors({
+  origin: 'https://movie-social-delta.vercel.app/',
+}));
 //handlers
 const {
     addUser,
