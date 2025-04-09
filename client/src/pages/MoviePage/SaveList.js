@@ -1,15 +1,17 @@
 import { useState } from "react"
-const SaveList = ({loggedInUser, movieId}) =>{
+import styled from "styled-components"
+
+const SaveList = ({loggedInUser, movieId, listVisible, setListVisible, setReviewVisible}) =>{
     const [listName, setListName] = useState()
     const [createVisible, setCreateVisible] = useState(false)
-    const [listVisible, setListVisible] = useState(false)
+    
     // makes the lists appear
     const listVisibility = () => {
-        setListVisible(true)
+        setListVisible(!listVisible)
+        setReviewVisible(false)
     }
     //makes ths create list visible
     const createListVisibility = () => {
-        setListVisible(false)
         setCreateVisible(true)
     }
     // make lists not visibles 
@@ -43,19 +45,76 @@ const SaveList = ({loggedInUser, movieId}) =>{
         .catch(error => console.error(error.message))
     }
     return <>
-        <button type="button" onClick={listVisibility}>Save to List</button>
-        {listVisible && <form onSubmit={updateList}>{loggedInUser && loggedInUser.lists.map((list)=>{
-            return <div key={list.name}>
-            <input type="checkbox" id={list.name} name={list.name} value={list.name} onChange={() => setListName(list.name)}/>
-            <label htmlFor={list.name}>{list.name}</label>
-            </div>
-        })}
-            <button type="button" onClick={createListVisibility}>Create List</button>
-            {createVisible && <><label htmlFor="new-list">New List</label>
-            <input type="text" id="new-list" name="new-list" onChange={(event) => setListName(event.target.value)}/></>}
-            <button type="submit" onClick={removeVisibility}>Confirm</button>
-        </form>}
+        <Button type="button" onClick={listVisibility}>Save to List</Button>
+        {listVisible && <ListSection>
+            <Title>
+                <h2>Add to your list</h2>
+                <ClosingButton type="button" onClick={listVisibility}>x</ClosingButton>
+            </Title>
+            <form onSubmit={updateList}>{loggedInUser && loggedInUser.lists.map((list)=>{
+                return <div key={list.name}>
+                <input type="checkbox" id={list.name} name={list.name} value={list.name} onChange={() => setListName(list.name)}/>
+                <label htmlFor={list.name}>{list.name}</label>
+                </div>
+            })}
+                <OtherButton type="button" onClick={createListVisibility}>Create List</OtherButton><br/>
+                {createVisible && <NewListSection>
+                    <label htmlFor="new-list">New List Name</label>
+                    <ListNameInput type="text" id="new-list" name="new-list" onChange={(event) => setListName(event.target.value)}/>
+                </NewListSection>}
+                <OtherButton type="submit" onClick={removeVisibility}>Confirm</OtherButton>
+            </form>
+        </ListSection>}
         </>
 }
 
+const Button = styled.button`
+    height: 2rem;
+    margin: 0.5rem 1rem;
+    border-radius: 5px;
+    background-color: var(--color-accent);
+    border: none;
+    text-transform: uppercase;
+    font-weight:bold;
+    color: var(--color-dark);
+    box-shadow: 1px 1px 2px white inset, -1px -1px 2px var(--color-dark-accent) inset;
+    cursor: pointer;
+    &:active{
+        background: transparent;
+        outline: 2px solid var(--color-accent);
+    }
+`
+const OtherButton = styled(Button)`
+    margin: 0.5rem 0;
+`
+const ListSection = styled.div`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--color-dark);
+    width: 40vw;
+    padding: 1rem;
+    border-radius: 5px;
+`
+const Title = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+`
+const ClosingButton = styled.button`
+    color: var(--color-accent);
+    background-color: transparent;
+    display:flex;
+    justify-self: right;
+    height:fit-content;
+`
+const NewListSection = styled.div`
+    display:flex;
+    flex-direction: column;
+`
+const ListNameInput = styled.input`
+    width: 50%;
+`
 export default SaveList

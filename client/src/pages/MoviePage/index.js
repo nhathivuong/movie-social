@@ -26,6 +26,10 @@ const MoviePage = () =>{
     const [movieReviews, setMovieReviews] = useState()
     const {movieId} = useParams()
     const castRef = useRef()
+    // used to toggle the review section
+    const [reviewVisible, setReviewVisible] = useState(false)
+    // used to toggle the review section
+    const [listVisible, setListVisible] = useState(false)
 
     useEffect(()=>{
         setMovieInfos()
@@ -82,8 +86,8 @@ const MoviePage = () =>{
                     ? `https://image.tmdb.org/t/p/original${movieInfos.poster_path}` 
                     : "/assets/no_poster.jpg"} 
                     alt={`${movieInfos.title} poster`} width={300}/>
-                <WriteReview loggedInUser={loggedInUser} movieId={movieId}/>
-                <SaveList loggedInUser={loggedInUser} movieId={movieId}/>
+                <WriteReview loggedInUser={loggedInUser} movieId={movieId} reviewVisible={reviewVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible}/>
+                <SaveList loggedInUser={loggedInUser} movieId={movieId} listVisible={listVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible}/>
             </div>
             <Details movieInfos={movieInfos} directors={directors}/>
         </Synopsis>
