@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react"
-import { NavLink, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import styled from "styled-components"
 
 //icons
@@ -82,7 +82,7 @@ const MoviePage = () =>{
                     ? `https://image.tmdb.org/t/p/original${movieInfos.poster_path}` 
                     : "/assets/no_poster.jpg"} 
                     alt={`${movieInfos.title} poster`} width={300}/>
-                <WriteReview/>
+                <WriteReview loggedInUser={loggedInUser}/>
                 <SaveList loggedInUser={loggedInUser}/>
             </div>
             <Details movieInfos={movieInfos} directors={directors}/>
