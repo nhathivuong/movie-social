@@ -6,6 +6,7 @@ import styled from "styled-components"
 //icons
 import { IoSearchSharp } from "react-icons/io5";
 import { FaCaretDown } from "react-icons/fa6";
+
 // context
 import { UserContext } from "./contexts/UserContext"
 
@@ -22,7 +23,6 @@ const Header = () => {
                 const response = await fetch("/api/genres");
                 const data = await response.json();
                 if (data.status === 200) {
-                    console.log(data.genres)
                     setGenresList(data.genres);
                 }
             }

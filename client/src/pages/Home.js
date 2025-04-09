@@ -66,7 +66,6 @@ const Home = () => {
                 const response = await fetch("/api/home");
                 const data = await response.json();
                 if (data.status === 200) {
-                    console.log(data.upcomingMovies)
                     setUpcomingMovies(data.upcomingMovies)
                     setPopularMovies(data.popularMovies)
                     setTopMovies(data.topRatedMovies)
