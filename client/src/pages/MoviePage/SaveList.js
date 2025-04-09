@@ -1,5 +1,5 @@
 import { useState } from "react"
-const SaveList = ({loggedInUser}) =>{
+const SaveList = ({loggedInUser, movieId}) =>{
     const [listName, setListName] = useState()
     const [createVisible, setCreateVisible] = useState(false)
     const [listVisible, setListVisible] = useState(false)
@@ -28,7 +28,7 @@ const SaveList = ({loggedInUser}) =>{
             },
             body: JSON.stringify({username: loggedInUser.username, movieTitle: movieInfos.title, movieSrc: movieInfos.poster_path, listName: listName })
         }
-        fetch(`/movie/${movieId}`, options)
+        fetch(`/movie/${movieId}/list`, options)
         .then(res => {
             if(!res.ok){
                 throw new Error("the movie was not added")
@@ -36,7 +36,7 @@ const SaveList = ({loggedInUser}) =>{
             return res.json()
         })
         .then(data => {
-            if(data.status === 200){
+            if(data.status === 201){
                 setCreateVisible(false)
             }
         })

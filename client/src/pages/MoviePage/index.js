@@ -82,8 +82,8 @@ const MoviePage = () =>{
                     ? `https://image.tmdb.org/t/p/original${movieInfos.poster_path}` 
                     : "/assets/no_poster.jpg"} 
                     alt={`${movieInfos.title} poster`} width={300}/>
-                <WriteReview loggedInUser={loggedInUser}/>
-                <SaveList loggedInUser={loggedInUser}/>
+                <WriteReview loggedInUser={loggedInUser} movieId={movieId}/>
+                <SaveList loggedInUser={loggedInUser} movieId={movieId}/>
             </div>
             <Details movieInfos={movieInfos} directors={directors}/>
         </Synopsis>
