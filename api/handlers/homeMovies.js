@@ -4,9 +4,9 @@ const {TMDB_API_KEY} = process.env
 const homeMovies = async(req, res) => {
     try {
         //getting all the movies for the homepage
-        const popularMoviesApi = "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1"
-        const topRatedMoviesApi  = "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1"
-        const upcomingMoviesApi  = "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1"
+        const popularMoviesApi = "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1&include_adult=false"
+        const topRatedMoviesApi  = "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1&include_adult=false"
+        const upcomingMoviesApi  = "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1&include_adult=false"
         const options = {
             headers: {
                 Authorization: `Bearer ${TMDB_API_KEY}`
