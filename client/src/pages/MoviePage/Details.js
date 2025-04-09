@@ -1,6 +1,6 @@
 import styled from "styled-components"
-
-const Details = ({movieInfos}) =>{
+import { NavLink } from "react-router-dom"
+const Details = ({movieInfos, directors}) =>{
     return <DetailsWrapper>
         <TitleYear>
             <h2>{movieInfos.title}</h2>
