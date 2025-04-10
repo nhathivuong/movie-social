@@ -1,16 +1,18 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import styled from "styled-components"
-
+import { AllReviewsContext } from "../../contexts/AllReviewsContext"
 const WriteReview = ({loggedInUser, movieId, setListVisible, reviewVisible, setReviewVisible}) => {
     const [rating, setRating] = useState()
-
+    const [feedBackMessage, setFeedBackMessage] = useState()
+    const {allReviews, setAllReviews, setUpdateReview} = useContext(AllReviewsContext)
     // post the review in the database
-    const handleReview = () =>{
+    const handleReview = (event) =>{
+        event.preventDefault()
         const body = JSON.stringify({
             username: loggedInUser.username,
-            rating : document.getElementById("rating").value,
+            rating : rating,
             content: document.getElementById("review").value
-        })
+        }) 
         const options = {
             method: "POST",
             headers: {
@@ -19,6 +21,7 @@ const WriteReview = ({loggedInUser, movieId, setListVisible, reviewVisible, setR
             },
             body
         }
+        const newReviews = { ...body, movieId: movieId}
         fetch(`https://movie-social.onrender.com/movie/${movieId}/review`, options)
         .then(res => {
             if(!res.ok){
@@ -28,7 +31,13 @@ const WriteReview = ({loggedInUser, movieId, setListVisible, reviewVisible, setR
         })
         .then(data => {
             if(data.status === 201){
-                setReviewVisible(false)
+                setFeedBackMessage(data.message)
+                setAllReviews([...allReviews, newReviews])
+                setTimeout(()=>{
+                    setReviewVisible(false)
+                    setFeedBackMessage()
+                    setUpdateReview(update => update+1)
+                },3000)
             }
         })
         .catch(error => console.error(error.message))
@@ -67,6 +76,7 @@ const WriteReview = ({loggedInUser, movieId, setListVisible, reviewVisible, setR
                 <label htmlFor="review">Write a review * </label><br/>
                 <ReviewWritting id="review" name="review" type="text"  placeholder="Write your review here"  required/><br/>
                 <Button type="submit">Send</Button>
+                {feedBackMessage && <p>{feedBackMessage}</p>}
             </form>
         </ReviewForm>}
     </>

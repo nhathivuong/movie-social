@@ -3,6 +3,7 @@ import { useContext, useRef } from "react"
 import styled from "styled-components"
 //context
 import { UserContext } from "../../contexts/UserContext"
+import { AllReviewsContext } from "../../contexts/AllReviewsContext";
 //icons
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
@@ -12,9 +13,10 @@ import MoviePoster from "../MoviePoster";
 
 const ProfilePage = () =>{
     const { loggedInUser } = useContext(UserContext)
+    const {allReviews} = useContext(AllReviewsContext)
     const movieScrollRefs = useRef({})
 
-    if(!loggedInUser ){
+    if(!loggedInUser ||!allReviews ){
         return <p>Loading profile</p>
     }
     
@@ -26,6 +28,8 @@ const ProfilePage = () =>{
         ref.current.style.scrollBehavior = "smooth";
         ref.current.scrollLeft -= 495;
     }
+    const userReviews = allReviews.filter(review => review.username === loggedInUser.username)
+    
     return <ProfileSection>
         <Profile key={loggedInUser.username}>
             <Picture src={loggedInUser.src} alt={`${loggedInUser.name}'s profile picture`}/>
@@ -38,31 +42,47 @@ const ProfilePage = () =>{
                 <FollowButton>follow</FollowButton>
             </form>
         </Profile>
-        <div>
-            <h2>Lists</h2>
-            {loggedInUser.lists.map(list=> {
-                const movieScrollRef = useRef(null);
-                movieScrollRefs.current[list.name] = movieScrollRef;
-                return<div key={list.name}>
-                <ListName>{list.name}</ListName>
-                <MoviesWrapper>
-                    {list.movies.length >= 6 
-                    ?<><Arrows onClick={() => arrowLeftClick(movieScrollRef)}><LeftArrow/></Arrows>
-                    <MovieScroll ref={movieScrollRef}>
-                    {list.movies.map((movie) =>{
-                        return <MoviePoster key={movie.id} movie={movie}/>
-                    })}
-                    </MovieScroll>
-                    <Arrows onClick={() => arrowRightClick(movieScrollRef)}><RightArrow/></Arrows></>
-                    :<MovieScroll>
-                    {list.movies.map((movie) =>{
-                        return <MoviePoster key={movie.id} movie={movie}/>
-                    })}
-                    </MovieScroll>}
-                </MoviesWrapper>
+        <ListsReviews>
+            <div>
+                <h1>Lists</h1>
+                {loggedInUser.lists.map(list=> {
+                    const movieScrollRef = useRef(null);
+                    movieScrollRefs.current[list.name] = movieScrollRef;
+                    return<div key={list.name}>
+                    <ListName>{list.name}</ListName>
+                    <MoviesWrapper>
+                        {list.movies.length > 6 
+                        ?<><Arrows onClick={() => arrowLeftClick(movieScrollRef)}><LeftArrow/></Arrows>
+                        <MovieScroll ref={movieScrollRef}>
+                        {list.movies.map((movie) =>{
+                            return <MoviePoster key={movie.id} movie={movie}/>
+                        })}
+                        </MovieScroll>
+                        <Arrows onClick={() => arrowRightClick(movieScrollRef)}><RightArrow/></Arrows></>
+                        :<MovieList>
+                        {list.movies.map((movie) =>{
+                            return <MoviePoster key={movie.id} movie={movie}/>
+                        })}
+                        </MovieList>}
+                    </MoviesWrapper>
+                </div>
+                })}
             </div>
-            })}
-        </div>
+            {userReviews
+            &&<div>
+                <h1>Reviews</h1>
+                {userReviews.map(review => {
+                    return <ReviewBox key={review._id}>
+                        <img src="/assets/no_poster.jpg" width={150}/>
+                        <div>
+                            <h2>Movie Name</h2>
+                            <p>Rating: {review.rating}</p>
+                            <p>{review.content}</p>
+                        </div>
+                    </ReviewBox>
+                })}
+            </div>}
+        </ListsReviews>
     </ProfileSection>
 }
 const ProfileSection = styled.div`
@@ -71,8 +91,12 @@ const ProfileSection = styled.div`
     margin: 2rem 0 2rem 4rem;
     gap: 2rem;
 `
+const ListsReviews = styled.div`
+    margin-left: 24vw;
+`
 const Profile = styled.div`
-    width: 25%;
+    position: fixed;
+    width: 19%;
     height: fit-content;
     display:flex;
     flex-direction: column;
@@ -120,7 +144,7 @@ const FollowButton = styled.button`
         outline: 2px solid var(--color-dark-accent);
     }
 `
-const ListName = styled.h3`
+const ListName = styled.h2`
     margin: 1rem 0 0.3rem 0;
 `
 const MoviesWrapper = styled.div`
@@ -137,6 +161,13 @@ const MovieScroll = styled.div`
     &::-webkit-scrollbar{
         display: none;
     }
+`
+const MovieList = styled.div`
+    display: flex;
+    flex-direction:row;
+    font-size: 1rem;
+    width: 60vw;
+    gap: 15px;
 `
 const Arrows = styled.button`
     padding: 5px 8px;
@@ -161,5 +192,15 @@ const LeftArrow = styled(IoIosArrowBack)`
 `
 const RightArrow = styled(IoIosArrowForward)`
     font-size: 2rem;
+`
+const ReviewBox = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin: 2rem;
+    margin-left: 0;
+    padding: 1rem;
+    gap: 1rem;
+    box-shadow: 0 0 3px var(--color-light) inset, 0 0 10px var(--color-dark) inset;
+    border-radius: 10px;
 `
 export default ProfilePage
