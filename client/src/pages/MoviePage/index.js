@@ -89,7 +89,7 @@ const MoviePage = () =>{
                     : "/assets/no_poster.jpg"} 
                     alt={`${movieInfos.title} poster`} width={300}/>
                 <div>
-                <WriteReview loggedInUser={loggedInUser} movieId={movieId} reviewVisible={reviewVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible}/>
+                <WriteReview loggedInUser={loggedInUser} movieId={movieId} reviewVisible={reviewVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible} />
                 <SaveList loggedInUser={loggedInUser} movieInfos={movieInfos} movieId={movieId} listVisible={listVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible}/>
                 </div>
             </div>
@@ -113,7 +113,7 @@ const MoviePage = () =>{
             </ScrollWrapper>
         </div>
         <Recommendations movieId={movieId} movieRecommendation={movieRecommendation}/>
-        <Reviews movieReviews={movieReviews} allReviews={allReviews} movieId={movieId}/>
+        <Reviews movieReviews={movieReviews} movieId={movieId}/>
     </MovieInfos>
     </>    
 }

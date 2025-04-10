@@ -70,7 +70,7 @@ const SaveList = ({loggedInUser, movieInfos, movieId, listVisible, setListVisibl
                 </NewListSection>}
                 <OtherButton type="submit" onClick={removeVisibility}>Confirm</OtherButton>
             </form>
-            <p>{feedBackMessage}</p>
+            {feedBackMessage && <p>{feedBackMessage}</p>}
         </ListSection>}
         </>
 }
