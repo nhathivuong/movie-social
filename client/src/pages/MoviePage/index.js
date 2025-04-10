@@ -41,7 +41,6 @@ const MoviePage = () =>{
             try {
                 const response = await fetch(`https://movie-social.onrender.com/api/movie/${movieId}`);
                 const data = await response.json();
-        
                 if (data.status === 200) {
                     setMovieInfos(data.movieDetails);
                     setMovieCast(data.credits); 
@@ -86,8 +85,10 @@ const MoviePage = () =>{
                     ? `https://image.tmdb.org/t/p/original${movieInfos.poster_path}` 
                     : "/assets/no_poster.jpg"} 
                     alt={`${movieInfos.title} poster`} width={300}/>
+                <div>
                 <WriteReview loggedInUser={loggedInUser} movieId={movieId} reviewVisible={reviewVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible}/>
-                <SaveList loggedInUser={loggedInUser} movieId={movieId} listVisible={listVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible}/>
+                <SaveList loggedInUser={loggedInUser} movieInfos={movieInfos} movieId={movieId} listVisible={listVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible}/>
+                </div>
             </div>
             <Details movieInfos={movieInfos} directors={directors}/>
         </Synopsis>
