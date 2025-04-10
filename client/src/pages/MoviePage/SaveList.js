@@ -1,10 +1,12 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import styled from "styled-components"
+import { UserContext } from "../../contexts/UserContext"
 
-const SaveList = ({loggedInUser, movieId, listVisible, setListVisible, setReviewVisible}) =>{
+const SaveList = ({loggedInUser, movieInfos, movieId, listVisible, setListVisible, setReviewVisible}) =>{
     const [listName, setListName] = useState()
     const [createVisible, setCreateVisible] = useState(false)
-    
+    const [feedBackMessage, setFeedBackMessage] = useState()
+    const {setUpdateUser} = useContext(UserContext)
     // makes the lists appear
     const listVisibility = () => {
         setListVisible(!listVisible)
@@ -16,8 +18,11 @@ const SaveList = ({loggedInUser, movieId, listVisible, setListVisible, setReview
     }
     // make lists not visibles 
     const removeVisibility = () =>{
-        setListVisible(false)
-        setCreateVisible(false)
+        setTimeout(()=>{
+            setListVisible(false)
+            setCreateVisible(false)
+            setFeedBackMessage()
+        },3000)
     }
     const updateList = (event) => {
         event.preventDefault()
@@ -39,7 +44,8 @@ const SaveList = ({loggedInUser, movieId, listVisible, setListVisible, setReview
         })
         .then(data => {
             if(data.status === 201){
-                setCreateVisible(false)
+                setFeedBackMessage(data.message)
+                setUpdateUser((update) => update+1)
             }
         })
         .catch(error => console.error(error.message))
@@ -64,6 +70,7 @@ const SaveList = ({loggedInUser, movieId, listVisible, setListVisible, setReview
                 </NewListSection>}
                 <OtherButton type="submit" onClick={removeVisibility}>Confirm</OtherButton>
             </form>
+            {feedBackMessage && <p>{feedBackMessage}</p>}
         </ListSection>}
         </>
 }

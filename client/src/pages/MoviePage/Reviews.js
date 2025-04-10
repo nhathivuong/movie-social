@@ -1,11 +1,43 @@
 import styled from "styled-components"
+import { AllUsersContext } from "../../contexts/AllUsersContext"
+import { useContext } from "react"
+import { AllReviewsContext } from "../../contexts/AllReviewsContext"
+const Reviews = ({movieReviews, movieId}) => {
+    const {allReviews} = useContext(AllReviewsContext)
+    const {allUsers} = useContext(AllUsersContext)
 
-const Reviews = ({movieReviews}) => {
+    if(!allUsers || !allReviews){
+        return <Loading>Loading...</Loading>
+    }
+
+    const userMovieReviews = allReviews.filter((review)=> review.movieId === movieId)
+    const Reviews = [...movieReviews, ...userMovieReviews]
+
     return (
         <div>
             <h2>Reviews</h2>
-            {movieReviews.length > 0 
-            ?<div>{movieReviews.map((review) => {
+            {Reviews.length > 0 
+            ?<div>
+                {userMovieReviews.length > 0 && userMovieReviews.map((review) => {
+                    const reviewUser = allUsers.find(user => user.username === review.username)
+                return (<>{reviewUser 
+                    ?<ReviewBox key={review.id}>
+                        <div>
+                            <ProfilePicture src={reviewUser.src} alt={`${review.username} profile picture`} />
+                            {review.rating && <p>Rating: {review.rating}</p>}
+                        </div>
+                        <div>
+                            <Username>{review.username}</Username>
+                            <ReviewText>{review.content}</ReviewText>
+                        </div>
+                    </ReviewBox>
+                    : <ReviewBox key={review.id}>
+                        <div>
+                            <p>Loading user data...</p>
+                        </div>
+                    </ReviewBox>}</>)
+                })}
+                {movieReviews.map((review) => {
                 return <ReviewBox key={review.id}>
                     <div>
                         <ProfilePicture src={review.author_details.avatar_path
@@ -24,6 +56,10 @@ const Reviews = ({movieReviews}) => {
         </div>
     )
 }
+const Loading = styled.h1`
+    margin: 4rem auto;
+    width: fit-content;
+`
 const ReviewBox = styled.div`
     display: flex;
     flex-direction: row;

@@ -8,6 +8,7 @@ import { IoIosArrowForward } from "react-icons/io";
 
 //context
 import { UserContext } from "../../contexts/UserContext";
+import { AllReviewsContext } from "../../contexts/AllReviewsContext"
 
 // component
 import Recommendations from "./Recommendations"
@@ -23,14 +24,16 @@ const MoviePage = () =>{
     const [movieRecommendation, setMovieRecommendation] = useState()
     const [movieCast, setMovieCast] = useState()
     const [directors, setDirectors] = useState()
+    const {allReviews, setAllReviews} = useContext(AllReviewsContext)
     const [movieReviews, setMovieReviews] = useState()
     const {movieId} = useParams()
+    //used the cast scroll
     const castRef = useRef()
     // used to toggle the review section
     const [reviewVisible, setReviewVisible] = useState(false)
     // used to toggle the review section
     const [listVisible, setListVisible] = useState(false)
-
+    
     useEffect(()=>{
         setMovieInfos()
         setMovieRecommendation()
@@ -41,7 +44,6 @@ const MoviePage = () =>{
             try {
                 const response = await fetch(`https://movie-social.onrender.com/api/movie/${movieId}`);
                 const data = await response.json();
-        
                 if (data.status === 200) {
                     setMovieInfos(data.movieDetails);
                     setMovieCast(data.credits); 
@@ -58,7 +60,7 @@ const MoviePage = () =>{
     }, [movieId])
 
     // loads the initial information
-    if(!movieInfos || !movieCast?.length || !directors?.length){
+    if(!allReviews ||!movieInfos || !movieCast?.length || !directors?.length){
         return <Loading>Loading...</Loading>
     }
 
@@ -86,8 +88,10 @@ const MoviePage = () =>{
                     ? `https://image.tmdb.org/t/p/original${movieInfos.poster_path}` 
                     : "/assets/no_poster.jpg"} 
                     alt={`${movieInfos.title} poster`} width={300}/>
-                <WriteReview loggedInUser={loggedInUser} movieId={movieId} reviewVisible={reviewVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible}/>
-                <SaveList loggedInUser={loggedInUser} movieId={movieId} listVisible={listVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible}/>
+                <div>
+                <WriteReview loggedInUser={loggedInUser} movieId={movieId} reviewVisible={reviewVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible} />
+                <SaveList loggedInUser={loggedInUser} movieInfos={movieInfos} movieId={movieId} listVisible={listVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible}/>
+                </div>
             </div>
             <Details movieInfos={movieInfos} directors={directors}/>
         </Synopsis>
@@ -109,7 +113,7 @@ const MoviePage = () =>{
             </ScrollWrapper>
         </div>
         <Recommendations movieId={movieId} movieRecommendation={movieRecommendation}/>
-        <Reviews movieReviews={movieReviews}/>
+        <Reviews movieReviews={movieReviews} movieId={movieId}/>
     </MovieInfos>
     </>    
 }

@@ -1,18 +1,31 @@
 //dependencies 
-import { useContext, useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useContext, useRef } from "react"
 import styled from "styled-components"
 //context
 import { UserContext } from "../../contexts/UserContext"
+//icons
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
+
+//component
+import MoviePoster from "../MoviePoster";
 
 const ProfilePage = () =>{
     const { loggedInUser } = useContext(UserContext)
+    const movieScrollRefs = useRef({})
 
     if(!loggedInUser ){
         return <p>Loading profile</p>
     }
     
-
+    const arrowRightClick = (ref) => {
+        ref.current.style.scrollBehavior = "smooth";
+        ref.current.scrollLeft += 495;
+    }
+    const arrowLeftClick = (ref) => {
+        ref.current.style.scrollBehavior = "smooth";
+        ref.current.scrollLeft -= 495;
+    }
     return <ProfileSection>
         <Profile key={loggedInUser.username}>
             <Picture src={loggedInUser.src} alt={`${loggedInUser.name}'s profile picture`}/>
@@ -26,15 +39,36 @@ const ProfilePage = () =>{
             </form>
         </Profile>
         <div>
-            <h3>Lists</h3>
-            <h4>List name</h4>
+            <h2>Lists</h2>
+            {loggedInUser.lists.map(list=> {
+                const movieScrollRef = useRef(null);
+                movieScrollRefs.current[list.name] = movieScrollRef;
+                return<div key={list.name}>
+                <ListName>{list.name}</ListName>
+                <MoviesWrapper>
+                    {list.movies.length >= 6 
+                    ?<><Arrows onClick={() => arrowLeftClick(movieScrollRef)}><LeftArrow/></Arrows>
+                    <MovieScroll ref={movieScrollRef}>
+                    {list.movies.map((movie) =>{
+                        return <MoviePoster key={movie.id} movie={movie}/>
+                    })}
+                    </MovieScroll>
+                    <Arrows onClick={() => arrowRightClick(movieScrollRef)}><RightArrow/></Arrows></>
+                    :<MovieScroll>
+                    {list.movies.map((movie) =>{
+                        return <MoviePoster key={movie.id} movie={movie}/>
+                    })}
+                    </MovieScroll>}
+                </MoviesWrapper>
+            </div>
+            })}
         </div>
     </ProfileSection>
 }
 const ProfileSection = styled.div`
     display:flex;
     flex-direction: row;
-    margin: 2rem 4rem;
+    margin: 2rem 0 2rem 4rem;
     gap: 2rem;
 `
 const Profile = styled.div`
@@ -85,5 +119,47 @@ const FollowButton = styled.button`
         box-shadow: 0 0 2px var(--color-dark) inset;
         outline: 2px solid var(--color-dark-accent);
     }
+`
+const ListName = styled.h3`
+    margin: 1rem 0 0.3rem 0;
+`
+const MoviesWrapper = styled.div`
+    display:flex;
+    flex-direction:row;
+`
+const MovieScroll = styled.div`
+    display: flex;
+    flex-direction:row;
+    font-size: 1rem;
+    width: 60vw;
+    overflow-x: scroll;
+    gap: 15px;
+    &::-webkit-scrollbar{
+        display: none;
+    }
+`
+const Arrows = styled.button`
+    padding: 5px 8px;
+    cursor: pointer;
+    height: 150px;
+    background:none;
+    margin:35px 1rem;
+    color: var(--color-light);
+    border:none;
+    border-radius: 5px;
+    &:hover{
+        background-color: var(--color-accent);
+        box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark-accent) inset;
+    }
+    &:active{
+        background: transparent;
+        outline: 2px solid var(--color-accent);
+    }
+`
+const LeftArrow = styled(IoIosArrowBack)`
+    font-size: 2rem;
+`
+const RightArrow = styled(IoIosArrowForward)`
+    font-size: 2rem;
 `
 export default ProfilePage

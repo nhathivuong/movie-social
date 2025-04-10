@@ -2,7 +2,7 @@
 import { NavLink } from "react-router-dom"
 
 const MoviePoster = ({movie}) =>{
-    return <NavLink to={`/movie/${movie.id}`}>
+    return <NavLink to={`/movie/${movie.id}`} draggable="false">
         <img  
         src={movie.poster_path 
         ? `https://image.tmdb.org/t/p/original${movie.poster_path}` 

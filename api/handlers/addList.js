@@ -18,7 +18,7 @@ const addList = async(req, res) =>{
         const movie = {
             title: movieTitle,
             id: movieId,
-            src: movieSrc
+            poster_path: movieSrc
         }
         const user = await db.collection("users").findOne({username:username})
         if(!user){
