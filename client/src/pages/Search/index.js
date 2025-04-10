@@ -19,23 +19,12 @@ const BrowseMovies = () => {
 
     return (
     <div>
-        <SearchFor>Search for : <span>{genre? genre : search}</span></SearchFor>
-        <MoviesGrid>
+        <SearchFor>Search for : <span>{genre? genre : search}</span></SearchFor>        
         {genre && genreId && <SearchbyGenre genreId={genreId}/>}
         {search && <SearchedMovies search={search}/>}
-        </MoviesGrid>
     </div>)
 
 }
-const MoviesGrid = styled.div`
-    display: grid;
-    grid-template-columns: repeat(8, 155px);
-    gap: 15px;
-    height:fit-content;
-    width: fit-content;
-    margin: 1rem auto;
-    justify-content: center;
-`
 const SearchFor = styled.h2`
     width:fit-content;
     margin: 2rem auto 1rem auto;
