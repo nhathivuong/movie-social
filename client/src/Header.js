@@ -5,7 +5,6 @@ import styled from "styled-components"
 
 //icons
 import { IoSearchSharp } from "react-icons/io5";
-import { FaCaretDown } from "react-icons/fa6";
 
 // context
 import { UserContext } from "./contexts/UserContext"
@@ -45,7 +44,6 @@ const Header = () => {
             <NavSection>
                 <Logo to="/"><h1>Film Media</h1></Logo>
                 <SearchBar>
-                    {/* <button><FaCaretDown/></button> */}
                     <form onSubmit={handleSearch}>
                         <SearchInput type="text" id="search" name="search" placeholder="Search ..." required/>
                         <SearchButton type="submit"><IoSearchSharp/></SearchButton>

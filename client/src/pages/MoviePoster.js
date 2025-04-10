@@ -1,6 +1,7 @@
-//this will used for all movies quick display
 import { NavLink } from "react-router-dom"
+import styled from "styled-components"
 
+//this will used for all movies quick display
 const MoviePoster = ({movie}) =>{
     return <NavLink to={`/movie/${movie.id}`} draggable="false">
         <img  
@@ -9,8 +10,14 @@ const MoviePoster = ({movie}) =>{
         : "/assets/no_poster.jpg"} 
         alt={movie.title} 
         width={150} height={225}/>
-        <h3>{movie.title}</h3>
+        <MovieTitle>{movie.title}</MovieTitle>
     </NavLink>
 }
-
+const MovieTitle = styled.h3`
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    overflow:hidden;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+`
 export default MoviePoster
