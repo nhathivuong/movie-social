@@ -13,7 +13,6 @@ const AllReviewsProvider = ({children}) => {
                 if (!res.ok) throw new Error("Failed to fetch users");
                 return res.json()})
             .then(data => {
-                console.log(data.data)
                 setAllReviews(data.data)
             })
             .catch(error => console.error(error))
