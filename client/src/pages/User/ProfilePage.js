@@ -1,5 +1,5 @@
 //dependencies 
-import { useContext, useRef } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 //context
 import { UserContext } from "../../contexts/UserContext"
@@ -14,8 +14,34 @@ import MoviePoster from "../MoviePoster";
 const ProfilePage = () =>{
     const { loggedInUser } = useContext(UserContext)
     const {allReviews} = useContext(AllReviewsContext)
+    
+    const [movies, setMovies] = useState()
+    const [userReviews, setUserReviews] = useState()
+
     const movieScrollRefs = useRef({})
 
+    useEffect(()=>{
+        const fetchMovies = async () => {
+            try{
+                const userReviews = allReviews.filter(review => review.username === loggedInUser.username)
+                setUserReviews(userReviews)
+                const movieRequest = userReviews.map(review => 
+                    fetch(`https://movie-social.onrender.com/api/movie/${review.movieId}`)
+                    .then(res => res.json())
+                    .then(data => data.movieDetails)
+                )
+                const movieInfos = await Promise.all(movieRequest)
+                setMovies(movieInfos)
+            }
+            catch(error){
+                console.error(error.message)
+            }
+        }
+        if(allReviews && loggedInUser){
+            fetchMovies()
+        }
+    },[allReviews, loggedInUser])
+    
     if(!loggedInUser ||!allReviews ){
         return <p>Loading profile</p>
     }
@@ -28,7 +54,7 @@ const ProfilePage = () =>{
         ref.current.style.scrollBehavior = "smooth";
         ref.current.scrollLeft -= 495;
     }
-    const userReviews = allReviews.filter(review => review.username === loggedInUser.username)
+    
     
     return <ProfileSection>
         <Profile key={loggedInUser.username}>
@@ -68,18 +94,21 @@ const ProfilePage = () =>{
                 </div>
                 })}
             </div>
-            {userReviews
-            &&<div>
+            {userReviews && movies &&
+            <div>
                 <h1>Reviews</h1>
-                {userReviews.map(review => {
-                    return <ReviewBox key={review._id}>
-                        <img src="/assets/no_poster.jpg" width={150}/>
+                {userReviews.map((review, index) => {
+                    const movie = movies[index];
+                    return movie && (<ReviewBox key={review._id}>
+                        <img src={movie.poster_path 
+                        ? `https://image.tmdb.org/t/p/original${movie.poster_path}` 
+                        : "/assets/no_poster.jpg"} alt={movie.title}  width={150}/>
                         <div>
-                            <h2>Movie Name</h2>
+                            <h2>{movie.title}</h2>
                             <p>Rating: {review.rating}</p>
                             <p>{review.content}</p>
                         </div>
-                    </ReviewBox>
+                    </ReviewBox>)
                 })}
             </div>}
         </ListsReviews>
