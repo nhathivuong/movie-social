@@ -1,11 +1,34 @@
 import styled from "styled-components"
+import { AllUsersContext } from "../../contexts/AllUsersContext"
+import { useContext } from "react"
 
-const Reviews = ({movieReviews}) => {
+const Reviews = ({movieReviews, allReviews, movieId}) => {
+    const userMovieReviews = allReviews.filter((review)=> review.movieId === movieId)
+    const Reviews = [...movieReviews, ...userMovieReviews]
+    const {allUsers} = useContext(AllUsersContext)
+    if(!allUsers){
+        return <Loading>Loading...</Loading>
+    }
     return (
         <div>
             <h2>Reviews</h2>
-            {movieReviews.length > 0 
-            ?<div>{movieReviews.map((review) => {
+            {Reviews.length > 0 
+            ?<div>
+                {userMovieReviews.length > 0 && userMovieReviews.map((review) => {
+                    const user = allUsers.find(user => user.username = review.username)
+                return <ReviewBox key={review.id}>
+                    <div>
+                        <ProfilePicture src={user.src} 
+                        alt={`${review.username} profile picture`} />
+                        {review.rating && <p>rating: {review.rating}</p>}
+                    </div>
+                    <div>
+                        <Username>{review.username}</Username>
+                        <ReviewText >{review.content}</ReviewText>
+                    </div>
+                </ReviewBox>
+            })}
+                {movieReviews.map((review) => {
                 return <ReviewBox key={review.id}>
                     <div>
                         <ProfilePicture src={review.author_details.avatar_path
@@ -24,6 +47,10 @@ const Reviews = ({movieReviews}) => {
         </div>
     )
 }
+const Loading = styled.h1`
+    margin: 4rem auto;
+    width: fit-content;
+`
 const ReviewBox = styled.div`
     display: flex;
     flex-direction: row;

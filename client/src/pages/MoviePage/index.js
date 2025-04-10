@@ -8,6 +8,7 @@ import { IoIosArrowForward } from "react-icons/io";
 
 //context
 import { UserContext } from "../../contexts/UserContext";
+import { AllReviewsContext } from "../../contexts/AllReviewsContext"
 
 // component
 import Recommendations from "./Recommendations"
@@ -23,14 +24,16 @@ const MoviePage = () =>{
     const [movieRecommendation, setMovieRecommendation] = useState()
     const [movieCast, setMovieCast] = useState()
     const [directors, setDirectors] = useState()
+    const {allReviews, setAllReviews} = useContext(AllReviewsContext)
     const [movieReviews, setMovieReviews] = useState()
     const {movieId} = useParams()
+    //used the cast scroll
     const castRef = useRef()
     // used to toggle the review section
     const [reviewVisible, setReviewVisible] = useState(false)
     // used to toggle the review section
     const [listVisible, setListVisible] = useState(false)
-
+    
     useEffect(()=>{
         setMovieInfos()
         setMovieRecommendation()
@@ -57,7 +60,7 @@ const MoviePage = () =>{
     }, [movieId])
 
     // loads the initial information
-    if(!movieInfos || !movieCast?.length || !directors?.length){
+    if(!allReviews ||!movieInfos || !movieCast?.length || !directors?.length){
         return <Loading>Loading...</Loading>
     }
 
@@ -110,7 +113,7 @@ const MoviePage = () =>{
             </ScrollWrapper>
         </div>
         <Recommendations movieId={movieId} movieRecommendation={movieRecommendation}/>
-        <Reviews movieReviews={movieReviews}/>
+        <Reviews movieReviews={movieReviews} allReviews={allReviews} movieId={movieId}/>
     </MovieInfos>
     </>    
 }
