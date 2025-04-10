@@ -7,7 +7,7 @@ export const UserContext = createContext()
 const UserProvider = ({children}) =>{
     //this usestate will store all the user's key
     const [loggedInUser, setLoggedInUser] = useState(null);
-    
+    const [updateUser, setUpdateUser] = useState(0)
     //will set the loggedInUser from the localstorage on mount
     useEffect(()=>{
         const loggedInUsername = localStorage.getItem("username")
@@ -19,7 +19,7 @@ const UserProvider = ({children}) =>{
             })
             .catch((error) => console.error(error))
         }
-    },[])
+    },[updateUser])
     
     //functions that handles the login and the logout of the user in localstorage and in the frontend
     const logIn = (user) => {
@@ -48,7 +48,7 @@ const UserProvider = ({children}) =>{
     //     setLoggedInUser(name)
     // }
     return (
-        <UserContext.Provider value={{loggedInUser,  setLoggedInUser, logIn, logOut}}>{children}</UserContext.Provider>
+        <UserContext.Provider value={{loggedInUser,  setLoggedInUser, logIn, logOut, setUpdateUser}}>{children}</UserContext.Provider>
     )
 }
 
