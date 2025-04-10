@@ -17,22 +17,21 @@ app.use(cors({
 app.use(express.json());
 app.use(morgan("tiny"));
 
-
-
 //handlers
 const {
     addUser,
     getUser,
     getUsers,
     logIn,
-    // updateUser,
+    updateUser,
     addList,
     addReview,
     movieDetails,
     searchGenre,
     searchQuery,
     homeMovies,
-    getGenres
+    getGenres,
+    getReviews
 } = require("./handlers")
 
 // this creates and account when a user sign up to the website
@@ -47,8 +46,8 @@ app.get("/users", getUsers)
 // login the user
 app.post("/login", logIn)
 
-// //changes the user information 
-// app.patch("/user/:username", updateUser)
+//changes the user information 
+app.patch("/user/:username", updateUser)
 
 // either add a movie to a list or create a list
 app.post("/movie/:movieId/list", addList)
@@ -70,6 +69,9 @@ app.get("/api/home", homeMovies)
 
 //gives you a list of all official genres from the tmdb API
 app.get("/api/genres", getGenres)
+
+//this gets all the reviews
+app.get("/reviews", getReviews)
 
 app.use('*', (req, res) => {
     res.status(404).json({status: 404, message: "Endpoint not found!"});
