@@ -3,7 +3,7 @@ import styled from "styled-components"
 //context
 import { UserContext } from "../../contexts/UserContext"
 
-const AddFriend = ({currentUser, follow}) => {
+const AddFriend = ({currentUser, followUser}) => {
     const {follow} = useContext(UserContext)
 
     const [status, setStatus] = useState("idle")
@@ -12,7 +12,7 @@ const AddFriend = ({currentUser, follow}) => {
         setStatus("adding")
         const body = JSON.stringify({
             name: currentUser,
-            newFollow: follow
+            newFollow: followUser
         })
         const options = {
             method : "PATCH",

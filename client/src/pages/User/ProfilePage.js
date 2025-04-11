@@ -72,7 +72,7 @@ const ProfilePage = () =>{
                 <p>@{userInfos.username}</p>
             </NameAlign>
             <BioText>{userInfos.bio}</BioText>
-            {loggedInUser && userInfos.username !== loggedInUser.username && !loggedInUser.follows.includes(userInfos.username) && <AddFriend currentUser={loggedInUser.username} follow={userInfos.username}/>}
+            {loggedInUser && userInfos.username !== loggedInUser.username && !loggedInUser.follows.includes(userInfos.username) && <AddFriend currentUser={loggedInUser.username} followUser={userInfos.username}/>}
             {loggedInUser && userInfos.username !== loggedInUser.username && loggedInUser.follows.includes(userInfos.username) && <RemoveFriend currentUser={loggedInUser.username} unfollowUser={userInfos.username}/>}
         </Profile>
         <ListsReviews>
