@@ -11,7 +11,7 @@ const AddFriend = ({currentUser, followUser}) => {
         event.preventDefault()
         setStatus("adding")
         const body = JSON.stringify({
-            name: currentUser,
+            username: currentUser,
             newFollow: followUser
         })
         const options = {
