@@ -1,14 +1,20 @@
 import { useContext, useState } from "react"
 import styled from "styled-components"
 import { UserContext } from "../../contexts/UserContext"
+import { useNavigate } from "react-router-dom"
 
 const SaveList = ({loggedInUser, movieInfos, movieId, listVisible, setListVisible, setReviewVisible}) =>{
     const [listName, setListName] = useState()
     const [createVisible, setCreateVisible] = useState(false)
     const [feedBackMessage, setFeedBackMessage] = useState()
     const {setUpdateUser} = useContext(UserContext)
+
+    const navigate = useNavigate()
     // makes the lists appear
     const listVisibility = () => {
+        if(!loggedInUser){
+            navigate("/logIn")
+        }
         setListVisible(!listVisible)
         setReviewVisible(false)
     }
