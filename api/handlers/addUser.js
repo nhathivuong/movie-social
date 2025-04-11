@@ -21,8 +21,7 @@ const addUser = async(req, res) => {
         username: username,
         email: email,
         src: src,
-        lists: [],
-        bio: "",
+        lists: [{name: "To Watch", movies: []}],
         follows: [],
         status: "active"
     }
