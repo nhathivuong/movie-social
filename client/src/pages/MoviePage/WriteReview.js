@@ -6,10 +6,11 @@ import { useNavigate } from "react-router-dom"
 import { AllReviewsContext } from "../../contexts/AllReviewsContext"
 
 const WriteReview = ({loggedInUser, movieId, setListVisible, reviewVisible, setReviewVisible}) => {
+    const {allReviews, setAllReviews, setUpdateReview} = useContext(AllReviewsContext)
     const [rating, setRating] = useState()
     const [feedBackMessage, setFeedBackMessage] = useState()
-    const {allReviews, setAllReviews, setUpdateReview} = useContext(AllReviewsContext)
     const navigate = useNavigate()
+    
     // post the review in the database
     const handleReview = (event) =>{
         event.preventDefault()
@@ -55,6 +56,7 @@ const WriteReview = ({loggedInUser, movieId, setListVisible, reviewVisible, setR
         setReviewVisible(!reviewVisible)
         setListVisible(false)
     }
+    //changes the value of the rating as it updates
     const handleRating = (event) =>{
         setRating(Number(event.target.value))
     }
