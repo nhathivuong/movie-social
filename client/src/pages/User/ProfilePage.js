@@ -1,6 +1,7 @@
 //dependencies 
-import { useContext, useEffect, useRef, useState } from "react"
+import { createRef, useContext, useEffect, useRef, useState } from "react"
 import styled from "styled-components"
+import { useParams } from "react-router-dom";
 //context
 import { UserContext } from "../../contexts/UserContext"
 import { AllReviewsContext } from "../../contexts/AllReviewsContext";
@@ -10,20 +11,28 @@ import { IoIosArrowForward } from "react-icons/io";
 
 //component
 import MoviePoster from "../MoviePoster";
+import AddFriend from "./AddFriend";
+import RemoveFriend from "./RemoveFriend";
 
 const ProfilePage = () =>{
-    const { loggedInUser } = useContext(UserContext)
+    const { loggedInUser} = useContext(UserContext)
     const {allReviews} = useContext(AllReviewsContext)
-    
+    const {username} = useParams()
+    const [userInfos, setUserInfos] = useState()
     const [movies, setMovies] = useState()
     const [userReviews, setUserReviews] = useState()
-
     const movieScrollRefs = useRef({})
 
     useEffect(()=>{
-        const fetchMovies = async () => {
+        const loadData = async () => {
             try{
-                const userReviews = allReviews.filter(review => review.username === loggedInUser.username)
+                const response = await fetch(`https://movie-social.onrender.com/user/${username}`)
+                const data = await response.json()
+                if(data.status === 200){
+                    setUserInfos(data.user)
+                }
+
+                const userReviews = allReviews.filter(review => review.username === username)
                 setUserReviews(userReviews)
                 const movieRequest = userReviews.map(review => 
                     fetch(`https://movie-social.onrender.com/api/movie/${review.movieId}`)
@@ -37,12 +46,12 @@ const ProfilePage = () =>{
                 console.error(error.message)
             }
         }
-        if(allReviews && loggedInUser){
-            fetchMovies()
+        if (allReviews && username) {
+            loadData();
         }
-    },[allReviews, loggedInUser])
+    },[allReviews, loggedInUser, username])
     
-    if(!loggedInUser ||!allReviews ){
+    if(!allReviews ||!userInfos){
         return <p>Loading profile</p>
     }
     
@@ -55,25 +64,25 @@ const ProfilePage = () =>{
         ref.current.scrollLeft -= 495;
     }
     
-    
     return <ProfileSection>
-        <Profile key={loggedInUser.username}>
-            <Picture src={loggedInUser.src} alt={`${loggedInUser.name}'s profile picture`}/>
+        <Profile>
+            <Picture src={userInfos.src} alt={`${userInfos.name}'s profile picture`}/>
             <NameAlign>
-                <h2>{loggedInUser.name}</h2>
-                <p>@{loggedInUser.username}</p>
+                <h2>{userInfos.name}</h2>
+                <p>@{userInfos.username}</p>
             </NameAlign>
             <BioText>Creative thinker fueled by coffee and late-night ideas. I build things on the web, sketch on napkins, and chase inspiration like it’s going out of style. Always learning, always curious. Let's make something awesome. ✨</BioText>
-            <form>
-                <FollowButton>follow</FollowButton>
-            </form>
+            {loggedInUser && userInfos.name !== loggedInUser.name && !loggedInUser.friends.includes(userInfos.name) && <AddFriend name={userInfos.username} newFriend={loggedInUser.username}/>}
+            {loggedInUser && userInfos.name !== loggedInUser.name && loggedInUser.friends.includes(userInfos.name) && <RemoveFriend name={userInfos.username} exFriend={loggedInUser.username}/>}
         </Profile>
         <ListsReviews>
             <div>
                 <h1>Lists</h1>
-                {loggedInUser.lists.map(list=> {
-                    const movieScrollRef = useRef(null);
-                    movieScrollRefs.current[list.name] = movieScrollRef;
+                {userInfos.lists.map(list=> {
+                    if (!movieScrollRefs.current[list.name]) {
+                        movieScrollRefs.current[list.name] = createRef;
+                    }
+                    const movieScrollRef = movieScrollRefs.current[list.name];
                     return<div key={list.name}>
                     <ListName>{list.name}</ListName>
                     <MoviesWrapper>
@@ -137,7 +146,6 @@ const Profile = styled.div`
     box-shadow: 1px 1px 4px white inset, -2px -2px 2px var(--color-dark-accent) inset;
 `
 const Picture = styled.img`
-    /* display:flex; */
     align-self:center;
     margin-bottom: 2rem;
     width: 150px;
@@ -154,24 +162,6 @@ const NameAlign = styled.div`
 const BioText = styled.p`
     margin-top: 0.5rem;
     color: var(--color-dark-accent);
-`
-const FollowButton = styled.button`
-    margin: 0.5rem auto;
-    padding: 0.3rem 1rem;
-    border-radius: 5px;
-    background-color: var(--color-dark-accent);
-    border: none;
-    text-transform: uppercase;
-    font-weight:bold;
-    color: var(--color-light);
-    text-shadow: 0 0 1px black;
-    box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark) inset;
-    cursor: pointer;
-    &:active{
-        background: transparent;
-        box-shadow: 0 0 2px var(--color-dark) inset;
-        outline: 2px solid var(--color-dark-accent);
-    }
 `
 const ListName = styled.h2`
     margin: 1rem 0 0.3rem 0;
