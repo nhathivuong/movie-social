@@ -13,12 +13,12 @@ const UserList = ({userInfos}) =>{
     
     // manages the list scroll
     const arrowRightClick = (ref) => {
-        ref.current.style.scrollBehavior = "smooth";
-        ref.current.scrollLeft += 495;
+        ref.style.scrollBehavior = "smooth";
+        ref.scrollLeft += 495;
     }
     const arrowLeftClick = (ref) => {
-        ref.current.style.scrollBehavior = "smooth";
-        ref.current.scrollLeft -= 495;
+        ref.style.scrollBehavior = "smooth";
+        ref.scrollLeft -= 495;
     }
     return <div>
     <h1>Lists</h1>
