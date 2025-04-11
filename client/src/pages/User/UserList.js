@@ -13,19 +13,19 @@ const UserList = ({userInfos}) =>{
     
     // manages the list scroll
     const arrowRightClick = (ref) => {
-        ref.style.scrollBehavior = "smooth";
-        ref.scrollLeft += 495;
+        ref.current.style.scrollBehavior = "smooth";
+        ref.current.scrollLeft += 495;
     }
     const arrowLeftClick = (ref) => {
-        ref.style.scrollBehavior = "smooth";
-        ref.scrollLeft -= 495;
+        ref.current.style.scrollBehavior = "smooth";
+        ref.current.scrollLeft -= 495;
     }
     return <div>
     <h1>Lists</h1>
     {userInfos.lists.length > 0 
     ?userInfos.lists.map(list=> {
         if (!movieScrollRefs.current[list.name]) {
-            movieScrollRefs.current[list.name] = createRef;
+            movieScrollRefs.current[list.name] = createRef();
         }
         const movieScrollRef = movieScrollRefs.current[list.name];
         return<div key={list.name}>
