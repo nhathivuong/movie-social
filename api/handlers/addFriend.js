@@ -3,72 +3,70 @@ require("dotenv").config()
 const {MONGO_URI} = process.env
 
 const addFriend = async (req, res) =>{
-    const {name, newFriend} = req.body
-    if(!name){
-        return res.status(408).json({
-            status:408,
-            message: "Please enter a name"
+    const {username, newFollow} = req.body
+    // checks the input is valid
+    if(!username){
+        return res.status(400).json({
+            status:400,
+            message: "Please enter a username"
         })
     }
-    if(!newFriend){
-        return res.status(408).json({
-            status:408,
-            message: "Please enter a newFriend"
+    if(!newFollow){
+        return res.status(400).json({
+            status:400,
+            message: "Please enter an user you want to follow"
         })
     }
-    if(name === newFriend){
+    if(username === newFollow){
         return res.status(400).json({
             status: 400,
-            message: `${name} and ${newFriend} are the same`
+            message: `${username} and ${newFollow} are the same`
         })
     }
     const client = new MongoClient(MONGO_URI)
     try{
         await client.connect()
-        const db = client.db(DB)
-        const findUser = await db.collection("users").findOne({name: name})
+        const db = client.db("movie")
+        //find if the users exists in the database
+        const findUser = await db.collection("users").findOne({username: username})
         if(!findUser){
             return res.status(404).json({
             status:404,
-            message: `${name} was not found`
+            message: `${username} was not found`
             })
         }
-        const findNewFriend = await db.collection("users").findOne({name: newFriend})
-        if(!findNewFriend){
+        const findNewFollow = await db.collection("users").findOne({username: newFollow})
+        if(!findNewFollow){
             return res.status(404).json({
             status:404,
-            message: `${newFriend} was not found`
+            message: `${newFollow} was not found`
             })
         }
-        if(findUser.friends.includes(newFriend)|| findNewFriend.friends.includes(name)){
+        // find if the user already follows newFollow
+        if(findUser.follows.includes(newFollow)){
             return res.status(409).json({
             status:409,
-            message: `${newFriend} is already ${name}'s friend`
+            message: `${username} already follows ${newFollow}`
             })
         }
-        const addFriendUser = await db.collection("users").updateOne({name: name}, {$push: {friends: newFriend}})
-        const addFriendNewFriend = await db.collection("users").updateOne({name:newFriend},  {$push: {friends: name}})
-        if(addFriendNewFriend.matchedCount === 0 || addFriendUser.matchedCount === 0){
+        // adds newFollow in the user follows array 
+        const addNewFollow = await db.collection("users").updateOne({username: username}, {$push: {follows: newFollow}})
+        if(addNewFollow.matchedCount === 0){
             return res.status(404).json({
             status:404,
-            message: `${name} or ${newFriend} was not found`
+            message: `${username} was not found`
             })
         }
-        if(addFriendUser.modifiedCount === 0){
+        if(addNewFollow.modifiedCount === 0){
             return res.status(409).json({
             status: 409,
-            message: `${newFriend} was not added to ${name}'s friends`
-            })
-        }
-        if(addFriendNewFriend.modifiedCount === 0){
-            return res.status(409).json({
-            status: 409,
-            message: `${name} was not added to ${newFriend}'s friends`
+            message: `${newFollow} was not added to ${username}'s follows`
             })
         }
         res.status(200).json({
             status:200,
-            message:`${name} and ${newFriend} are now friend`
+            username: username,
+            message:`${username} now follows ${newFollow}`
         })
     }
     catch(error){
