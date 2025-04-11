@@ -7,7 +7,6 @@ import { UserContext} from "../../contexts/UserContext"
 
 const SignUp = () => {
     const [src, setSrc] = useState()
-    const [file, setFile] = useState()
     const {setLoggedInUser, logIn} = useContext(UserContext)
     const navigate = useNavigate()
 
@@ -59,7 +58,6 @@ const SignUp = () => {
         multiple={false}
         onChange={({ target: { files } }) => {
             const selectedFile = files[0];
-            setFile(selectedFile);
             if (!selectedFile) return setSrc("/assets/default_picture.svg");
             const reader = new FileReader();
             reader.onloadend = () => {
