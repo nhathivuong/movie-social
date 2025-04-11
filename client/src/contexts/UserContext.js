@@ -30,25 +30,25 @@ const UserProvider = ({children}) =>{
         setLoggedInUser(null)
         localStorage.removeItem("username")
     }
-    // const addFriend = (username) =>{
-    //     const newLoggedInUser = {
-    //         ...loggedInUser,
-    //         friends: [...loggedInUser.friends, name],
-    //     }
-    //     setLoggedInUser(newLoggedInUser)
-    // }
-    // const removeFriend = (name) =>{
-    //     const newLoggedInUser ={
-    //         ...loggedInUser,
-    //         friends: loggedInUser.friends.filter(friend => friend !== name),
-    //     }
-    //     setLoggedInUser(newLoggedInUser)
-    // }
+    const addFriend = (username) =>{
+        const newLoggedInUser = {
+            ...loggedInUser,
+            friends: [...loggedInUser.friends, username],
+        }
+        setLoggedInUser(newLoggedInUser)
+    }
+    const removeFriend = (username) =>{
+        const newLoggedInUser ={
+            ...loggedInUser,
+            friends: loggedInUser.friends.filter(friend => friend !== username),
+        }
+        setLoggedInUser(newLoggedInUser)
+    }
     // const updateName = (name) =>{
     //     setLoggedInUser(name)
     // }
     return (
-        <UserContext.Provider value={{loggedInUser,  setLoggedInUser, logIn, logOut, setUpdateUser}}>{children}</UserContext.Provider>
+        <UserContext.Provider value={{loggedInUser,  setLoggedInUser, logIn, logOut, setUpdateUser, addFriend, removeFriend}}>{children}</UserContext.Provider>
     )
 }
 

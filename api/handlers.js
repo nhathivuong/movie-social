@@ -11,6 +11,8 @@ const searchQuery = require("./handlers/searchQuery")
 const homeMovies = require("./handlers/homeMovies")
 const getGenres = require("./handlers/getGenres")
 const getReviews = require("./handlers/getReviews")
+const addFriend = require("./handlers/addFriend")
+const removeFriend = require("./handlers/removeFriend")
 
 module.exports = {
     addUser,
@@ -25,5 +27,7 @@ module.exports = {
     searchQuery,
     homeMovies,
     getGenres,
-    getReviews
+    getReviews,
+    addFriend,
+    removeFriend
 }

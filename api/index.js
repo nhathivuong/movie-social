@@ -31,7 +31,9 @@ const {
     searchQuery,
     homeMovies,
     getGenres,
-    getReviews
+    getReviews,
+    addFriend,
+    removeFriend
 } = require("./handlers")
 
 // this creates and account when a user sign up to the website
@@ -72,6 +74,11 @@ app.get("/api/genres", getGenres)
 
 //this gets all the reviews
 app.get("/reviews", getReviews)
+
+//adds friend
+app.patch("/addFriend", addFriend)
+//remove friend
+app.patch("/removeFriend", removeFriend)
 
 app.use('*', (req, res) => {
     res.status(404).json({status: 404, message: "Endpoint not found!"});
