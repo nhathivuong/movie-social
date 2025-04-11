@@ -37,6 +37,7 @@ const UserProvider = ({children}) =>{
             follows: [...loggedInUser.follows, username],
         }
         setLoggedInUser(newLoggedInUser)
+        setUpdateUser(update => update + 1)
     }
     const unfollow = (username) =>{
         const newLoggedInUser ={
@@ -44,6 +45,7 @@ const UserProvider = ({children}) =>{
             follows: loggedInUser.follows.filter(follow => follow !== username),
         }
         setLoggedInUser(newLoggedInUser)
+        setUpdateUser(update => update + 1)
     }
     // const updateName = (name) =>{
     //     setLoggedInUser(name)
