@@ -19,13 +19,16 @@ import WriteReview from "./WriteReview";
 
 // this page gives all the informations for the selected movie
 const MoviePage = () =>{
-    const {loggedInUser,  setLoggedInUser}= useContext(UserContext)
+    const {loggedInUser}= useContext(UserContext)
+    //reviews from the user database
+    const {allReviews} = useContext(AllReviewsContext)
+    //state for all the movie info on the page
     const [movieInfos , setMovieInfos] = useState()
     const [movieRecommendation, setMovieRecommendation] = useState()
     const [movieCast, setMovieCast] = useState()
     const [directors, setDirectors] = useState()
-    const {allReviews, setAllReviews} = useContext(AllReviewsContext)
     const [movieReviews, setMovieReviews] = useState()
+    //this gets movieId needed for the fetch
     const {movieId} = useParams()
     //used the cast scroll
     const castRef = useRef()
