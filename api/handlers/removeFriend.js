@@ -35,7 +35,7 @@ const removeFriend = async(req, res) => {
             message: `${username} was not found`
             })
         }
-        if(!findUser.friends.includes(unfollow)){
+        if(!findUser.follows.includes(unfollow)){
             return res.status(409).json({
             status: 409,
             message: `${username} does not follow ${unfollow}`
