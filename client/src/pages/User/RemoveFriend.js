@@ -2,16 +2,16 @@ import { useContext, useState } from "react"
 import { UserContext } from "../../contexts/UserContext"
 import styled from "styled-components"
 
-const RemoveFriend = ({name, exFriend}) => {
-    const {removeFriend} = useContext(UserContext)
+const RemoveFriend = ({currentUser, unfollowUser}) => {
+    const {unfollow} = useContext(UserContext)
 
     const [status, setStatus] = useState("idle")
     const handleSubmit = (event) =>{
         event.preventDefault()
         setStatus("removing")
         const body = JSON.stringify({
-            name: name,
-            exFriend: exFriend
+            username: currentUser,
+            unfollow: unfollowUser
         })
         const options = {
             method : "PATCH",
@@ -25,7 +25,7 @@ const RemoveFriend = ({name, exFriend}) => {
         .then(res => res.json())
         .then(data => {
             if(data.status === 200){
-                removeFriend(data.name)
+                unfollow(data.username)
                 setStatus("idle")
             }
             if(data.status !== 200){

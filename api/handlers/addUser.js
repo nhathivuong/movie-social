@@ -14,7 +14,7 @@ const addUser = async(req, res) => {
             message: "The request is missing data"
         })
     }
-    
+    // the user object
     const newUser = {
         _id: uuidv4(),
         name: name,
@@ -22,9 +22,8 @@ const addUser = async(req, res) => {
         email: email,
         src: src,
         lists: [],
-        // followers: [],
-        // favorites: [],
-        // reviews: [],
+        bio: "",
+        follows: [],
         status: "active"
     }
     const client = new MongoClient(MONGO_URI)

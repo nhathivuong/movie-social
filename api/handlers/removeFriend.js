@@ -3,53 +3,55 @@ require("dotenv").config()
 const {MONGO_URI} = process.env
 
 const removeFriend = async(req, res) => {
-    const {name, exFriend} = req.body
-    if(!name){
-        return res.status(408).json({
-            status:408,
-            message: "Please enter a name"
+    const {username, unfollow} = req.body
+    // checks the input is valid
+    if(!username){
+        return res.status(400).json({
+            status:400,
+            message: "Please enter a the current user username"
         })
     }
-    if(!exFriend){
-        return res.status(408).json({
-            status:408,
-            message: "Please enter an exFriend"
+    if(!unfollow){
+        return res.status(400).json({
+            status:400,
+            message: "Please enter the username of the person you want to unfollow"
         })
     }
-    if(name === exFriend){
+    if(username === unfollow){
         return res.status(400).json({
             status: 400,
-            message: `${name} and ${exFriend} are the same`
+            message: `${username} and ${unfollow} are the same`
         })
     }
     const client = new MongoClient(MONGO_URI)
     try{
         await client.connect()
-        const db = client.db(DB)
-        const findFriends = await db.collection("users").findOne({name: name})
-        if(!findFriends){
+        const db = client.db("movie")
+        //
+        const findUser = await db.collection("users").findOne({username: username})
+        if(!findUser){
             return res.status(404).json({
             status: 404,
-            message: `${name} was not found`
+            message: `${username} was not found`
             })
         }
-        if(!findFriends.friends.includes(exFriend)){
+        if(!findUser.friends.includes(unfollow)){
             return res.status(409).json({
             status: 409,
-            message: `${name} and ${exFriend} are not friends`
+            message: `${username} does not follow ${unfollow}`
             })
         }
-        const updateExFriendFriendsArray = await db.collection("users").updateOne({name: exFriend}, {$pull:{friends: name}})
-        const updateNameFriendsArray = await db.collection("users").updateOne({name: name}, {$pull:{friends: exFriend}})
-        if(updateExFriendFriendsArray.modifiedCount === 0 || updateNameFriendsArray.modifiedCount === 0){
+        const updateUserFollowsArray = await db.collection("users").updateOne({username: username}, {$pull:{follows: unfollow}})
+        if(updateUserFollowsArray.modifiedCount === 0){
             return res.status(409).json({
             status:409,
-            message: `${name} and ${exFriend} are still friends, could not stop being friends`
+            message: `${username} could not unfollow ${unfollow}`
             })
         }
         res.status(200).json({
             status: 200,
-            message: `${name} and ${exFriend} are not friends anymore after a fight`
+            username: username,
+            message: `${username} does not follow ${unfollow} anymore`
         })
     }
     catch(error){

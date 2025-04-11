@@ -1,10 +1,15 @@
+//dependencies
 import { useContext, useState } from "react"
 import styled from "styled-components"
+import { useNavigate } from "react-router-dom"
+//context
 import { AllReviewsContext } from "../../contexts/AllReviewsContext"
+
 const WriteReview = ({loggedInUser, movieId, setListVisible, reviewVisible, setReviewVisible}) => {
     const [rating, setRating] = useState()
     const [feedBackMessage, setFeedBackMessage] = useState()
     const {allReviews, setAllReviews, setUpdateReview} = useContext(AllReviewsContext)
+    const navigate = useNavigate()
     // post the review in the database
     const handleReview = (event) =>{
         event.preventDefault()
@@ -44,6 +49,9 @@ const WriteReview = ({loggedInUser, movieId, setListVisible, reviewVisible, setR
     }
     //changes the visibility of the form 
     const toggleVisibility = () =>{
+        if(!loggedInUser){
+            navigate("/logIn")
+        }
         setReviewVisible(!reviewVisible)
         setListVisible(false)
     }

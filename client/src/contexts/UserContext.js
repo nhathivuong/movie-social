@@ -30,17 +30,18 @@ const UserProvider = ({children}) =>{
         setLoggedInUser(null)
         localStorage.removeItem("username")
     }
-    const addFriend = (username) =>{
+    //handles the follow an unfollowing of users
+    const follow = (username) =>{
         const newLoggedInUser = {
             ...loggedInUser,
-            friends: [...loggedInUser.friends, username],
+            follows: [...loggedInUser.follows, username],
         }
         setLoggedInUser(newLoggedInUser)
     }
-    const removeFriend = (username) =>{
+    const unfollow = (username) =>{
         const newLoggedInUser ={
             ...loggedInUser,
-            friends: loggedInUser.friends.filter(friend => friend !== username),
+            follows: loggedInUser.follows.filter(follow => follow !== username),
         }
         setLoggedInUser(newLoggedInUser)
     }
@@ -48,7 +49,7 @@ const UserProvider = ({children}) =>{
     //     setLoggedInUser(name)
     // }
     return (
-        <UserContext.Provider value={{loggedInUser,  setLoggedInUser, logIn, logOut, setUpdateUser, addFriend, removeFriend}}>{children}</UserContext.Provider>
+        <UserContext.Provider value={{loggedInUser,  setLoggedInUser, logIn, logOut, setUpdateUser, follow, unfollow}}>{children}</UserContext.Provider>
     )
 }
 

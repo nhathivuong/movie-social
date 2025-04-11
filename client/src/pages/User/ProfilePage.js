@@ -71,9 +71,9 @@ const ProfilePage = () =>{
                 <h2>{userInfos.name}</h2>
                 <p>@{userInfos.username}</p>
             </NameAlign>
-            <BioText>Creative thinker fueled by coffee and late-night ideas. I build things on the web, sketch on napkins, and chase inspiration like it’s going out of style. Always learning, always curious. Let's make something awesome. ✨</BioText>
-            {loggedInUser && userInfos.name !== loggedInUser.name && !loggedInUser.friends.includes(userInfos.name) && <AddFriend name={userInfos.username} newFriend={loggedInUser.username}/>}
-            {loggedInUser && userInfos.name !== loggedInUser.name && loggedInUser.friends.includes(userInfos.name) && <RemoveFriend name={userInfos.username} exFriend={loggedInUser.username}/>}
+            <BioText>{userInfos.bio}</BioText>
+            {loggedInUser && userInfos.username !== loggedInUser.username && !loggedInUser.follows.includes(userInfos.username) && <AddFriend currentUser={loggedInUser.username} followUser={userInfos.username}/>}
+            {loggedInUser && userInfos.username !== loggedInUser.username && loggedInUser.follows.includes(userInfos.username) && <RemoveFriend currentUser={loggedInUser.username} unfollowUser={userInfos.username}/>}
         </Profile>
         <ListsReviews>
             <div>

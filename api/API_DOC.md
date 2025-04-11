@@ -62,9 +62,10 @@ On success
         username,
         email,
         src,
-        bio,
         lists,
-        status: "active"
+        bio,
+        follows,
+        status
     },
 }
 ```
@@ -85,9 +86,10 @@ On success
         username,
         email,
         src,
-        bio,
         lists,
-        status: "active"
+        bio,
+        follows,
+        status
     },
 }
 ```
@@ -108,9 +110,10 @@ On success
         username,
         email,
         src,
-        bio,
         lists,
-        status: "active"
+        bio,
+        follows,
+        status
     }
 }
 ```
@@ -131,9 +134,10 @@ On success
         username,
         email,
         src,
-        bio,
         lists,
-        status: "active"
+        bio,
+        follows,
+        status
     },
 }
 ```

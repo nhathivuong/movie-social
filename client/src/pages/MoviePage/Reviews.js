@@ -1,7 +1,11 @@
+//dependencies
 import styled from "styled-components"
-import { AllUsersContext } from "../../contexts/AllUsersContext"
 import { useContext } from "react"
+import { NavLink } from "react-router-dom"
+//context
+import { AllUsersContext } from "../../contexts/AllUsersContext"
 import { AllReviewsContext } from "../../contexts/AllReviewsContext"
+
 const Reviews = ({movieReviews, movieId}) => {
     const {allReviews} = useContext(AllReviewsContext)
     const {allUsers} = useContext(AllUsersContext)
@@ -27,7 +31,7 @@ const Reviews = ({movieReviews, movieId}) => {
                             {review.rating && <p>Rating: {review.rating}</p>}
                         </div>
                         <div>
-                            <Username>{review.username}</Username>
+                            <NavLink to={`/user/${review.username}`}><Username>{review.username}</Username></NavLink>
                             <ReviewText>{review.content}</ReviewText>
                         </div>
                     </ReviewBox>
