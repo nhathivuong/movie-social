@@ -5,8 +5,9 @@ import { UserContext } from "../../contexts/UserContext"
 
 const AddFriend = ({currentUser, followUser}) => {
     const {follow} = useContext(UserContext)
-
     const [status, setStatus] = useState("idle")
+    
+    // handle the follow action
     const handleSubmit = (event) =>{
         event.preventDefault()
         setStatus("adding")

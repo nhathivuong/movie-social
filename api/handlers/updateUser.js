@@ -5,7 +5,7 @@ const { MONGO_URI } = process.env
 const updateUser = async(req, res) =>{
     const {name, pronouns, bio} = req.body
     const {username} = req.params
-
+    // there is no verification of the body because they are not required the frontend handles the edge cases
     const client = new MongoClient(MONGO_URI)
     try{
         await client.connect()
@@ -31,6 +31,7 @@ const updateUser = async(req, res) =>{
         const user = await db.collection("users").findOne({username:username})
         res.status(200).json({
             status:200,
+            message: `${username}'s profile has been updated`,
             user: user // password
         })
     }

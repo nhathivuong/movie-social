@@ -119,6 +119,7 @@ const NavGenreSection = styled(NavSection)`
 const LogInLogOut = styled.div`
     display: flex;
     gap: 0.7rem;
+    margin: 0 0.5rem;
 `
 
 export default Header

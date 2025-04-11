@@ -11,6 +11,7 @@ import AddFriend from "./AddFriend";
 import RemoveFriend from "./RemoveFriend";
 import UserReview from "./UserReview";
 import UserList from "./UserList";
+import EditProfile from "./EditProfile";
 
 const ProfilePage = () =>{
     const { loggedInUser} = useContext(UserContext)
@@ -51,16 +52,16 @@ const ProfilePage = () =>{
     if(!allReviews ||!userInfos){
         return <p>Loading profile</p>
     }
-    
+
     return <ProfileSection>
         <Profile>
             <Picture src={userInfos.src} alt={`${userInfos.name}'s profile picture`}/>
-            <p>Edit profile</p>
+            <EditProfile userInfos={userInfos} username={username}/>
             <NameAlign>
                 <h2>{userInfos.name}</h2>
-                <p>{userInfos.pronouns}</p>
                 <p>@{userInfos.username}</p>
             </NameAlign>
+            <PronounsCapitalize>{userInfos.pronouns}</PronounsCapitalize>
             <BioText>{userInfos.bio}</BioText>
             {loggedInUser && userInfos.username !== loggedInUser.username && !loggedInUser.follows.includes(userInfos.username) && <AddFriend currentUser={loggedInUser.username} followUser={userInfos.username}/>}
             {loggedInUser && userInfos.username !== loggedInUser.username && loggedInUser.follows.includes(userInfos.username) && <RemoveFriend currentUser={loggedInUser.username} unfollowUser={userInfos.username}/>}
@@ -82,7 +83,7 @@ const ListsReviews = styled.div`
 `
 const Profile = styled.div`
     position: fixed;
-    width: 19%;
+    width: 19vw;
     height: fit-content;
     display:flex;
     flex-direction: column;
@@ -106,6 +107,9 @@ const NameAlign = styled.div`
     flex-direction:row;
     align-items:baseline;
     gap: 8px;
+`
+const PronounsCapitalize = styled.p`
+    text-transform:capitalize;
 `
 const BioText = styled.p`
     margin-top: 0.5rem;

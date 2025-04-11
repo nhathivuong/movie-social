@@ -8,7 +8,8 @@ const UserProvider = ({children}) =>{
     //this usestate will store all the user's key
     const [loggedInUser, setLoggedInUser] = useState(null);
     const [updateUser, setUpdateUser] = useState(0)
-    //will set the loggedInUser from the localstorage on mount
+    
+    //will set the loggedInUser from the localstorage on mount (auto-login)
     useEffect(()=>{
         const loggedInUsername = localStorage.getItem("username")
         if(loggedInUsername){
@@ -47,9 +48,7 @@ const UserProvider = ({children}) =>{
         setLoggedInUser(newLoggedInUser)
         setUpdateUser(update => update + 1)
     }
-    // const updateName = (name) =>{
-    //     setLoggedInUser(name)
-    // }
+
     return (
         <UserContext.Provider value={{loggedInUser,  setLoggedInUser, logIn, logOut, setUpdateUser, follow, unfollow}}>{children}</UserContext.Provider>
     )
