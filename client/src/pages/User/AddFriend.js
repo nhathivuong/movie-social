@@ -1,16 +1,18 @@
 import { useContext, useState } from "react"
-import { UserContext } from "../../contexts/UserContext"
 import styled from "styled-components"
-const AddFriend = ({name, newFriend}) => {
-    const {addFriend} = useContext(UserContext)
+//context
+import { UserContext } from "../../contexts/UserContext"
+
+const AddFriend = ({currentUser, follow}) => {
+    const {follow} = useContext(UserContext)
 
     const [status, setStatus] = useState("idle")
     const handleSubmit = (event) =>{
         event.preventDefault()
         setStatus("adding")
         const body = JSON.stringify({
-            name: name,
-            newFriend: newFriend
+            name: currentUser,
+            newFollow: follow
         })
         const options = {
             method : "PATCH",
@@ -24,9 +26,8 @@ const AddFriend = ({name, newFriend}) => {
         .then(res => res.json())
         .then(data => {
             if(data.status === 200){
-                addFriend(data.name)
+                follow(data.username)
                 setStatus("idle")
-
             }
             if(data.status !== 200){
                 setStatus("idle")
