@@ -25,7 +25,7 @@ const UserList = ({userInfos}) =>{
     {userInfos.lists.length > 0 
     ?userInfos.lists.map(list=> {
         if (!movieScrollRefs.current[list.name]) {
-            movieScrollRefs.current[list.name] = createRef;
+            movieScrollRefs.current[list.name] = createRef();
         }
         const movieScrollRef = movieScrollRefs.current[list.name];
         return<div key={list.name}>

@@ -28,7 +28,6 @@ const LogIn = () =>{
         })
         .then(data => {
             if(data.status === 200){
-                console.log(data.user)
                 setLoggedInUser(data.user)
                 logIn(data.user)
                 navigate(`/user/${data.user.username}`)
