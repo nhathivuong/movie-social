@@ -8,7 +8,10 @@ const port = process.env.PORT || 4000;
 const app = express();
 
 app.use(cors({
-    origin: 'https://movie-social-delta.vercel.app',
+    origin: [
+        'https://movie-social-delta.vercel.app',
+        'https://movie-social-git-dev-nha-thi-vuongs-projects.vercel.app/' // development frontend
+    ],
     methods: ['GET', 'POST', 'PATCH'],
     credentials: true,
 }));
