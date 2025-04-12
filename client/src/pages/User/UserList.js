@@ -29,6 +29,7 @@ const UserList = ({userInfos}) =>{
         }
         const movieScrollRef = movieScrollRefs.current[list.name];
         return<div key={list.name}>
+            {list.movies.length > 0 && <>
             <ListName>{list.name}</ListName>
             <MoviesWrapper>
                 {list.movies.length > 6 
@@ -45,6 +46,7 @@ const UserList = ({userInfos}) =>{
                 })}
                 </MovieList>}
             </MoviesWrapper>
+            </>}
         </div>
     })
     :<p>no list</p>}

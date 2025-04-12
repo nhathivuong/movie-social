@@ -58,10 +58,10 @@ const ProfilePage = () =>{
             <Picture src={userInfos.src} alt={`${userInfos.name}'s profile picture`}/>
             <EditProfile userInfos={userInfos} username={username}/>
             <NameAlign>
-                <h2>{userInfos.name}</h2>
+                <AccountName>{userInfos.name}</AccountName>
                 <p>@{userInfos.username}</p>
+                <PronounsCapitalize>{userInfos.pronouns}</PronounsCapitalize>
             </NameAlign>
-            <PronounsCapitalize>{userInfos.pronouns}</PronounsCapitalize>
             <BioText>{userInfos.bio}</BioText>
             {loggedInUser && userInfos.username !== loggedInUser.username && !loggedInUser.follows.includes(userInfos.username) && <AddFriend currentUser={loggedInUser.username} followUser={userInfos.username}/>}
             {loggedInUser && userInfos.username !== loggedInUser.username && loggedInUser.follows.includes(userInfos.username) && <RemoveFriend currentUser={loggedInUser.username} unfollowUser={userInfos.username}/>}
@@ -75,7 +75,7 @@ const ProfilePage = () =>{
 const ProfileSection = styled.div`
     display:flex;
     flex-direction: row;
-    margin: 2rem 0 2rem 4rem;
+    margin: 2rem 2rem 0 4rem;
     gap: 2rem;
 `
 const ListsReviews = styled.div`
@@ -96,23 +96,26 @@ const Profile = styled.div`
 `
 const Picture = styled.img`
     align-self:center;
-    margin-bottom: 2rem;
     width: 150px;
     border-radius:50%;
     border: 2px solid var(--color-dark-accent);
     box-shadow: 0 0 3px var(--color-dark-accent);
 `
+const AccountName = styled.h2`
+    margin-top: 0.5rem;
+    text-shadow: 0 1px 1px var(--color-dark-accent);
+`
 const NameAlign = styled.div`
     display:flex;
-    flex-direction:row;
+    flex-direction:column;
     align-items:baseline;
-    gap: 8px;
+    text-shadow: 0 1px 1px var(--color-dark-accent);
 `
 const PronounsCapitalize = styled.p`
     text-transform:capitalize;
 `
 const BioText = styled.p`
-    margin-top: 0.5rem;
+    margin-top: 0.7rem;
     color: var(--color-dark-accent);
 `
 export default ProfilePage

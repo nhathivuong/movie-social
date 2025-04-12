@@ -2,6 +2,8 @@
 import {useContext, useState} from "react"
 import { NavLink, useNavigate } from "react-router-dom"
 import styled from "styled-components"
+import Resizer from "react-image-file-resizer";
+
 // context
 import { UserContext} from "../../contexts/UserContext"
 
@@ -41,6 +43,39 @@ const SignUp = () => {
             }
         })
     }
+
+    const resize = (file) => {
+        return new Promise((res, rej) => {
+            try {
+                // settings to resize the images
+                Resizer.imageFileResizer(
+                file,
+                2500,
+                2500,
+                "JPEG",
+                75,
+                0,
+                (base64) => res(base64),
+                "base64"
+                )
+            } 
+            catch (err) {
+                rej(err)
+            }
+            })
+        };
+    // set Preview Image and image src
+    const previewImage = async ({ target: { files } }) => {
+        const selectedFile = files[0]
+        if (!selectedFile) return setSrc("/assets/default_picture.svg")
+        try {
+            const base64 = await resize(selectedFile)
+            setSrc(base64)
+        } 
+        catch (err) {
+            console.error("Image resize failed:", err)
+        }
+    }
     return <SignUpBox>
         <h2>Sign Up</h2>
     <SignUpForm onSubmit={handleSignUp}>
@@ -51,22 +86,8 @@ const SignUp = () => {
         <label htmlFor="email">Email</label>
         <UserInput type="email" id="email" name="email" required/>
         <label htmlFor="image">
-        <input
-        id="image"
-        type="file"
-        accept="image/jpg"
-        multiple={false}
-        onChange={({ target: { files } }) => {
-            const selectedFile = files[0];
-            if (!selectedFile) return setSrc("/assets/default_picture.svg");
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setSrc(reader.result);
-            };
-            reader.readAsDataURL(selectedFile);
-        }}
-        required></input>
-        {src && <ProfilePicture src={src} alt="your face"/>}
+        <input id="image" type="file" accept="image/jpg" multiple={false} onChange={previewImage}/>
+        {src && <ProfilePicture src={src} alt="profile picture"/>}
         </label>
         <SignUpButton type="submit">SignUp</SignUpButton>
     </SignUpForm>

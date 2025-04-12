@@ -84,6 +84,7 @@ const Edit = styled.button`
     height: fit-content;
     background:none;
     color: var(--color-dark);
+    font-weight:bold;
     border:none;
     border-radius: 5px;
     display:flex;
