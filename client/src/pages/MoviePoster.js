@@ -14,6 +14,7 @@ const MoviePoster = ({movie}) =>{
     </NavLink>
 }
 const MovieTitle = styled.h3`
+    width:150px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     overflow:hidden;
