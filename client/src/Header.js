@@ -52,6 +52,7 @@ const Header = () => {
                 <LogInLogOut> 
                     {loggedInUser
                     ?<>
+                    <NavLink to="/community">Community</NavLink>
                     <NavLink to={`/user/${loggedInUser.username}`}>Hi {loggedInUser.username}</NavLink> {/* I would like this to be the user image with maybe name */}
                     <NavLink to="/" onClick={logOut}>Log out</NavLink></>
                     :<>
