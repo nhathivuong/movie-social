@@ -7,16 +7,22 @@ const SaveList = ({movieInfos, movieId, listVisible, setListVisible, setReviewVi
     const [listName, setListName] = useState()
     const [createVisible, setCreateVisible] = useState(false)
     const [feedBackMessage, setFeedBackMessage] = useState()
-    const {setUpdateUser,loggedInUser } = useContext(UserContext)
-
+    const {setUpdateUser, loggedInUser } = useContext(UserContext)
+    
     const navigate = useNavigate()
     // makes the lists appear
     const listVisibility = () => {
         if(!loggedInUser){
             navigate("/logIn")
         }
-        setListVisible(!listVisible)
-        setReviewVisible(false)
+        // This ensures that only the correct Save to List is opened in the community page
+        if(listVisible === movieId){
+            setListVisible(null)
+        }
+        else{
+            setListVisible(movieId) 
+            setReviewVisible(null)
+        }
     }
     //makes ths create list visible
     const createListVisibility = () => {
@@ -30,7 +36,7 @@ const SaveList = ({movieInfos, movieId, listVisible, setListVisible, setReviewVi
             setFeedBackMessage()
         },2500)
     }
-    const updateList = (event) => {
+    const updateList = (event, movieId) => {
         event.preventDefault()
         
         const options = {
@@ -49,21 +55,21 @@ const SaveList = ({movieInfos, movieId, listVisible, setListVisible, setReviewVi
             return res.json()
         })
         .then(data => {
+            setFeedBackMessage(data.message)
             if(data.status === 201){
-                setFeedBackMessage(data.message)
-                setUpdateUser((update) => update+1)
+                setUpdateUser((update) => update + 1)
             }
         })
         .catch(error => console.error(error.message))
     }
     return <>
         <Button type="button" onClick={listVisibility}>Save to List</Button>
-        {listVisible && <ListSection>
+        {listVisible === movieId && <ListSection>
             <Title>
                 <h2>Add to your list</h2>
                 <ClosingButton type="button" onClick={listVisibility}>x</ClosingButton>
             </Title>
-            <form onSubmit={updateList}>{loggedInUser && loggedInUser.lists.map((list)=>{
+            <form onSubmit={event => updateList(event, movieId)}>{loggedInUser && loggedInUser.lists.map((list)=>{
                 return <div key={list.name}>
                 <input type="checkbox" id={list.name} name={list.name} value={list.name} onChange={() => setListName(list.name)}/>
                 <label htmlFor={list.name}>{list.name}</label>

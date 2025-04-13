@@ -33,9 +33,9 @@ const MoviePage = () =>{
     //used the cast scroll
     const castRef = useRef()
     // used to toggle the review section
-    const [reviewVisible, setReviewVisible] = useState(false)
+    const [reviewVisible, setReviewVisible] = useState(null)
     // used to toggle the review section
-    const [listVisible, setListVisible] = useState(false)
+    const [listVisible, setListVisible] = useState(null)
     
     useEffect(()=>{
         setMovieInfos()

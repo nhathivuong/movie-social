@@ -1,5 +1,5 @@
 import { createContext, useEffect } from "react";
-import { useState } from "react";
+import { useState, startTransition } from "react";
 
 export const UserContext = createContext()
 
@@ -29,7 +29,7 @@ const UserProvider = ({children}) =>{
     }
     const logOut = () => {
         localStorage.removeItem("username")
-        setLoggedInUser(null)
+        startTransition(()=> setLoggedInUser(null))
     }
     //handles the follow an unfollowing of users
     const follow = (username) =>{
