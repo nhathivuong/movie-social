@@ -55,8 +55,13 @@ const WriteReview = ({movieId, setListVisible, reviewVisible, setReviewVisible})
         if(!loggedInUser){
             navigate("/logIn")
         }
-        setReviewVisible(!reviewVisible)
-        setListVisible(false)
+        if(reviewVisible === movieId){
+            setReviewVisible(null)
+        }
+        else{
+            setReviewVisible(movieId)
+            setListVisible(null) 
+        }
     }
     //changes the value of the rating as it updates
     const handleRating = (event) =>{
@@ -64,7 +69,7 @@ const WriteReview = ({movieId, setListVisible, reviewVisible, setReviewVisible})
     }
     return <>
         <Button onClick={toggleVisibility}>Write a Review</Button>
-        {reviewVisible && 
+        {reviewVisible === movieId && 
         <ReviewForm>
             <Title>
                 <h2>Review</h2>
@@ -73,7 +78,7 @@ const WriteReview = ({movieId, setListVisible, reviewVisible, setReviewVisible})
             <form onSubmit={handleReview}>
                 <label htmlFor="rating">Rate this movie * </label>
                 <select id="rating" name="rating" value={rating} onChange={handleRating} required>
-                    <option value="" disabled selected>rating out of 10</option>
+                    <option value="" disabled defaultValue={"rating out of 10"}>rating out of 10</option>
                     <option value={1}>1</option>
                     <option value={2}>2</option>
                     <option value={3}>3</option>
