@@ -47,7 +47,7 @@ const ProfilePage = () =>{
         if (allReviews && username) {
             loadData();
         }
-    },[allReviews, loggedInUser, username])
+    },[allReviews, username])
     
     if(!allReviews ||!userInfos){
         return <p>Loading profile</p>
@@ -75,11 +75,15 @@ const ProfilePage = () =>{
 const ProfileSection = styled.div`
     display:flex;
     flex-direction: row;
-    margin: 2rem 2rem 0 4rem;
+    margin: 2rem 1rem 0 2rem;
     gap: 2rem;
 `
 const ListsReviews = styled.div`
-    margin-left: 24vw;
+    display:flex;
+    flex-direction:column;
+    width: fit-content;
+    margin-right: 0;
+    margin-left: auto;
 `
 const Profile = styled.div`
     position: fixed;
