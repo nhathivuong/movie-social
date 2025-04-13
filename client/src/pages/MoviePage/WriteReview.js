@@ -4,9 +4,11 @@ import styled from "styled-components"
 import { useNavigate } from "react-router-dom"
 //context
 import { AllReviewsContext } from "../../contexts/AllReviewsContext"
+import { UserContext } from "../../contexts/UserContext"
 
-const WriteReview = ({loggedInUser, movieId, setListVisible, reviewVisible, setReviewVisible}) => {
+const WriteReview = ({movieId, setListVisible, reviewVisible, setReviewVisible}) => {
     const {allReviews, setAllReviews, setUpdateReview} = useContext(AllReviewsContext)
+    const {loggedInUser} = useContext(UserContext)
     const [rating, setRating] = useState()
     const [feedBackMessage, setFeedBackMessage] = useState()
     const navigate = useNavigate()
@@ -43,7 +45,7 @@ const WriteReview = ({loggedInUser, movieId, setListVisible, reviewVisible, setR
                     setReviewVisible(false)
                     setFeedBackMessage()
                     setUpdateReview(update => update+1)
-                },3000)
+                },2500)
             }
         })
         .catch(error => console.error(error.message))

@@ -92,8 +92,8 @@ const MoviePage = () =>{
                     : "/assets/no_poster.jpg"} 
                     alt={`${movieInfos.title} poster`} width={300}/>
                 <div>
-                <WriteReview loggedInUser={loggedInUser} movieId={movieId} reviewVisible={reviewVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible} />
-                <SaveList loggedInUser={loggedInUser} movieInfos={movieInfos} movieId={movieId} listVisible={listVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible}/>
+                    <SaveList movieInfos={movieInfos} movieId={movieId} listVisible={listVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible}/>
+                    <WriteReview movieId={movieId} reviewVisible={reviewVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible} />
                 </div>
             </div>
             <Details movieInfos={movieInfos} directors={directors}/>

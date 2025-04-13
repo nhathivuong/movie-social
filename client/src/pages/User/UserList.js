@@ -20,7 +20,7 @@ const UserList = ({userInfos}) =>{
         ref.current.style.scrollBehavior = "smooth";
         ref.current.scrollLeft -= 495;
     }
-    return <div>
+    return <MovieListElement>
     <h1>Lists</h1>
     {userInfos.lists.length > 0 
     ?userInfos.lists.map(list=> {
@@ -29,6 +29,7 @@ const UserList = ({userInfos}) =>{
         }
         const movieScrollRef = movieScrollRefs.current[list.name];
         return<div key={list.name}>
+            {list.movies.length > 0 && <>
             <ListName>{list.name}</ListName>
             <MoviesWrapper>
                 {list.movies.length > 6 
@@ -45,17 +46,22 @@ const UserList = ({userInfos}) =>{
                 })}
                 </MovieList>}
             </MoviesWrapper>
+            </>}
         </div>
     })
     :<p>no list</p>}
-    </div>
+    </MovieListElement>
 }
+const MovieListElement = styled.div`
+    width:fit-content;    
+`
 const ListName = styled.h2`
     margin: 1rem 0 0.3rem 0;
 `
 const MoviesWrapper = styled.div`
     display:flex;
     flex-direction:row;
+    width: fit-content;
 `
 const MovieScroll = styled.div`
     display: flex;

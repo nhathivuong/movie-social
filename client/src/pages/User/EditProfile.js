@@ -49,7 +49,7 @@ const EditProfile = ({userInfos, username}) =>{
     }
 
     return <>
-        {userInfos.username === loggedInUser.username && <Edit onClick={handleOpen}>Edit profile</Edit>}
+        {loggedInUser && userInfos.username === loggedInUser.username && <Edit onClick={handleOpen}>Edit profile</Edit>}
             <Modal isOpen={open} onClose={handleClose} aria-labelledby="child-modal-title">
                 <ReviewForm>
                     <Title>
@@ -84,6 +84,7 @@ const Edit = styled.button`
     height: fit-content;
     background:none;
     color: var(--color-dark);
+    font-weight:bold;
     border:none;
     border-radius: 5px;
     display:flex;

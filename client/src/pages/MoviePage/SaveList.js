@@ -3,11 +3,11 @@ import styled from "styled-components"
 import { UserContext } from "../../contexts/UserContext"
 import { useNavigate } from "react-router-dom"
 
-const SaveList = ({loggedInUser, movieInfos, movieId, listVisible, setListVisible, setReviewVisible}) =>{
+const SaveList = ({movieInfos, movieId, listVisible, setListVisible, setReviewVisible}) =>{
     const [listName, setListName] = useState()
     const [createVisible, setCreateVisible] = useState(false)
     const [feedBackMessage, setFeedBackMessage] = useState()
-    const {setUpdateUser} = useContext(UserContext)
+    const {setUpdateUser,loggedInUser } = useContext(UserContext)
 
     const navigate = useNavigate()
     // makes the lists appear
@@ -28,7 +28,7 @@ const SaveList = ({loggedInUser, movieInfos, movieId, listVisible, setListVisibl
             setListVisible(false)
             setCreateVisible(false)
             setFeedBackMessage()
-        },3000)
+        },2500)
     }
     const updateList = (event) => {
         event.preventDefault()

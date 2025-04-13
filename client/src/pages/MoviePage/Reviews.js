@@ -2,6 +2,8 @@
 import styled from "styled-components"
 import { useContext } from "react"
 import { NavLink } from "react-router-dom"
+import DOMPurify from 'dompurify';
+
 //context
 import { AllUsersContext } from "../../contexts/AllUsersContext"
 import { AllReviewsContext } from "../../contexts/AllReviewsContext"
@@ -25,14 +27,14 @@ const Reviews = ({movieReviews, movieId}) => {
                 {userMovieReviews.length > 0 && userMovieReviews.map((review) => {
                     const reviewUser = allUsers.find(user => user.username === review.username)
                 return (<>{reviewUser 
-                    ?<ReviewBox key={review.id}>
+                    ?<ReviewBox key={review._id}>
                         <div>
                             <ProfilePicture src={reviewUser.src} alt={`${review.username} profile picture`} />
                             {review.rating && <p>Rating: {review.rating}</p>}
                         </div>
                         <div>
                             <NavLink to={`/user/${review.username}`}><Username>{review.username}</Username></NavLink>
-                            <ReviewText>{review.content}</ReviewText>
+                            <ReviewText dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.content) }}/>
                         </div>
                     </ReviewBox>
                     : <ReviewBox key={review.id}>
@@ -52,7 +54,7 @@ const Reviews = ({movieReviews, movieId}) => {
                     </div>
                     <div>
                         <Username>{review.author_details.username}</Username>
-                        <ReviewText >{review.content}</ReviewText>
+                        <ReviewText dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.content) }}/>
                     </div>
                 </ReviewBox>
             })}</div>
