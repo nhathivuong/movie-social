@@ -3,14 +3,15 @@ require("dotenv").config()
 const { MONGO_URI } = process.env
 
 const updateUser = async(req, res) =>{
-    const {name, pronouns, bio} = req.body
+    const {name, pronouns, bio, src} = req.body
     const {username} = req.params
-    // there is no verification of the body because they are not required the frontend handles the edge cases
+    // there is no verification of the body because they are not required the frontend handles send the old info if not changed
     const client = new MongoClient(MONGO_URI)
     try{
         await client.connect()
         const db = client.db("movie")
         const userProfile = {
+            src:src,
             name: name, 
             pronouns:pronouns, 
             bio:bio
