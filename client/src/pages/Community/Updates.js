@@ -25,11 +25,11 @@ const Updates =() =>{
                 const followingReview = allReviews.filter((review) => loggedInUser.follows.includes(review.username))
                 const sortedReviews = followingReview.sort((a,b) => new Date(b.createdAt)- new Date(a.createdAt))
                 setSortedReviews(sortedReviews)
-                const movieRequest = sortedReviews.map(review => 
-                    fetch(`https://movie-social.onrender.com/api/movie/${review.movieId}`)
-                    .then(res => res.json())
-                    .then(data => data.movieDetails)
-                )
+                const movieRequest = sortedReviews.map(async(review) => {
+                    const res = await fetch(`https://movie-social.onrender.com/api/movie/${review.movieId}`);
+                    const data = await res.json();
+                    return data.movieDetails;
+                    })
                 const movieInfos = await Promise.all(movieRequest)
                 setMovieInfos(movieInfos)
             }
@@ -57,7 +57,7 @@ const Updates =() =>{
             ? sortedReviews.map((review, index) => 
                 {const reviewUserInfos = allUsers.find((user)=> user.username === review.username)
                 const movie = moviesInfos[index];
-                return <ReviewBox key={review._id}>
+                return  <ReviewBox key={review._id}>
                     <ReviewSection>
                         <ProfilePicture src={reviewUserInfos.src} alt={`${review.username} profile picture`} />
                         <TopSection>
@@ -79,7 +79,7 @@ const Updates =() =>{
                             <NavLink to={`/movie/${movie.id}`}><h2>{movie.title}</h2></NavLink>
                             <MovieOverview>{movie.overview}</MovieOverview>
                             <SaveList movieInfos={movie} movieId={movie.id} listVisible={listVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible}/>
-                            <WriteReview movieId={movie.id} setListVisible={setListVisible} reviewVisible={reviewVisible} setReviewVisible={setReviewVisible}/>
+                            <WriteReview movieId={movie.id} reviewVisible={reviewVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible} />
                         </MovieInfo>
                     </MovieSection>
                 </ReviewBox>})

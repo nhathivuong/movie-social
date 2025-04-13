@@ -1,13 +1,17 @@
 import Modal from 'styled-react-modal'
 import styled from 'styled-components'
 import { useContext, useState } from 'react'
-
+import Resizer from "react-image-file-resizer";
+//icon
+import { CiEdit } from "react-icons/ci";
+//context
 import { UserContext } from '../../contexts/UserContext'
 const EditProfile = ({userInfos, username}) =>{
     const { loggedInUser, setUpdateUser} = useContext(UserContext)
     const [feedBackMessage, setFeedBackMessage] = useState()
     const [open, setOpen] = useState(false)
     
+    const [src, setSrc] = useState(loggedInUser.src)
     const [editName, setEditName] = useState(userInfos.name)
     const [editPronoun, setEditPronoun] = useState(userInfos.pronouns|| "")
     const [text, setText] = useState(userInfos.bio || "")
@@ -15,6 +19,7 @@ const EditProfile = ({userInfos, username}) =>{
     const handleEdit = (event) => {
         event.preventDefault()
         const body = JSON.stringify({
+            src: src,
             name: editName,
             pronouns: editPronoun,
             bio: text
@@ -32,7 +37,7 @@ const EditProfile = ({userInfos, username}) =>{
         .then(data => {
             setFeedBackMessage(data.message)
             if(data.status === 200){
-                setUpdateUser(update => update+1)
+                setUpdateUser(update => update + 1)
             }
             setTimeout(() => {
                 setOpen(false)
@@ -47,7 +52,38 @@ const EditProfile = ({userInfos, username}) =>{
     const handleClose = () => {
         setOpen(false)
     }
-
+    const resize = (file) => {
+        return new Promise((res, rej) => {
+            try {
+                // settings to resize the images
+                Resizer.imageFileResizer(
+                file,
+                2500,
+                2500,
+                "JPEG",
+                50,
+                0,
+                (base64) => res(base64),
+                "base64"
+                )
+            } 
+            catch (err) {
+                rej(err)
+            }
+            })
+        };
+    // set Preview Image and image src
+    const previewImage = async ({ target: { files } }) => {
+        const selectedFile = files[0]
+        if (!selectedFile) return setSrc("/assets/default_picture.svg")
+        try {
+            const base64 = await resize(selectedFile)
+            setSrc(base64)
+        } 
+        catch (err) {
+            console.error("Image resize failed:", err)
+        }
+    }
     return <>
         {loggedInUser && userInfos.username === loggedInUser.username && <Edit onClick={handleOpen}>Edit profile</Edit>}
             <Modal isOpen={open} onClose={handleClose} aria-labelledby="child-modal-title">
@@ -57,8 +93,18 @@ const EditProfile = ({userInfos, username}) =>{
                         <ClosingButton type="button" onClick={handleClose}>x</ClosingButton>
                     </Title>
                     <ModifSection onSubmit={handleEdit}>
+                        <PictureLabel htmlFor="image">
+                        <InputHidden id="image" type="file" accept="image/jpg" multiple={false} onChange={previewImage}/>
+                        {src && 
+                            <PictureWrapper>
+                                <ProfilePicture src={src} alt="profile picture"/>
+                                <EditPicture>
+                                    <CiEdit/>
+                                </EditPicture>
+                            </PictureWrapper>}
+                        </PictureLabel>
                         <EachEdit>
-                            <label htmlFor="name">Name:</label>
+                            <label htmlFor="name">Name</label>
                             <input type="text" id="name" name="name" value={editName} onChange={(event) => setEditName(event.target.value)}/>
                         </EachEdit>
                         <EachEdit>
@@ -117,6 +163,56 @@ const Title = styled.div`
 const ModifSection = styled.form`
     display:flex;
     flex-direction: column;
+`
+
+
+const Overlay = styled.div`
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    font-size: 14px;
+`;
+const PictureLabel = styled.label`
+    display:flex;
+    justify-content:center;
+    margin:auto;
+`
+const EditPicture = styled.div`
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.4);
+    color: white; 
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    font-size: 2rem;
+`
+const InputHidden = styled.input`
+    display: none;
+`
+const PictureWrapper = styled.div`
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--color-light);
+    &:hover div {
+        opacity: 1;
+    }
+`
+const ProfilePicture = styled.img`
+    width:100%;
+    border-radius:50%;
+    object-fit: cover;
 `
 const EachEdit = styled.div`
     display:flex;

@@ -1,22 +1,30 @@
 import { useContext, useState } from "react"
 import styled from "styled-components"
+import { NavLink } from "react-router-dom"
+import Modal from 'styled-react-modal'
+//context
 import { UserContext } from "../../contexts/UserContext"
-import { useNavigate } from "react-router-dom"
 
 const SaveList = ({movieInfos, movieId, listVisible, setListVisible, setReviewVisible}) =>{
     const [listName, setListName] = useState()
     const [createVisible, setCreateVisible] = useState(false)
     const [feedBackMessage, setFeedBackMessage] = useState()
-    const {setUpdateUser,loggedInUser } = useContext(UserContext)
+    const {setUpdateUser, loggedInUser } = useContext(UserContext)
+    const [modalMessage, setModalMessage] = useState(false)
 
-    const navigate = useNavigate()
     // makes the lists appear
     const listVisibility = () => {
         if(!loggedInUser){
-            navigate("/logIn")
+            return setModalMessage(true)
         }
-        setListVisible(!listVisible)
-        setReviewVisible(false)
+        // This ensures that only the correct Save to List is opened in the community page
+        if(listVisible === movieId){
+            setListVisible(null)
+        }
+        else{
+            setListVisible(movieId) 
+            setReviewVisible(null)
+        }
     }
     //makes ths create list visible
     const createListVisibility = () => {
@@ -30,7 +38,7 @@ const SaveList = ({movieInfos, movieId, listVisible, setListVisible, setReviewVi
             setFeedBackMessage()
         },2500)
     }
-    const updateList = (event) => {
+    const updateList = (event, movieId) => {
         event.preventDefault()
         
         const options = {
@@ -49,35 +57,48 @@ const SaveList = ({movieInfos, movieId, listVisible, setListVisible, setReviewVi
             return res.json()
         })
         .then(data => {
+            setFeedBackMessage(data.message)
             if(data.status === 201){
-                setFeedBackMessage(data.message)
-                setUpdateUser((update) => update+1)
+                setUpdateUser((update) => update + 1)
             }
         })
         .catch(error => console.error(error.message))
     }
     return <>
         <Button type="button" onClick={listVisibility}>Save to List</Button>
-        {listVisible && <ListSection>
-            <Title>
-                <h2>Add to your list</h2>
-                <ClosingButton type="button" onClick={listVisibility}>x</ClosingButton>
-            </Title>
-            <form onSubmit={updateList}>{loggedInUser && loggedInUser.lists.map((list)=>{
-                return <div key={list.name}>
-                <input type="checkbox" id={list.name} name={list.name} value={list.name} onChange={() => setListName(list.name)}/>
-                <label htmlFor={list.name}>{list.name}</label>
-                </div>
-            })}
-                <OtherButton type="button" onClick={createListVisibility}>Create List</OtherButton><br/>
-                {createVisible && <NewListSection>
-                    <label htmlFor="new-list">New List Name</label>
-                    <ListNameInput type="text" id="new-list" name="new-list" onChange={(event) => setListName(event.target.value)}/>
-                </NewListSection>}
-                <OtherButton type="submit" onClick={removeVisibility}>Confirm</OtherButton>
-            </form>
-            {feedBackMessage && <p>{feedBackMessage}</p>}
-        </ListSection>}
+        {listVisible === movieId && <Modal isOpen={listVisible === movieId}>
+            <ListSection>
+                <Title>
+                    <h2>Add to your list</h2>
+                    <ClosingButton type="button" onClick={listVisibility}>x</ClosingButton>
+                </Title>
+                <form onSubmit={event => updateList(event, movieId)}>{loggedInUser && loggedInUser.lists.map((list)=>{
+                    return <div key={list.name}>
+                    <input type="checkbox" id={list.name} name={list.name} value={list.name} onChange={() => setListName(list.name)}/>
+                    <label htmlFor={list.name}>{list.name}</label>
+                    </div>
+                })}
+                    <OtherButton type="button" onClick={createListVisibility}>Create List</OtherButton><br/>
+                    {createVisible && <NewListSection>
+                        <label htmlFor="new-list">New List Name</label>
+                        <ListNameInput type="text" id="new-list" name="new-list" onChange={(event) => setListName(event.target.value)}/>
+                    </NewListSection>}
+                    <OtherButton type="submit" onClick={removeVisibility}>Confirm</OtherButton>
+                </form>
+                {feedBackMessage && <p>{feedBackMessage}</p>}
+            </ListSection>
+        </Modal>
+        }
+        <Modal isOpen={modalMessage}>
+            <AlertSection>
+                <Title>
+                    <h2>Oops!</h2>
+                    <ClosingButton type="button" onClick={()=>setModalMessage(false)}>x</ClosingButton>
+                </Title>
+                <p>You need to be logged in to access this feature</p>
+                <NavLink to="/login"><LogInButton type="button">Log in</LogInButton></NavLink>
+            </AlertSection>
+        </Modal>
         </>
 }
 
@@ -129,5 +150,25 @@ const NewListSection = styled.div`
 `
 const ListNameInput = styled.input`
     width: 50%;
+`
+const AlertSection = styled(ListSection)`
+    width: 25vw;
+`
+const LogInButton = styled.button`
+    margin-top: 1rem;
+    width:100%;
+    height: 2rem;
+    border-radius: 5px;
+    background-color: var(--color-accent);
+    border: none;
+    text-transform: uppercase;
+    font-weight:bold;
+    color: var(--color-dark);
+    box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark-accent) inset;
+    cursor: pointer;
+    &:active{
+        background: transparent;
+        outline: 2px solid var(--color-accent);
+    }
 `
 export default SaveList
