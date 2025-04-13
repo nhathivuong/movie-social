@@ -73,8 +73,7 @@ const LogInButton = styled.button`
     border: none;
     text-transform: uppercase;
     font-weight:bold;
-    color: var(--color-light);
-    text-shadow: 0 0 1px black;
+    color: var(--color-dark);
     box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark-accent) inset;
     cursor: pointer;
     &:active{

@@ -42,7 +42,7 @@ const Header = () => {
     return (
         <nav>
             <NavSection>
-                <Logo to="/"><h1>Film Media</h1></Logo>
+                <NavLink to="/"><Logo src="/assets/logo.png"/></NavLink>
                 <SearchBar>
                     <form onSubmit={handleSearch}>
                         <SearchInput type="text" id="search" name="search" placeholder="Search ..." required/>
@@ -78,10 +78,10 @@ const NavSection = styled.div`
     flex-direction: row;
     justify-content: space-between;
 `
-const Logo = styled(NavLink)`
-    &:hover{
-        text-decoration: none;
-    }
+const Logo = styled.img`
+    height: 5rem;
+    object-fit: cover;
+    margin: 0 1rem;
 `
 const SearchBar = styled.div`
     justify-self:center;
