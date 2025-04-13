@@ -30,7 +30,7 @@ const LogIn = () =>{
             if(data.status === 200){
                 setLoggedInUser(data.user)
                 logIn(data.user)
-                navigate(`/user/${data.user.username}`)
+                navigate("/community")
             }
         })
         .catch(error => console.error(error.message))
