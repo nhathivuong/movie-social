@@ -27,7 +27,7 @@ const Reviews = ({movieReviews, movieId}) => {
                 {userMovieReviews.length > 0 && userMovieReviews.map((review) => {
                     const reviewUser = allUsers.find(user => user.username === review.username)
                 return (<>{reviewUser 
-                    ?<ReviewBox key={review.id}>
+                    ?<ReviewBox key={review._id}>
                         <div>
                             <ProfilePicture src={reviewUser.src} alt={`${review.username} profile picture`} />
                             {review.rating && <p>Rating: {review.rating}</p>}

@@ -28,8 +28,8 @@ const UserProvider = ({children}) =>{
         localStorage.setItem("username", user.username)
     }
     const logOut = () => {
-        setLoggedInUser(null)
         localStorage.removeItem("username")
+        setLoggedInUser(null)
     }
     //handles the follow an unfollowing of users
     const follow = (username) =>{

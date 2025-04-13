@@ -13,7 +13,6 @@ app.use(cors({
         'https://movie-social-git-dev-nha-thi-vuongs-projects.vercel.app/' // development frontend
     ],
     methods: ['GET', 'POST', 'PATCH'],
-    credentials: true,
 }));
 
 //middleware

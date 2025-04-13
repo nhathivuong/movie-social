@@ -49,7 +49,7 @@ const EditProfile = ({userInfos, username}) =>{
     }
 
     return <>
-        {userInfos.username === loggedInUser.username && <Edit onClick={handleOpen}>Edit profile</Edit>}
+        {loggedInUser && userInfos.username === loggedInUser.username && <Edit onClick={handleOpen}>Edit profile</Edit>}
             <Modal isOpen={open} onClose={handleClose} aria-labelledby="child-modal-title">
                 <ReviewForm>
                     <Title>
