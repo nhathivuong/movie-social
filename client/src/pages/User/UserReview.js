@@ -1,6 +1,13 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
+import { useState } from "react";
+// components
+import SaveList from "../MoviePage/SaveList"
+import WriteReview from "../MoviePage/WriteReview"
 
 const UserReview = ({userReviews, movies}) =>{
+    const [listVisible, setListVisible] = useState(false)
+        const [reviewVisible, setReviewVisible] = useState(false)
     return <>{userReviews && movies &&
         <ReviewElement>
             <h1>Reviews</h1>
@@ -12,9 +19,11 @@ const UserReview = ({userReviews, movies}) =>{
                     ? `https://image.tmdb.org/t/p/original${movie.poster_path}` 
                     : "/assets/no_poster.jpg"} alt={movie.title}  width={150}/>
                     <div>
-                        <h2>{movie.title}</h2>
+                        <NavLink to={`/movie/${review.movieId}`}><h2>{movie.title}</h2></NavLink>
                         <p>Rating: {review.rating}</p>
                         <ReviewContent>{review.content}</ReviewContent>
+                        <SaveList movieInfos={movie} movieId={movie.id} listVisible={listVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible}/>
+                        <WriteReview movieId={movie.id} reviewVisible={reviewVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible} />
                     </div>
                 </ReviewBox>)
             })

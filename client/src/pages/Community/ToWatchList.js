@@ -35,9 +35,12 @@ const WatchSection = styled.div`
 `
 const MoviesToWatch = styled.div`
     margin: 2rem 0;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    gap: 0.75rem;
+    height: fit-content;
 `
 const MovieIcon = styled.img`
     width: 75px;
-    margin: 0.2rem;
 `
 export default ToWatchList
