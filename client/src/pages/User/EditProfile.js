@@ -11,7 +11,7 @@ const EditProfile = ({userInfos, username}) =>{
     const [feedBackMessage, setFeedBackMessage] = useState()
     const [open, setOpen] = useState(false)
     
-    const [src, setSrc] = useState(loggedInUser.src)
+    const [src, setSrc] = useState(userInfos.src)
     const [editName, setEditName] = useState(userInfos.name)
     const [editPronoun, setEditPronoun] = useState(userInfos.pronouns|| "")
     const [text, setText] = useState(userInfos.bio || "")
