@@ -1,12 +1,27 @@
-import { useContext } from "react"
-import { AllReviewsContext } from "../../contexts/AllReviewsContext"
+import { useContext} from "react"
+import styled from "styled-components"
+//context
 import { UserContext } from "../../contexts/UserContext"
+// components
+import ToWatchList from "./ToWatchList"
+import Updates from "./Updates"
+
 const CommunityPage = () =>{
-    const {allReviews} = useContext(AllReviewsContext)
     const {loggedInUser} = useContext(UserContext)
 
-    const followingReview = allReviews.filter((review) => loggedInUser.follows.includes(review.username))
-    return <p>building...</p>
+    if(!loggedInUser){
+        return <p>Loading information...</p>
+    }
+    
+    return (
+    <Community>
+        <ToWatchList/>
+        <Updates/>
+    </Community>)
 }
-
+const Community = styled.div`
+    margin: 2rem 0;
+    display:flex;
+    flex-direction: row;
+`
 export default CommunityPage
