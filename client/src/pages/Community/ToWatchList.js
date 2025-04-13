@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
+//context
+import { UserContext } from "../../contexts/UserContext"
 
 const ToWatchList = () => {
     const {loggedInUser} = useContext(UserContext)
     const [toWatchList, setToWatchList] = useState()
     const [toWatchMoviesInfos, setToWatchMoviesInfos] = useState()
-    
+
     useEffect(()=>{
         const getMovieInfoToWatchList = async()=>{
             try{
