@@ -7,7 +7,13 @@ const middleware = async(req, res) =>{
     try {
         await client.connect();
         const db = client.db("movie");
-        const user = await db.collection("users").findOne({_id: req.user._id}, {projection: {password: 0, _id : 0}})
+        const user = await db.collection("users").findOne({username: req.user.username}, {projection: {password: 0, _id : 0}})
+        if(!user){
+            return res.status(404).json({
+                status:404,
+                message: `${req.user.username} was not found`
+            })
+        }
         res.status(200).json({
             status:200,
             user: user

@@ -40,7 +40,7 @@ const SignUp = () => {
             if(data.status === 201){
                 logIn(data.token);
                 setUpdateUser(update => update + 1);
-                navigate(`/user/${data.user.username}`)
+                navigate(`/user/${data.username}`)
             }
         })
     }

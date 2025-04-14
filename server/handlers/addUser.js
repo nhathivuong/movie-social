@@ -55,14 +55,17 @@ const addUser = async(req, res) => {
         }
         //creates the user in the database
         await db.collection("users").insertOne(newUser)
+
         const token = jwt.sign(
-            {userId: user._id, username: user.username},
+            {userId: newUser._id, username: newUser.username},
             JWT_SECRET,
             {expiresIn: "1d"}
         )
+
         res.status(201).json({
             status: 201,
             token,
+            username: username,
             message: `${username} account has been created`
         })
     }
