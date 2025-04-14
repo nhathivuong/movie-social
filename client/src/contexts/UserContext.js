@@ -11,9 +11,14 @@ const UserProvider = ({children}) =>{
     
     //will set the loggedInUser from the localstorage on mount (auto-login)
     useEffect(()=>{
-        const loggedInUsername = localStorage.getItem("username")
-        if(loggedInUsername){
-            fetch(`https://movie-social.onrender.com/user/${loggedInUsername}`)
+        const userToken = localStorage.getItem("token")
+        if(userToken){
+            const options = {
+                headers: {
+                    Authorization: `Bearer ${userToken}`
+                }
+            }
+            fetch("https://movie-social.onrender.com/profile", options)
             .then(res => res.json())
             .then(data => {
                 if(data.status === 200){setLoggedInUser(data.user)}
@@ -23,12 +28,11 @@ const UserProvider = ({children}) =>{
     },[updateUser])
     
     //functions that handles the login and the logout of the user in localstorage and in the frontend
-    const logIn = (user) => {
-        setLoggedInUser(user)
-        localStorage.setItem("username", user.username)
+    const logIn = (token) => {
+        localStorage.setItem("token", token)
     }
     const logOut = () => {
-        localStorage.removeItem("username")
+        localStorage.removeItem("token")
         startTransition(()=> setLoggedInUser(null))
     }
     //handles the follow an unfollowing of users

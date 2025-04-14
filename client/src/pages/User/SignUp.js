@@ -9,7 +9,7 @@ import { UserContext} from "../../contexts/UserContext"
 
 const SignUp = () => {
     const [src, setSrc] = useState()
-    const {setLoggedInUser, logIn} = useContext(UserContext)
+    const {logIn, setUpdateUser} = useContext(UserContext)
     const navigate = useNavigate()
 
     const handleSignUp = (event) => {
@@ -18,6 +18,7 @@ const SignUp = () => {
             name: document.getElementById("fullname").value,
             username: document.getElementById("username").value,
             email: document.getElementById("email").value,
+            password: document.getElementById("password").value,
             src: src
         })
         const options = {
@@ -37,9 +38,9 @@ const SignUp = () => {
         })
         .then(data => {
             if(data.status === 201){
-                setLoggedInUser(data.user);
-                logIn(data.user);
-                navigate(`/user/${data.user.username}`)
+                logIn(data.token);
+                setUpdateUser(update => update + 1);
+                navigate(`/user/${data.username}`)
             }
         })
     }
@@ -85,6 +86,8 @@ const SignUp = () => {
         <UserInput type="text" id="username" name="username" required/>
         <label htmlFor="email">Email</label>
         <UserInput type="email" id="email" name="email" required/>
+        <label htmlFor="password">Password</label>
+        <UserInput type="password" id="password" name="password" required/>
         <label htmlFor="image">
         <input id="image" type="file" accept="image/jpg" multiple={false} onChange={previewImage}/>
         {src && <ProfilePicture src={src} alt="profile picture"/>}

@@ -13,6 +13,8 @@ const getGenres = require("./handlers/getGenres")
 const getReviews = require("./handlers/getReviews")
 const addFriend = require("./handlers/addFriend")
 const removeFriend = require("./handlers/removeFriend")
+const verifyToken = require("./handlers/verifyToken")
+const middleware = require("./handlers/middleware")
 
 module.exports = {
     addUser,
@@ -29,5 +31,7 @@ module.exports = {
     getGenres,
     getReviews,
     addFriend,
-    removeFriend
+    removeFriend,
+    verifyToken,
+    middleware
 }

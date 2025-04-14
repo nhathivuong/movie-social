@@ -7,17 +7,21 @@ import styled from "styled-components"
 import { UserContext } from "../../contexts/UserContext"
 
 const LogIn = () =>{
-    const {logIn, setLoggedInUser} = useContext( UserContext )
+    const {logIn, setUpdateUser} = useContext( UserContext )
     const navigate = useNavigate()
     const handleLogIn = (event) =>{
         event.preventDefault()
+        const body = JSON.stringify({
+            username: document.getElementById("username").value,
+            password: document.getElementById("password").value
+        })
         const options = {
             method: "POST",
             headers:{
                 "Accept" : "application/json",
                 "Content-Type" : "application/json",
             },
-            body: JSON.stringify({username: document.getElementById("username").value})
+            body,
         }
         fetch("https://movie-social.onrender.com/login", options)
         .then(res => {
@@ -28,8 +32,8 @@ const LogIn = () =>{
         })
         .then(data => {
             if(data.status === 200){
-                setLoggedInUser(data.user)
-                logIn(data.user)
+                logIn(data.token)
+                setUpdateUser((update) => update + 1)
                 navigate("/community")
             }
         })
@@ -39,13 +43,14 @@ const LogIn = () =>{
         <h2>Log In</h2>
         <LogInForm onSubmit={handleLogIn}>
             <label htmlFor="username">Username</label>
-            <UserInput id="username" name="username" required/>
+            <UserInput type="text" id="username" name="username" required/>
+            <label htmlFor="password">Password</label>
+            <UserInput type="password" id="password" name="password" required/>
             <LogInButton type="submit">Log in</LogInButton>
         </LogInForm>
         <p>New here? <SignUp to="/signUp">Sign Up</SignUp></p>
         </LogInBox>
 }
-// remember me to auto login
 
 const LogInBox = styled.div`
     width:30svw;
