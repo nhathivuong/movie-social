@@ -29,15 +29,15 @@ const updateUser = async(req, res) =>{
                 message: `${username}'s info was not modified`
             })
         }
-        const user = await db.collection("users").findOne({username:username})
+        const user = await db.collection("users").findOne({username:username}, {projection: {password: 0, _id : 0}})
         res.status(200).json({
             status:200,
             message: `${username}'s profile has been updated`,
-            user: user // password
+            user: user
         })
     }
     catch(error){
-        res.statue(502).json({
+        res.status(502).json({
             status:502,
             message: error.message
         })

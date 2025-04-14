@@ -2,29 +2,22 @@ const { MongoClient } = require("mongodb")
 require("dotenv").config()
 const { MONGO_URI } = process.env
 const {v4: uuidv4 } = require("uuid")
+const bcrypt = require("bcrypt")
+const jwt = require('jsonwebtoken')
+const {JWT_SECRET} = process.env
 
 // this creates and account when a user sign up to the website
 const addUser = async(req, res) => {
-    const { name, email, username, src } = req.body
-
+    const { name, email, username, src, password } = req.body
+    
     // checks if the body is filled properly
-    if(!name ||!email ||!username || !src){
+    if(!name ||!email ||!username || !src ||!password){
         return res.status(404).json({
             status: 404,
             message: "The request is missing data"
         })
     }
-    // the user object
-    const newUser = {
-        _id: uuidv4(),
-        name: name,
-        username: username,
-        email: email,
-        src: src,
-        lists: [{name: "To Watch", movies: []}],
-        follows: [],
-        status: "active"
-    }
+    
     const client = new MongoClient(MONGO_URI)
     try{
         await client.connect()
@@ -45,12 +38,31 @@ const addUser = async(req, res) => {
                 message: "The email is already taken"
             })
         }
+
+        //encrypts the password
+        const encryptedPassword = await bcrypt.hash(password, 10)
+        // the user object
+        const newUser = {
+            _id: uuidv4(),
+            name: name,
+            username: username,
+            email: email,
+            password: encryptedPassword,
+            src: src,
+            lists: [{name: "To Watch", movies: []}],
+            follows: [],
+            status: "active"
+        }
         //creates the user in the database
         await db.collection("users").insertOne(newUser)
-        
+        const token = jwt.sign(
+            {userId: user._id, username: user.username},
+            JWT_SECRET,
+            {expiresIn: "1d"}
+        )
         res.status(201).json({
             status: 201,
-            user:newUser, //check with password
+            token,
             message: `${username} account has been created`
         })
     }

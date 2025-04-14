@@ -35,7 +35,9 @@ const {
     getGenres,
     getReviews,
     addFriend,
-    removeFriend
+    removeFriend,
+    verifyToken,
+    middleware
 } = require("./handlers")
 
 // this creates and account when a user sign up to the website
@@ -81,6 +83,9 @@ app.get("/reviews", getReviews)
 app.patch("/addFriend", addFriend)
 //remove friend
 app.patch("/removeFriend", removeFriend)
+
+// verify token and gives login info
+app.get("/profile", verifyToken, middleware)
 
 app.use('*', (req, res) => {
     res.status(404).json({status: 404, message: "Endpoint not found!"});
