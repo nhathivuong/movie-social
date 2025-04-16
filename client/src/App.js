@@ -7,8 +7,16 @@ import ProfilePage from "./pages/User/ProfilePage"
 import BrowseMovies from "./pages/Search"
 import MoviePage from "./pages/MoviePage"
 import CommunityPage from "./pages/Community"
+import SplashScreen from "./SplashScreen"
+import { useContext } from "react";
+import { AllReviewsContext } from "./contexts/AllReviewsContext";
+
 const App = () => {
-    return <Router>
+    const {allReviews} = useContext(AllReviewsContext)
+    return <>
+    {!Array.isArray(allReviews)
+    ? <SplashScreen/>
+    :<Router>
         <Header />
         <Routes>
             <Route path="/" element={<Home/>}/>
@@ -20,7 +28,8 @@ const App = () => {
             <Route path="/signUp" element={<SignUp/>}/>
             <Route path="*" element={<Navigate to="/" />} />
         </Routes>
-    </Router>
+    </Router>}
+    </>
 }
 
 export default App
