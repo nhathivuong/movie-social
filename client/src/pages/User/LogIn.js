@@ -17,6 +17,7 @@ const LogIn = () =>{
         })
         const options = {
             method: "POST",
+            credentials: 'include',
             headers:{
                 "Accept" : "application/json",
                 "Content-Type" : "application/json",

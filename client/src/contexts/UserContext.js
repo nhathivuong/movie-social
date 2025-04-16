@@ -16,7 +16,8 @@ const UserProvider = ({children}) =>{
             const options = {
                 headers: {
                     Authorization: `Bearer ${userToken}`
-                }
+                },
+                credentials: 'include'
             }
             fetch("https://movie-social.onrender.com/profile", options)
             .then(res => res.json())
