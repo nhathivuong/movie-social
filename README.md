@@ -1,6 +1,6 @@
 # Film Media - The all in one platform for movie enjoyers 🎥
 
-A website inspired by the social media experience of Goodreads to movies. Film media is a React app that lets user browse, search, save and review movies using a live API. Users are also able to follow other users
+A website inspired by the social media experience of Goodreads. Film media is a React app that lets user browse, search, save and review movies using a live API. Users are also able to follow other users
 
 [🔗 Film Media](https://film-media.vercel.app/)
 
