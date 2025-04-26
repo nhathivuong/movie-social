@@ -100,6 +100,10 @@ const SignUp = () => {
 }
 const SignUpBox = styled.div`
     width:30svw;
+    position:absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     margin: 2rem auto;
     padding: 1rem;
     display:flex;
