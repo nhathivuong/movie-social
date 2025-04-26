@@ -71,10 +71,10 @@ const Header = () => {
                     <NavLink to="/" onClick={closeGenre}>Home</NavLink>
                     <NavLink to="/community" onClick={closeGenre}>Community</NavLink>
                     <NavLink to={`/user/${loggedInUser.username}`} onClick={closeGenre}>Hi {loggedInUser.username}</NavLink> {/* I would like this to be the user image with name */}
-                    <NavLink to="/" onClick={()=> {logOut(); closeGenre()}}>Log out</NavLink></>
+                    <SignUpLogOut to="/" onClick={()=> {logOut(); closeGenre()}}>Log out</SignUpLogOut></>
                     :<>
-                    <NavLink to="/login" onClick={closeGenre}>Log in</NavLink>
-                    <NavLink to="/signUp" onClick={closeGenre}>Sign up</NavLink>
+                    <LogInButton to="/login" onClick={closeGenre}>Log in</LogInButton>
+                    <SignUpLogOut to="/signUp" onClick={closeGenre}>Sign up</SignUpLogOut>
                     </>}
                 </LogInLogOut>
             </NavSection>
@@ -163,5 +163,32 @@ const LogInLogOut = styled.div`
     margin: 0 1.5rem;
     align-items: center;
 `
-
+const LogInButton = styled(NavLink)`
+    background-color: var(--color-accent);
+    padding: 0.3rem 0.8rem;
+    border-radius: 3px;
+    color: var(--color-dark);
+    &:hover{
+        box-shadow: 0 0 5px var(--color-accent);
+    }
+    &:active{
+        border: 1px solid var(--color-dark-accent);
+        box-shadow: 0 0 2px var(--color-accent) inset, 0 0 5px var(--color-dark) inset;
+        text-decoration: none;
+    }
+`
+const SignUpLogOut = styled(NavLink)`
+    background-color: var(--color-dark-accent);
+    padding: 0.3rem 0.8rem;
+    border-radius: 3px;
+    box-shadow: 0 0 2px var(--color-accent);
+    &:hover{
+        box-shadow: 0 0 5px var(--color-dark-accent);
+    }
+    &:active{
+        border: 1px solid var(--color-dark-accent);
+        box-shadow: 0 0 2px var(--color-accent) inset, 0 0 5px var(--color-dark) inset;
+        text-decoration: none;
+    }
+`
 export default Header
