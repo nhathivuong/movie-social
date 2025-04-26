@@ -5,6 +5,7 @@ import styled from "styled-components"
 
 //icons
 import { IoSearchSharp } from "react-icons/io5";
+import { IoMenu } from "react-icons/io5";
 
 // context
 import { UserContext } from "./contexts/UserContext"
@@ -13,8 +14,9 @@ import { UserContext } from "./contexts/UserContext"
 const Header = () => {
     const {loggedInUser, logOut} = useContext(UserContext)
     const [genresList, setGenresList] = useState()
+    const [genreOpen, setGenreOpen] = useState(false)
     const navigate = useNavigate()
-
+    
     //gets all the official movie genres
     useEffect(()=>{
         const getGenres = async() =>{
@@ -32,64 +34,96 @@ const Header = () => {
         getGenres()
     },[])
 
-    //to complete handles the search bar
+    //Handles the search bar
     const handleSearch = (event) =>{
         event.preventDefault()
+        setGenreOpen(false)
         const searchInput = document.getElementById("search").value
         navigate(`/browse?search=${searchInput}`)
     }
-
+    //handle the toggle of the genres
+    const genreToggle = (event) => {
+        event.preventDefault()
+        setGenreOpen(!genreOpen)
+    }
+    const closeGenre = () => {
+        setGenreOpen(false)
+    } 
     return (
         <nav>
             <NavSection>
-                <NavLink to="/"><Logo src="/assets/logo.png"/></NavLink>
+                <NavLink to="/" onClick={closeGenre}><Logo src="/assets/logo.png"/></NavLink>
                 <SearchBar>
                     <form onSubmit={handleSearch}>
+                        <SearchGenre type="button" onClick={genreToggle}><IoMenu/></SearchGenre>
                         <SearchInput type="text" id="search" name="search" placeholder="Search ..." required/>
-                        <SearchButton type="submit"><IoSearchSharp/></SearchButton>
+                        <SearchButton type="submit" onClick={closeGenre}><IoSearchSharp/></SearchButton>
                     </form>
+                    {genreOpen && <NavGenreSection>
+                        {genresList && genresList.map(genre =>{
+                            return <NavLink key={genre.id} to={`/browse?genre=${genre.name.toLowerCase()}`} state={{genreId: genre.id}} onClick={closeGenre}>{genre.name}</NavLink>
+                        })}
+                    </NavGenreSection>}
                 </SearchBar>
                 <LogInLogOut> 
                     {loggedInUser
                     ?<>
-                    <NavLink to="/community">Community</NavLink>
-                    <NavLink to={`/user/${loggedInUser.username}`}>Hi {loggedInUser.username}</NavLink> {/* I would like this to be the user image with maybe name */}
-                    <NavLink to="/" onClick={logOut}>Log out</NavLink></>
+                    <NavLink to="/" onClick={closeGenre}>Home</NavLink>
+                    <NavLink to="/community" onClick={closeGenre}>Community</NavLink>
+                    <NavLink to={`/user/${loggedInUser.username}`} onClick={closeGenre}>Hi {loggedInUser.username}</NavLink> {/* I would like this to be the user image with name */}
+                    <NavLink to="/" onClick={()=> {logOut(); closeGenre()}}>Log out</NavLink></>
                     :<>
-                    <NavLink to="/login" >Log in</NavLink>
-                    <NavLink to="/signUp" >Sign up</NavLink>
+                    <NavLink to="/login" onClick={closeGenre}>Log in</NavLink>
+                    <NavLink to="/signUp" onClick={closeGenre}>Sign up</NavLink>
                     </>}
                 </LogInLogOut>
             </NavSection>
-            <NavGenreSection>
-                {genresList && genresList.map(genre =>{
-                    return <NavLink key={genre.id} to={`/browse?genre=${genre.name.toLowerCase()}`} state={{genreId: genre.id}}>{genre.name}</NavLink>
-                })}
-            </NavGenreSection>
+            
         </nav>
     );
 }
 
 const NavSection = styled.div`
+    position: fixed;
+    top:0;
     width:100%;
     background-color: black;
     margin:0;
     display:flex;
     flex-direction: row;
     justify-content: space-between;
+    z-index:10;
 `
 const Logo = styled.img`
-    height: 5rem;
+    height: 4rem;
     object-fit: cover;
-    margin: 0 1rem;
+    margin: 5px 1rem;
+`
+const SearchGenre = styled.button`
+    position:relative;
+    left: 31px;
+    top: 5px;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px 0 0 30px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    background-color: transparent;
+    color: var(--color-accent);
+    font-size: 1.2rem;
+    text-align: center;
+    line-height: 30px;
 `
 const SearchBar = styled.div`
-    justify-self:center;
+    position:absolute;
+    left: 50%;
+    transform: translateX(-50%);
     align-self:center;
 `
 const SearchInput = styled.input`
     width: 30dvw;
     padding: 0.3rem;
+    padding-left: 2rem;
     border-radius: 30px;
     border: 3px solid var(--color-accent);
     box-shadow: 0 0 4px var(--color-accent);
@@ -100,27 +134,34 @@ const SearchInput = styled.input`
 `
 const SearchButton = styled.button `
     position:relative;
-    right: 28px;
-    top: 0.5px;
-    width: 27px;
-    height: 27px;
+    right: 29px;
+    top: 2.5px;
+    width: 30px;
+    height: 30px;
     border-radius: 30px;
     cursor: pointer;
     border: 2px solid var(--color-accent);
     background-color: var(--color-accent);
+    text-align: center;
+    line-height: 30px;
 `
 const NavGenreSection = styled(NavSection)`
-    width:100%;
+    position:absolute;
+    top: 40px;
+    padding: 1rem 2rem;
+    gap: 0.5rem;
+    width:fit-content;
     background-color: black;
     margin:0;
     display:flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-evenly;
 `
 const LogInLogOut = styled.div`
     display: flex;
     gap: 0.7rem;
-    margin: 0 0.5rem;
+    margin: 0 1.5rem;
+    align-items: center;
 `
 
 export default Header

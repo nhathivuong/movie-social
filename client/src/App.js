@@ -10,7 +10,7 @@ import CommunityPage from "./pages/Community"
 import SplashScreen from "./SplashScreen"
 import { useContext } from "react";
 import { AllReviewsContext } from "./contexts/AllReviewsContext";
-
+import styled from "styled-components"
 const App = () => {
     const {allReviews} = useContext(AllReviewsContext)
     return <>
@@ -18,6 +18,7 @@ const App = () => {
     ? <SplashScreen/>
     :<Router>
         <Header />
+        <Main>
         <Routes>
             <Route path="/" element={<Home/>}/>
             <Route path="/browse" element={<BrowseMovies/>}/>
@@ -28,8 +29,12 @@ const App = () => {
             <Route path="/signUp" element={<SignUp/>}/>
             <Route path="*" element={<Navigate to="/" />} />
         </Routes>
+        </Main>
     </Router>}
     </>
 }
-
+const Main = styled.main`
+margin-top: 75px;
+margin-bottom: 2rem;
+`
 export default App

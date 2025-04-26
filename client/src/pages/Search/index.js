@@ -27,7 +27,7 @@ const BrowseMovies = () => {
 }
 const SearchFor = styled.h2`
     width:fit-content;
-    margin: 2rem auto 1rem auto;
+    margin: 6rem auto 1rem auto;
     span{
         text-transform:capitalize;
     }

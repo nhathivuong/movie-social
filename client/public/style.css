@@ -51,7 +51,7 @@ table {
 
 /* The colors */
 :root{
-    --color-dark: #131515;
+    --color-dark: #000000;
     --color-dark-accent: #00272B;
     --color-accent: #9AE19D;
     --color-light: #EEEEEE;

@@ -55,6 +55,10 @@ const LogIn = () =>{
 
 const LogInBox = styled.div`
     width:30svw;
+    position:absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     margin: 2rem auto;
     padding: 1rem;
     display:flex;
