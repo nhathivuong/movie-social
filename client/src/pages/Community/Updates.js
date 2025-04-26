@@ -26,7 +26,7 @@ const Updates =() =>{
                 const sortedReviews = followingReview.sort((a,b) => new Date(b.createdAt)- new Date(a.createdAt))
                 setSortedReviews(sortedReviews)
                 const movieRequest = sortedReviews.map(async(review) => {
-                    const res = await fetch(`https://movie-social.onrender.com/api/movie/${review.movieId}`);
+                    const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/movie/${review.movieId}`);
                     const data = await res.json();
                     return data.movieDetails;
                     })

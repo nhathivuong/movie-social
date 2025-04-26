@@ -49,7 +49,7 @@ const SaveList = ({movieInfos, movieId, listVisible, setListVisible, setReviewVi
             },
             body: JSON.stringify({username: loggedInUser.username, movieTitle: movieInfos.title, movieSrc: movieInfos.poster_path, listName: listName })
         }
-        fetch(`https://movie-social.onrender.com/movie/${movieId}/list`, options)
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/movie/${movieId}/list`, options)
         .then(res => {
             if(!res.ok){
                 throw new Error("the movie was not added")

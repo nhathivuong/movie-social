@@ -24,7 +24,7 @@ const ProfilePage = () =>{
     useEffect(()=>{
         const loadData = async () => {
             try{
-                const response = await fetch(`https://movie-social.onrender.com/user/${username}`)
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/${username}`)
                 const data = await response.json()
                 if(data.status === 200){
                     setUserInfos(data.user)
@@ -33,7 +33,7 @@ const ProfilePage = () =>{
                 const userReviews = allReviews.filter(review => review.username === username)
                 setUserReviews(userReviews)
                 const movieRequest = userReviews.map(review => 
-                    fetch(`https://movie-social.onrender.com/api/movie/${review.movieId}`)
+                    fetch(`${process.env.REACT_APP_BACKEND_URL}/api/movie/${review.movieId}`)
                     .then(res => res.json())
                     .then(data => data.movieDetails)
                 )

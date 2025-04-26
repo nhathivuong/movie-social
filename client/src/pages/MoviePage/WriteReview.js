@@ -31,7 +31,7 @@ const WriteReview = ({movieId, setListVisible, reviewVisible, setReviewVisible})
             body
         }
         const newReviews = { ...body, movieId: movieId}
-        fetch(`https://movie-social.onrender.com/movie/${movieId}/review`, options)
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/movie/${movieId}/review`, options)
         .then(res => {
             if(!res.ok){
                 throw new Error("The review was not created")

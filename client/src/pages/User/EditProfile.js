@@ -32,7 +32,7 @@ const EditProfile = ({userInfos, username}) =>{
             },
             body
         }
-        fetch(`https://movie-social.onrender.com/user/${username}`, options)
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/user/${username}`, options)
         .then(res => res.json())
         .then(data => {
             setFeedBackMessage(data.message)
