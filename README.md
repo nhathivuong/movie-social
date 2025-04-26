@@ -47,6 +47,8 @@ To run the app locally, follow these steps:
    
     In ``client/.env``, remove the REACT_APP_BACKEND_URL value.
 
+    In the ``client/package.json``, add ``"proxy": "http://localhost:4000",``
+
     This ensures that your frontend can communicate with the backend correctly during development.
 
 6. Start the servers
