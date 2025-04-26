@@ -37,13 +37,19 @@ To run the app locally, follow these steps:
 2. Update client fetch requests
 
     Remove any hardcoded backend URLs (e.g. those pointing to Render) from the client-side fetch requests, so it uses relative paths like /user.
-3. Add a proxy
+   
+4. Update the .env files in the backend and in the frontend
 
-    In the ``client/package.json``, add: ``"proxy": "http://localhost:4000"``
+    In ``server/.env``, add your environment variables:
+   - MONGO_URI
+   - TMDB_API_KEY
+   - JWT_SECRET
+   
+    In ``client/.env``, remove the REACT_APP_BACKEND_URL value.
 
-    This lets your client communicate with the backend during development.
+    This ensures that your frontend can communicate with the backend correctly during development.
 
-4. Start the servers
+6. Start the servers
 
     In two separate terminals:
 
