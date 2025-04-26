@@ -45,7 +45,7 @@ const MoviePage = () =>{
         setMovieReviews()
         const fetchMoviePage = async() => {
             try {
-                const response = await fetch(`https://movie-social.onrender.com/api/movie/${movieId}`);
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/movie/${movieId}`);
                 const data = await response.json();
                 if (data.status === 200) {
                     setMovieInfos(data.movieDetails);

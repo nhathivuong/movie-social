@@ -8,7 +8,7 @@ const AllUsersProvider = ({children}) => {
     //returns an array with all the users' username, name and src keys
     useEffect(() =>{
         const getAllUsers = () =>{
-            fetch("https://movie-social.onrender.com/users")
+            fetch(`${process.env.REACT_APP_BACKEND_URL}/users`)
             .then(res => {
                 if (!res.ok) throw new Error("Failed to fetch users");
                 return res.json()})

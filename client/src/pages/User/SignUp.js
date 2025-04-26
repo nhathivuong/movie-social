@@ -30,7 +30,7 @@ const SignUp = () => {
             },
             body,
         }
-        fetch("https://movie-social.onrender.com/user", options)
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/user`, options)
         .then(res => {
             if(!res.ok){
                 throw new Error("the user was not logged in")

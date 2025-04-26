@@ -24,7 +24,7 @@ const LogIn = () =>{
             },
             body,
         }
-        fetch("https://movie-social.onrender.com/login", options)
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/login`, options)
         .then(res => {
             if(!res.ok){
                 throw new Error("the user was not logged in")

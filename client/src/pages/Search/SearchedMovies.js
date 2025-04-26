@@ -22,7 +22,7 @@ const SearchedMovies = ({search}) => {
             //this double ensure the moviesSearched is empty each time we switch
             setMoviesSearched()
             try {
-                const response = await fetch(`https://movie-social.onrender.com/api/search/${search}?page=${pageNumber}`);
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/search/${search}?page=${pageNumber}`);
                 const data = await response.json();
                 if (data.status === 200) {
                     setMoviesSearched(data.moviesSearched);

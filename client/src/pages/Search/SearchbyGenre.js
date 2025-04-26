@@ -23,7 +23,7 @@ const SearchbyGenre = ({genreId}) => {
             try {
                 //this ensure the moviesbyGenre is empty each time we switch genre or pageNumber
                 setMoviesbyGenre()
-                const response = await fetch(`https://movie-social.onrender.com/api/genre/${genreId}?page=${pageNumber}`);
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/genre/${genreId}?page=${pageNumber}`);
                 const data = await response.json();
                 if (data.status === 200) {
                     setMoviesbyGenre(data.moviesByGenre);

@@ -23,7 +23,7 @@ const AddFriend = ({currentUser, followUser}) => {
             },
             body
         }
-        fetch("https://movie-social.onrender.com/addFriend", options)
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/addFriend`, options)
         .then(res => res.json())
         .then(data => {
             if(data.status === 200){

@@ -19,7 +19,7 @@ const Header = () => {
     useEffect(()=>{
         const getGenres = async() =>{
             try {
-                const response = await fetch("https://movie-social.onrender.com/api/genres");
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/genres`);
                 const data = await response.json();
                 if (data.status === 200) {
                     setGenresList(data.genres);
