@@ -93,7 +93,7 @@ const ReviewBox = styled.div`
     margin: 2rem 1rem;
     padding: 1rem;
     gap: 1rem;
-    box-shadow: 0 0 3px var(--color-light) inset, 0 0 10px var(--color-dark) inset;
+    box-shadow: 0 0 5px var(--color-dark);
     border-radius: 10px;
 `
 const ReviewSection = styled.div`

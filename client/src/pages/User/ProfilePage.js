@@ -75,7 +75,7 @@ const ProfilePage = () =>{
 const ProfileSection = styled.div`
     display:flex;
     flex-direction: row;
-    margin: 2rem 1rem 0 2rem;
+    margin: 6rem 1rem 1rem 2rem;
     gap: 2rem;
 `
 const ListsReviews = styled.div`

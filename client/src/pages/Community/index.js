@@ -20,7 +20,7 @@ const CommunityPage = () =>{
     </Community>)
 }
 const Community = styled.div`
-    margin: 2rem 0;
+    margin: 6rem 0 1rem 0;
     display:flex;
     flex-direction: row;
 `
