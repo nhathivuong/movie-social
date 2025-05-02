@@ -61,13 +61,13 @@ const SearchbyGenre = ({genreId}) => {
             <PageNumber>Page {(pageNumber + 1) / 2} out of {Math.floor((maxPage)/2)}</PageNumber>
             <Arrows onClick={increasePage}><IoIosArrowForward/></Arrows>
         </PageSection>
-        <MoviesGrid>
         {moviesbyGenre 
-        ? moviesbyGenre.map((movie)=>{
-            return <MoviePoster key={movie.id} movie={movie}/>
-        })
-        :<SplashScreen/>}
+        ?<MoviesGrid>
+            {moviesbyGenre.map((movie) => (
+            <MoviePoster key={movie.id} movie={movie} />
+            ))}
         </MoviesGrid>
+        : <SplashScreen/>}
         <BottomPageNumber>
             <PageSectionBottom>
                 <Arrows onClick={decreasePage}><IoIosArrowBack/></Arrows>

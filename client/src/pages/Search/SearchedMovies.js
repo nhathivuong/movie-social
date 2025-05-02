@@ -60,13 +60,13 @@ const SearchedMovies = ({search}) => {
             <PageNumber>Page {(pageNumber + 1) / 2} out of {Math.floor((maxPage)/2)}</PageNumber>
             <Arrows onClick={increasePage}><IoIosArrowForward/></Arrows>
         </PageSection>
-        <MoviesGrid>
         {moviesSearched 
-        ? moviesSearched.map((movie)=>{
-            return <MoviePoster key={movie.id} movie={movie}/>
-        })
-        :<SplashScreen/> }
+        ?<MoviesGrid>
+            {moviesSearched.map((movie) => (
+            <MoviePoster key={movie.id} movie={movie} />
+            ))}
         </MoviesGrid>
+        : <SplashScreen/>}
         <BottomPageNumber>
             <PageSectionBottom>
                 <Arrows onClick={decreasePage}><IoIosArrowBack/></Arrows>
