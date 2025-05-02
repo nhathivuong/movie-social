@@ -8,12 +8,14 @@ import DOMPurify from 'dompurify';
 import { AllUsersContext } from "../../contexts/AllUsersContext"
 import { AllReviewsContext } from "../../contexts/AllReviewsContext"
 
+// component
+import SplashScreen from "../../SplashScreen";
 const Reviews = ({movieReviews, movieId}) => {
     const {allReviews} = useContext(AllReviewsContext)
     const {allUsers} = useContext(AllUsersContext)
 
     if(!allUsers || !allReviews){
-        return <Loading>Loading...</Loading>
+        return <SplashScreen/>
     }
 
     const userMovieReviews = allReviews.filter((review)=> review.movieId === movieId)
@@ -62,10 +64,7 @@ const Reviews = ({movieReviews, movieId}) => {
         </div>
     )
 }
-const Loading = styled.h1`
-    margin: 4rem auto;
-    width: fit-content;
-`
+
 const ReviewBox = styled.div`
     display: flex;
     flex-direction: row;

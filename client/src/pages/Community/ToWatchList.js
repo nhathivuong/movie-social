@@ -3,14 +3,15 @@ import styled from "styled-components"
 import { NavLink } from "react-router-dom"
 //context
 import { UserContext } from "../../contexts/UserContext"
-
+// component
+import SplashScreen from "../../SplashScreen"
 const ToWatchList = () => {
     const {loggedInUser} = useContext(UserContext)
 
     const toWatchList = loggedInUser?.lists.find(list => list.name === "To Watch")
 
     if(!toWatchList){
-        return <p>Loading watch list...</p>
+        return <SplashScreen/>
     }
 
     return <WatchSection>

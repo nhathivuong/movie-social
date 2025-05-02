@@ -16,6 +16,7 @@ import Reviews from "./Reviews"
 import Details from "./Details"
 import SaveList from "./SaveList";
 import WriteReview from "./WriteReview";
+import SplashScreen from "../../SplashScreen";
 
 // this page gives all the informations for the selected movie
 const MoviePage = () =>{
@@ -64,7 +65,7 @@ const MoviePage = () =>{
 
     // loads the initial information
     if(!allReviews ||!movieInfos || !movieCast?.length || !directors?.length){
-        return <Loading>Loading...</Loading>
+        return <SplashScreen/>
     }
 
     // Arrow buttons click/scroll functions
@@ -133,10 +134,7 @@ const MoviePage = () =>{
 }
 
 //these are organise by order of appearance
-const Loading = styled.h1`
-    margin: 4rem auto;
-    width: fit-content;
-`
+
 const Backdrop = styled.img`
     width:100%;
     height: 30vh;

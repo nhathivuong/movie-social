@@ -7,6 +7,7 @@ import { IoIosArrowForward } from "react-icons/io";
 
 //component
 import MoviePoster from "../MoviePoster"
+import SplashScreen from "../../SplashScreen";
 
 const SearchedMovies = ({search}) => {
     const [moviesSearched, setMoviesSearched] = useState()
@@ -64,7 +65,7 @@ const SearchedMovies = ({search}) => {
         ? moviesSearched.map((movie)=>{
             return <MoviePoster key={movie.id} movie={movie}/>
         })
-        :<p>Loading...</p> }
+        :<SplashScreen/> }
         </MoviesGrid>
         <BottomPageNumber>
             <PageSectionBottom>
