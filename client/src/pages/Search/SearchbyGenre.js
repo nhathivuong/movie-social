@@ -7,7 +7,7 @@ import { IoIosArrowForward } from "react-icons/io";
 
 //component
 import MoviePoster from "../MoviePoster";
-
+import SplashScreen from "../../SplashScreen";
 // this gets the movies sorted by popularity based on genre
 const SearchbyGenre = ({genreId}) => {
     const [moviesbyGenre , setMoviesbyGenre] = useState()
@@ -61,13 +61,13 @@ const SearchbyGenre = ({genreId}) => {
             <PageNumber>Page {(pageNumber + 1) / 2} out of {Math.floor((maxPage)/2)}</PageNumber>
             <Arrows onClick={increasePage}><IoIosArrowForward/></Arrows>
         </PageSection>
-        <MoviesGrid>
         {moviesbyGenre 
-        ? moviesbyGenre.map((movie)=>{
-            return <MoviePoster key={movie.id} movie={movie}/>
-        })
-        :<p>Loading...</p> }
+        ?<MoviesGrid>
+            {moviesbyGenre.map((movie) => (
+            <MoviePoster key={movie.id} movie={movie} />
+            ))}
         </MoviesGrid>
+        : <SplashScreen/>}
         <BottomPageNumber>
             <PageSectionBottom>
                 <Arrows onClick={decreasePage}><IoIosArrowBack/></Arrows>

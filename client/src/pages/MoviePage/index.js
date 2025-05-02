@@ -16,6 +16,7 @@ import Reviews from "./Reviews"
 import Details from "./Details"
 import SaveList from "./SaveList";
 import WriteReview from "./WriteReview";
+import SplashScreen from "../../SplashScreen";
 
 // this page gives all the informations for the selected movie
 const MoviePage = () =>{
@@ -64,7 +65,7 @@ const MoviePage = () =>{
 
     // loads the initial information
     if(!allReviews ||!movieInfos || !movieCast?.length || !directors?.length){
-        return <Loading>Loading...</Loading>
+        return <SplashScreen/>
     }
 
     // Arrow buttons click/scroll functions
@@ -100,9 +101,10 @@ const MoviePage = () =>{
         </Synopsis>
         <div>
             <h2>Cast</h2>
-            <ScrollWrapper>
+            {movieCast.length > 9 && movieCast
+            ?<ScrollWrapper>
             <Arrows onClick={() => arrowLeftClick(castRef)}><LeftArrow/></Arrows>
-            {movieCast && <CastGrid ref={castRef}>{movieCast.map((cast)=>{
+            <CastGrid ref={castRef}>{movieCast.map((cast)=>{
                 return <li key={cast.id}>
                     <img src={cast.profile_path 
                     ? `https://image.tmdb.org/t/p/original${cast.profile_path}` 
@@ -111,9 +113,19 @@ const MoviePage = () =>{
                     <Character>{cast.character}</Character>
                     <p>{cast.name}</p>
                 </li>
-            })}</CastGrid>}
+            })}</CastGrid>
             <Arrows onClick={() => arrowRightClick(castRef)}><RightArrow/></Arrows>
             </ScrollWrapper>
+            :<CastLessThanEight ref={castRef}>{movieCast.map((cast)=>{
+                return <li key={cast.id}>
+                    <img src={cast.profile_path 
+                    ? `https://image.tmdb.org/t/p/original${cast.profile_path}` 
+                    : "/assets/no_profile.jpg"} 
+                    alt={`${cast.name} profile picture`} width={150}/>
+                    <Character>{cast.character}</Character>
+                    <p>{cast.name}</p>
+                </li>
+            })}</CastLessThanEight>}
         </div>
         <Recommendations movieId={movieId} movieRecommendation={movieRecommendation}/>
         <Reviews movieReviews={movieReviews} movieId={movieId}/>
@@ -122,10 +134,7 @@ const MoviePage = () =>{
 }
 
 //these are organise by order of appearance
-const Loading = styled.h1`
-    margin: 4rem auto;
-    width: fit-content;
-`
+
 const Backdrop = styled.img`
     width:100%;
     height: 30vh;
@@ -154,8 +163,14 @@ const Arrows = styled.button`
     margin: 4rem 1rem;
     color: var(--color-light);
     border:none;
+    border-radius: 5px;
     &:hover{
-        background-color: var(--color-accent)
+        background-color: var(--color-accent);
+        box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark-accent) inset;
+    }
+    &:active{
+        background: transparent;
+        outline: 2px solid var(--color-accent);
     }
 `
 const LeftArrow = styled(IoIosArrowBack)`
@@ -174,6 +189,15 @@ const CastGrid = styled.ul`
     &::-webkit-scrollbar{
         display: none;
     }
+`
+const CastLessThanEight = styled.ul`
+    display: grid;
+    grid-template-columns: repeat(8, 155px);
+    gap: 15px;
+    height:fit-content;
+    width: fit-content;
+    margin: 1rem auto;
+    justify-content: center;
 `
 const Character = styled.h3`
     color: var(--color-accent);

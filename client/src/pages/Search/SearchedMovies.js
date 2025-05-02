@@ -7,6 +7,7 @@ import { IoIosArrowForward } from "react-icons/io";
 
 //component
 import MoviePoster from "../MoviePoster"
+import SplashScreen from "../../SplashScreen";
 
 const SearchedMovies = ({search}) => {
     const [moviesSearched, setMoviesSearched] = useState()
@@ -59,13 +60,13 @@ const SearchedMovies = ({search}) => {
             <PageNumber>Page {(pageNumber + 1) / 2} out of {Math.floor((maxPage)/2)}</PageNumber>
             <Arrows onClick={increasePage}><IoIosArrowForward/></Arrows>
         </PageSection>
-        <MoviesGrid>
         {moviesSearched 
-        ? moviesSearched.map((movie)=>{
-            return <MoviePoster key={movie.id} movie={movie}/>
-        })
-        :<p>Loading...</p> }
+        ?<MoviesGrid>
+            {moviesSearched.map((movie) => (
+            <MoviePoster key={movie.id} movie={movie} />
+            ))}
         </MoviesGrid>
+        : <SplashScreen/>}
         <BottomPageNumber>
             <PageSectionBottom>
                 <Arrows onClick={decreasePage}><IoIosArrowBack/></Arrows>

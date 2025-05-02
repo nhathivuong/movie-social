@@ -12,6 +12,7 @@ import RemoveFriend from "./RemoveFriend";
 import UserReview from "./UserReview";
 import UserList from "./UserList";
 import EditProfile from "./EditProfile";
+import SplashScreen from "../../SplashScreen";
 
 const ProfilePage = () =>{
     const { loggedInUser} = useContext(UserContext)
@@ -50,7 +51,7 @@ const ProfilePage = () =>{
     },[allReviews, username])
     
     if(!allReviews ||!userInfos){
-        return <p>Loading profile</p>
+        return <SplashScreen/>
     }
 
     return <ProfileSection>
