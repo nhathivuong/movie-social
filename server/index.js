@@ -37,7 +37,8 @@ const {
     addFriend,
     removeFriend,
     verifyToken,
-    middleware
+    middleware,
+    likeReview
 } = require("./handlers")
 
 // this creates and account when a user sign up to the website
@@ -78,6 +79,9 @@ app.get("/api/genres", getGenres)
 
 //this gets all the reviews
 app.get("/reviews", getReviews)
+
+//this allows the user to like review
+app.patch("/likeReview", likeReview)
 
 //adds friend
 app.patch("/addFriend", addFriend)
