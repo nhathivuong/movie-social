@@ -7,7 +7,7 @@ const likeReview = async(req, res) =>{
     if(!username || !reviewId){
         return res.status(404).json({
             status: 404,
-            message: `The body is not complete`
+            message: `The request is not complete`
         })
     }
     try{
