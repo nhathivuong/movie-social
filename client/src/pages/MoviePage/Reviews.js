@@ -84,11 +84,11 @@ const Reviews = ({movieReviews, movieId}) => {
                             <NavLink to={`/user/${review.username}`}><Username>{review.username}</Username></NavLink>
                             <ReviewText dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.content) }}/>
                             {review.likes.some(user => user.username === loggedInUser.username)
-                            ?<button><FaHeart /></button>
-                            :<button onClick={() => likeReview(review._id)}><FaRegHeart /></button>} {/*empty heart*/}
+                            ?<ActiveInteractionButton><FaHeart /></ActiveInteractionButton>
+                            :<InteractionButton onClick={() => likeReview(review._id)}><FaRegHeart /></InteractionButton>} {/*empty heart*/}
                             {commentOpen
-                            ?<button onClick={commentVisible}><FaComment/> </button>
-                            :<button onClick={commentVisible}><FaRegComment /></button>} {/*empty*/}
+                            ?<ActiveInteractionButton onClick={commentVisible}><FaComment/> </ActiveInteractionButton>
+                            :<InteractionButton onClick={commentVisible}><FaRegComment /></InteractionButton>} {/*empty*/}
                         </div>
                     </ReviewBox>
                     <Modal isOpen={modalMessage}>
@@ -149,6 +149,22 @@ const Username = styled.h2`
 `
 const ReviewText = styled.p`
     margin-top: 1rem;
+`
+const InteractionButton = styled.button`
+    border: none;
+    background-color: transparent;
+    color: white;
+    text-align: center;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+`
+const ActiveInteractionButton = styled(InteractionButton)`
+    border: none;
+    background-color: transparent;
+    color: var(--color-accent);
+    text-align: center;
+    font-size: 1rem;
+    margin-top: 0.5rem;
 `
 const AlertSection = styled.div`
     position: fixed;
