@@ -3,8 +3,8 @@ require("dotenv").config()
 const {MONGO_URI} = process.env
 
 const likeReview = async(req, res) =>{
-    const {username, reviewId} = req.body
-    if(!username || !reviewId){
+    const {username, name, reviewId} = req.body
+    if(!username || !reviewId || !name){
         return res.status(404).json({
             status: 404,
             message: `The request is not complete`
@@ -14,7 +14,7 @@ const likeReview = async(req, res) =>{
         const client = new MongoClient(MONGO_URI)
         await client.connect()
         const db = client.db("movie")
-        const like = db.collection("reviews").updateOne({_id: reviewId}, {$push:{likes: username}})
+        const like = db.collection("reviews").updateOne({_id: reviewId}, {$push:{likes: {username: username, name: name}}})
         if(like.matchedCount === 0){
             return res.status(404).json({
             status:404,
