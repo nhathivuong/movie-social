@@ -81,12 +81,12 @@ app.get("/api/genres", getGenres)
 app.get("/reviews", getReviews)
 
 //this allows the user to like review
-app.patch("/likeReview", likeReview)
+app.patch("/like-review", likeReview)
 
 //adds friend
-app.patch("/addFriend", addFriend)
+app.patch("/add-friend", addFriend)
 //remove friend
-app.patch("/removeFriend", removeFriend)
+app.patch("/remove-friend", removeFriend)
 
 // verify token and gives login info
 app.get("/profile", verifyToken, middleware)

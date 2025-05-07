@@ -21,6 +21,8 @@ const addReview = async(req, res)=>{
             username: username,
             rating: rating,
             content: content,
+            likes: [],
+            comments: [],
             createdAt: new Date()
         }
         const alreadyReviewed = await db.collection("reviews").findOne({movieId: movieId, username:username})
