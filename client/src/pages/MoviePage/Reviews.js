@@ -4,12 +4,19 @@ import { useContext } from "react"
 import { NavLink } from "react-router-dom"
 import DOMPurify from 'dompurify';
 
+//icons
+import { FaHeart } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa";
+import { FaRegComment } from "react-icons/fa";
+import { FaComment } from "react-icons/fa";
+
 //context
 import { AllUsersContext } from "../../contexts/AllUsersContext"
 import { AllReviewsContext } from "../../contexts/AllReviewsContext"
 
 // component
 import SplashScreen from "../../SplashScreen";
+
 const Reviews = ({movieReviews, movieId}) => {
     const {allReviews} = useContext(AllReviewsContext)
     const {allUsers} = useContext(AllUsersContext)
@@ -37,6 +44,12 @@ const Reviews = ({movieReviews, movieId}) => {
                         <div>
                             <NavLink to={`/user/${review.username}`}><Username>{review.username}</Username></NavLink>
                             <ReviewText dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.content) }}/>
+                        </div>
+                        <div>
+                            <FaRegHeart />{/*empty heart*/}
+                            <FaHeart />
+                            <FaRegComment /> {/*empty*/}
+                            <FaComment />
                         </div>
                     </ReviewBox>
                     : <ReviewBox key={review.id}>
