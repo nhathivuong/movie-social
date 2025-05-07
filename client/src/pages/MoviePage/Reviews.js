@@ -1,18 +1,30 @@
 //dependencies
 import styled from "styled-components"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { NavLink } from "react-router-dom"
 import DOMPurify from 'dompurify';
+import Modal from 'styled-react-modal'
+
+//icons
+import { FaHeart } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa";
+import { FaRegComment } from "react-icons/fa";
+import { FaComment } from "react-icons/fa";
 
 //context
-import { AllUsersContext } from "../../contexts/AllUsersContext"
-import { AllReviewsContext } from "../../contexts/AllReviewsContext"
+import { AllUsersContext } from "../../contexts/AllUsersContext";
+import { AllReviewsContext } from "../../contexts/AllReviewsContext";
+import { UserContext } from "../../contexts/UserContext";
 
 // component
 import SplashScreen from "../../SplashScreen";
+
 const Reviews = ({movieReviews, movieId}) => {
-    const {allReviews} = useContext(AllReviewsContext)
+    const {allReviews, setUpdateReview} = useContext(AllReviewsContext)
     const {allUsers} = useContext(AllUsersContext)
+    const {loggedInUser} = useContext(UserContext)
+    const [commentOpen, setCommentOpen] = useState(false)
+    const [modalMessage, setModalMessage] = useState(false)
 
     if(!allUsers || !allReviews){
         return <SplashScreen/>
@@ -21,6 +33,40 @@ const Reviews = ({movieReviews, movieId}) => {
     const userMovieReviews = allReviews.filter((review)=> review.movieId === movieId)
     const Reviews = [...movieReviews, ...userMovieReviews]
 
+    const commentVisible = () => {
+        setCommentOpen(!commentOpen)
+    }
+    const likeReview = (reviewId) => {
+        if(!loggedInUser){
+            return setModalMessage(true)
+        }
+        const body = JSON.stringify({
+            name: loggedInUser.name, 
+            username: loggedInUser.username,
+            reviewId: reviewId
+        })
+        const options = {
+            method:"PATCH",
+            headers:{
+                "Accept" : "application/json",
+                "Content-Type" : "application/json",
+            },
+            body,
+        }
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/like-review`, options)
+        .then(res => {
+            if(!res.ok){
+                throw new Error("The review was not liked")
+            }
+            return res.json()
+        })
+        .then(data => {
+            if(data.status === 200){
+            setUpdateReview((update) => update + 1)
+            }
+        })
+        .catch(error => console.error(error))
+    }
     return (
         <div>
             <h2>Reviews</h2>
@@ -29,7 +75,7 @@ const Reviews = ({movieReviews, movieId}) => {
                 {userMovieReviews.length > 0 && userMovieReviews.map((review) => {
                     const reviewUser = allUsers.find(user => user.username === review.username)
                 return (<div key={review._id}>{reviewUser 
-                    ?<ReviewBox >
+                    ?<><ReviewBox >
                         <div>
                             <ProfilePicture src={reviewUser.src} alt={`${review.username} profile picture`} />
                             {review.rating && <p>Rating: {review.rating}</p>}
@@ -37,8 +83,25 @@ const Reviews = ({movieReviews, movieId}) => {
                         <div>
                             <NavLink to={`/user/${review.username}`}><Username>{review.username}</Username></NavLink>
                             <ReviewText dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.content) }}/>
+                            {review.likes.some(user => user.username === loggedInUser.username)
+                            ?<ActiveInteractionButton><FaHeart /></ActiveInteractionButton>
+                            :<InteractionButton onClick={() => likeReview(review._id)}><FaRegHeart /></InteractionButton>} {/*empty heart*/}
+                            {commentOpen
+                            ?<ActiveInteractionButton onClick={commentVisible}><FaComment/> </ActiveInteractionButton>
+                            :<InteractionButton onClick={commentVisible}><FaRegComment /></InteractionButton>} {/*empty*/}
                         </div>
                     </ReviewBox>
+                    <Modal isOpen={modalMessage}>
+                        <AlertSection>
+                            <Title>
+                                <h2>Oops!</h2>
+                                <ClosingButton type="button" onClick={()=>setModalMessage(false)}>x</ClosingButton>
+                            </Title>
+                            <p>You need to be logged in to access this feature</p>
+                            <NavLink to="/login"><LogInButton type="button" onClick={()=>setModalMessage(false)}>Log in</LogInButton></NavLink>
+                        </AlertSection>
+                    </Modal>
+                    </>
                     : <ReviewBox key={review.id}>
                         <div>
                             <p>Loading user data...</p>
@@ -86,5 +149,61 @@ const Username = styled.h2`
 `
 const ReviewText = styled.p`
     margin-top: 1rem;
+`
+const InteractionButton = styled.button`
+    border: none;
+    background-color: transparent;
+    color: white;
+    text-align: center;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+`
+const ActiveInteractionButton = styled(InteractionButton)`
+    border: none;
+    background-color: transparent;
+    color: var(--color-accent);
+    text-align: center;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+`
+const AlertSection = styled.div`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--color-dark);
+    width: 25vw;
+    padding: 1rem;
+    border-radius: 5px;
+`
+const ClosingButton = styled.button`
+    color: var(--color-accent);
+    background-color: transparent;
+    display:flex;
+    justify-self: right;
+    height:fit-content;
+`
+const Title = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+`
+const LogInButton = styled.button`
+    margin-top: 1rem;
+    width:100%;
+    height: 2rem;
+    border-radius: 5px;
+    background-color: var(--color-accent);
+    border: none;
+    text-transform: uppercase;
+    font-weight:bold;
+    color: var(--color-dark);
+    box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark-accent) inset;
+    cursor: pointer;
+    &:active{
+        background: transparent;
+        outline: 2px solid var(--color-accent);
+    }
 `
 export default Reviews

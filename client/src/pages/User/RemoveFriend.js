@@ -21,7 +21,7 @@ const RemoveFriend = ({currentUser, unfollowUser}) => {
             },
             body
         }
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/removeFriend`, options)
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/remove-friend`, options)
         .then(res => res.json())
         .then(data => {
             if(data.status === 200){
