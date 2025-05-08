@@ -67,6 +67,38 @@ const Reviews = ({movieReviews, movieId}) => {
         })
         .catch(error => console.error(error))
     }
+
+    const unlikeReview = (reviewId) => {
+        if(!loggedInUser){
+            return setModalMessage(true)
+        }
+        const body = JSON.stringify({
+            name: loggedInUser.name, 
+            username: loggedInUser.username,
+            reviewId: reviewId
+        })
+        const options = {
+            method:"PATCH",
+            headers:{
+                "Accept" : "application/json",
+                "Content-Type" : "application/json",
+            },
+            body,
+        }
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/unlike-review`, options)
+        .then(res => {
+            if(!res.ok){
+                throw new Error("The review was like was not removed")
+            }
+            return res.json()
+        })
+        .then(data => {
+            if(data.status === 200){
+            setUpdateReview((update) => update + 1)
+            }
+        })
+        .catch(error => console.error(error))
+    }
     return (
         <div>
             <h2>Reviews</h2>
@@ -84,7 +116,7 @@ const Reviews = ({movieReviews, movieId}) => {
                             <NavLink to={`/user/${review.username}`}><Username>{review.username}</Username></NavLink>
                             <ReviewText dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.content) }}/>
                             {review.likes.some(user => user.username === loggedInUser.username)
-                            ?<ActiveInteractionButton><FaHeart /></ActiveInteractionButton>
+                            ?<ActiveInteractionButton onClick={() => unlikeReview(review._id)}><FaHeart /></ActiveInteractionButton>
                             :<InteractionButton onClick={() => likeReview(review._id)}><FaRegHeart /></InteractionButton>} {/*empty heart*/}
                             {commentOpen
                             ?<ActiveInteractionButton onClick={commentVisible}><FaComment/> </ActiveInteractionButton>
