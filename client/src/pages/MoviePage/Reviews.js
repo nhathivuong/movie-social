@@ -5,26 +5,25 @@ import { NavLink } from "react-router-dom"
 import DOMPurify from 'dompurify';
 import Modal from 'styled-react-modal'
 
-//icons
-import { FaHeart } from "react-icons/fa";
-import { FaRegHeart } from "react-icons/fa";
+
 import { FaRegComment } from "react-icons/fa";
 import { FaComment } from "react-icons/fa";
 
 //context
 import { AllUsersContext } from "../../contexts/AllUsersContext";
-import { AllReviewsContext } from "../../contexts/AllReviewsContext";
-import { UserContext } from "../../contexts/UserContext";
+import { AllReviewsContext } from "../../contexts/AllReviewsContext"
 
 // component
 import SplashScreen from "../../SplashScreen";
+import LikeInteractionReview from "./LikeInteractionReview";
 
 const Reviews = ({movieReviews, movieId}) => {
-    const {allReviews, setUpdateReview} = useContext(AllReviewsContext)
+    const {allReviews} = useContext(AllReviewsContext)
     const {allUsers} = useContext(AllUsersContext)
-    const {loggedInUser} = useContext(UserContext)
+    
     const [commentOpen, setCommentOpen] = useState(false)
     const [modalMessage, setModalMessage] = useState(false)
+    
 
     if(!allUsers || !allReviews){
         return <SplashScreen/>
@@ -36,37 +35,6 @@ const Reviews = ({movieReviews, movieId}) => {
     const commentVisible = () => {
         setCommentOpen(!commentOpen)
     }
-    const likeReview = (reviewId) => {
-        if(!loggedInUser){
-            return setModalMessage(true)
-        }
-        const body = JSON.stringify({
-            name: loggedInUser.name, 
-            username: loggedInUser.username,
-            reviewId: reviewId
-        })
-        const options = {
-            method:"PATCH",
-            headers:{
-                "Accept" : "application/json",
-                "Content-Type" : "application/json",
-            },
-            body,
-        }
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/like-review`, options)
-        .then(res => {
-            if(!res.ok){
-                throw new Error("The review was not liked")
-            }
-            return res.json()
-        })
-        .then(data => {
-            if(data.status === 200){
-            setUpdateReview((update) => update + 1)
-            }
-        })
-        .catch(error => console.error(error))
-    }
     return (
         <div>
             <h2>Reviews</h2>
@@ -75,22 +43,20 @@ const Reviews = ({movieReviews, movieId}) => {
                 {userMovieReviews.length > 0 && userMovieReviews.map((review) => {
                     const reviewUser = allUsers.find(user => user.username === review.username)
                 return (<div key={review._id}>{reviewUser 
-                    ?<><ReviewBox >
-                        <div>
-                            <ProfilePicture src={reviewUser.src} alt={`${review.username} profile picture`} />
-                            {review.rating && <p>Rating: {review.rating}</p>}
-                        </div>
-                        <div>
-                            <NavLink to={`/user/${review.username}`}><Username>{review.username}</Username></NavLink>
-                            <ReviewText dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.content) }}/>
-                            {review.likes.some(user => user.username === loggedInUser.username)
-                            ?<ActiveInteractionButton><FaHeart /></ActiveInteractionButton>
-                            :<InteractionButton onClick={() => likeReview(review._id)}><FaRegHeart /></InteractionButton>} {/*empty heart*/}
-                            {commentOpen
-                            ?<ActiveInteractionButton onClick={commentVisible}><FaComment/> </ActiveInteractionButton>
-                            :<InteractionButton onClick={commentVisible}><FaRegComment /></InteractionButton>} {/*empty*/}
-                        </div>
-                    </ReviewBox>
+                    ?<><ReviewBox>
+                    <div>
+                        <ProfilePicture src={reviewUser.src} alt={`${review.username} profile picture`} />
+                        {review.rating && <p>Rating: {review.rating}</p>}
+                    </div>
+                    <div>
+                        <NavLink to={`/user/${review.username}`}><Username>{review.username}</Username></NavLink>
+                        <ReviewText dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.content) }}/>
+                        <LikeInteractionReview review={review}/>
+                        {commentOpen
+                        ?<ActiveInteractionButton onClick={commentVisible}><FaComment/> </ActiveInteractionButton>
+                        :<InteractionButton onClick={commentVisible}><FaRegComment /></InteractionButton>} {/*empty*/}
+                    </div>
+                </ReviewBox>
                     <Modal isOpen={modalMessage}>
                         <AlertSection>
                             <Title>

@@ -16,6 +16,8 @@ const removeFriend = require("./handlers/removeFriend")
 const verifyToken = require("./handlers/verifyToken")
 const middleware = require("./handlers/middleware")
 const likeReview = require("./handlers/likeReview")
+const removeLikeReview = require("./handlers/removeLikeReview")
+
 module.exports = {
     addUser,
     getUser,
@@ -34,5 +36,6 @@ module.exports = {
     removeFriend,
     verifyToken,
     middleware,
-    likeReview
+    likeReview,
+    removeLikeReview
 }
