@@ -7,8 +7,8 @@ import { FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 
 //context
-import { AllReviewsContext } from "../../contexts/AllReviewsContext";
-import { UserContext } from "../../contexts/UserContext";
+import { AllReviewsContext } from "../../../contexts/AllReviewsContext";
+import { UserContext } from "../../../contexts/UserContext";
 
 const LikeInteractionReview = ({review}) =>{
     const {setUpdateReview} = useContext(AllReviewsContext)

@@ -15,7 +15,7 @@ import Recommendations from "./Recommendations"
 import Reviews from "./Reviews"
 import Details from "./Details"
 import SaveList from "./SaveList";
-import WriteReview from "./WriteReview";
+import WriteReview from "./interactions/WriteReview";
 import SplashScreen from "../../SplashScreen";
 
 // this page gives all the informations for the selected movie
