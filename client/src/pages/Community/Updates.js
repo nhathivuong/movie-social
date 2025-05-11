@@ -7,8 +7,8 @@ import { AllReviewsContext } from "../../contexts/AllReviewsContext"
 import { UserContext } from "../../contexts/UserContext"
 import { AllUsersContext } from "../../contexts/AllUsersContext"
 // components
-import SaveList from "../MoviePage/SaveList"
-import WriteReview from "../MoviePage/WriteReview"
+import SaveList from "../MoviePage/interactions/SaveList"
+import WriteReview from "../MoviePage/interactions/WriteReview"
 
 const Updates =() =>{
     const {loggedInUser} = useContext(UserContext)

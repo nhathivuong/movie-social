@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { NavLink } from "react-router-dom"
 import Modal from 'styled-react-modal'
 //context
-import { UserContext } from "../../contexts/UserContext"
+import { UserContext } from "../../../contexts/UserContext"
 
 const SaveList = ({movieInfos, movieId, listVisible, setListVisible, setReviewVisible}) =>{
     const [listName, setListName] = useState()

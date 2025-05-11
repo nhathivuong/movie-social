@@ -15,7 +15,7 @@ import { AllReviewsContext } from "../../contexts/AllReviewsContext"
 
 // component
 import SplashScreen from "../../SplashScreen";
-import LikeInteractionReview from "./LikeInteractionReview";
+import LikeInteractionReview from "./interactions/LikeInteractionReview";
 
 const Reviews = ({movieReviews, movieId}) => {
     const {allReviews} = useContext(AllReviewsContext)

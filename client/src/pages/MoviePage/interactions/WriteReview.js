@@ -4,8 +4,8 @@ import styled from "styled-components"
 import { NavLink } from "react-router-dom"
 import Modal from 'styled-react-modal'
 //context
-import { AllReviewsContext } from "../../contexts/AllReviewsContext"
-import { UserContext } from "../../contexts/UserContext"
+import { AllReviewsContext } from "../../../contexts/AllReviewsContext"
+import { UserContext } from "../../../contexts/UserContext"
 
 const WriteReview = ({movieId, setListVisible, reviewVisible, setReviewVisible}) => {
     const {allReviews, setAllReviews, setUpdateReview} = useContext(AllReviewsContext)
