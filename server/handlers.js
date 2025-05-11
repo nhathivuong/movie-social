@@ -17,6 +17,7 @@ const verifyToken = require("./handlers/verifyToken")
 const middleware = require("./handlers/middleware")
 const likeReview = require("./handlers/likeReview")
 const removeLikeReview = require("./handlers/removeLikeReview")
+const addComment = require("./handlers/addComment")
 
 module.exports = {
     addUser,
@@ -37,5 +38,6 @@ module.exports = {
     verifyToken,
     middleware,
     likeReview,
-    removeLikeReview
+    removeLikeReview,
+    addComment
 }

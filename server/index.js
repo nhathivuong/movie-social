@@ -39,7 +39,8 @@ const {
     verifyToken,
     middleware,
     likeReview,
-    removeLikeReview
+    removeLikeReview,
+    addComment
 } = require("./handlers")
 
 // this creates and account when a user sign up to the website
@@ -94,6 +95,9 @@ app.patch("/remove-friend", removeFriend)
 
 // verify token and gives login info
 app.get("/profile", verifyToken, middleware)
+
+// adds a comment to a review 
+app.patch("/comment-review", addComment)
 
 app.use('*', (req, res) => {
     res.status(404).json({status: 404, message: "Endpoint not found!"});
