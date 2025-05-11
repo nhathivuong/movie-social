@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 // components
-import SaveList from "../MoviePage/SaveList"
-import WriteReview from "../MoviePage/WriteReview"
+import SaveList from "../MoviePage/interactions/SaveList"
+import WriteReview from "../MoviePage/interactions/WriteReview"
 
 const UserReview = ({userReviews, movies}) =>{
     const [listVisible, setListVisible] = useState(false)
