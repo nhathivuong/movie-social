@@ -1,9 +1,11 @@
+//dependencies
 import { useContext, useState } from "react"
 import styled from "styled-components"
-import { NavLink } from "react-router-dom"
 import Modal from 'styled-react-modal'
 //context
 import { UserContext } from "../../../contexts/UserContext"
+// component
+import LoginModal from "../../../LoginModal"
 
 const SaveList = ({movieInfos, movieId, listVisible, setListVisible, setReviewVisible}) =>{
     const [listName, setListName] = useState()
@@ -89,16 +91,7 @@ const SaveList = ({movieInfos, movieId, listVisible, setListVisible, setReviewVi
             </ListSection>
         </Modal>
         }
-        <Modal isOpen={modalMessage}>
-            <AlertSection>
-                <Title>
-                    <h2>Oops!</h2>
-                    <ClosingButton type="button" onClick={()=>setModalMessage(false)}>x</ClosingButton>
-                </Title>
-                <p>You need to be logged in to access this feature</p>
-                <NavLink to="/login"><LogInButton type="button">Log in</LogInButton></NavLink>
-            </AlertSection>
-        </Modal>
+        <LoginModal modalMessage={modalMessage} setModalMessage={setModalMessage}/>
         </>
 }
 
@@ -150,25 +143,5 @@ const NewListSection = styled.div`
 `
 const ListNameInput = styled.input`
     width: 50%;
-`
-const AlertSection = styled(ListSection)`
-    width: 25vw;
-`
-const LogInButton = styled.button`
-    margin-top: 1rem;
-    width:100%;
-    height: 2rem;
-    border-radius: 5px;
-    background-color: var(--color-accent);
-    border: none;
-    text-transform: uppercase;
-    font-weight:bold;
-    color: var(--color-dark);
-    box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark-accent) inset;
-    cursor: pointer;
-    &:active{
-        background: transparent;
-        outline: 2px solid var(--color-accent);
-    }
 `
 export default SaveList
