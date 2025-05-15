@@ -90,7 +90,24 @@ const ProfilePicture = styled.img`
 const Username = styled.h2`
     font-size: 1.5rem;
 `
-const ReviewText = styled.p`
+const ReviewText = styled.div`
     margin-top: 1rem;
+    article, section{
+        font-size: 1rem;
+        h1{
+            font-size: 1.5rem;
+            padding: 0;
+            padding-bottom: 0.5rem;
+            text-shadow: none;
+        }
+        h2{
+            font-size: 1.2rem;
+            text-shadow: none;
+            padding: 0.5rem 0;
+        }
+        p{
+            font-size: 1rem;
+        }
+    }
 `
 export default Reviews
