@@ -113,7 +113,7 @@ const EditProfile = ({userInfos, username}) =>{
                         </EachEdit>
                         <EachEdit>
                             <label htmlFor="bio">Write a bio</label>
-                            <BioWritting id="bio" name="bio" type="bio"  placeholder="Write your new bio here" value={text} onChange={(event) => setText(event.target.value)} maxLength={150}/>
+                            <BioWritting id="bio" name="bio" placeholder="Write your new bio here" value={text} onChange={(event) => setText(event.target.value)} maxLength={150}/>
                             <MaxCharacter>{text.length} / 150</MaxCharacter>
                         </EachEdit>
                         <Button type="submit">Send</Button>
@@ -164,20 +164,6 @@ const ModifSection = styled.form`
     display:flex;
     flex-direction: column;
 `
-
-
-const Overlay = styled.div`
-    position: absolute;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.4);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    font-size: 14px;
-`;
 const PictureLabel = styled.label`
     display:flex;
     justify-content:center;

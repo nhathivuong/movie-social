@@ -10,10 +10,14 @@ import { FaRegHeart } from "react-icons/fa";
 import { AllReviewsContext } from "../../../contexts/AllReviewsContext";
 import { UserContext } from "../../../contexts/UserContext";
 
+//component
+import LoginModal from "../../../LoginModal";
+
 const LikeInteractionReview = ({review}) =>{
     const {setUpdateReview} = useContext(AllReviewsContext)
     const {loggedInUser} = useContext(UserContext)
     const [likes, setLikes] = useState(review.likes)
+    const [modalMessage, setModalMessage] = useState(false)
 
     const likeReview = (reviewId) => {
         if(!loggedInUser){
@@ -87,11 +91,12 @@ const LikeInteractionReview = ({review}) =>{
         })
         .catch(error => console.error(error))
     }
-    return likes.some(user => user.username === loggedInUser.username)
-        ?<ActiveInteractionButton onClick={() => unlikeReview(review._id)}><FaHeart /></ActiveInteractionButton>
-        :<InteractionButton onClick={() => likeReview(review._id)}><FaRegHeart /></InteractionButton>
+    return <> {loggedInUser && likes.some(user => user.username === loggedInUser.username) 
+        ?<FilledLikeButton onClick={() => unlikeReview(review._id)}><FaHeart /></FilledLikeButton>
+        :<LikeButton onClick={() => likeReview(review._id)}><FaRegHeart /></LikeButton>}
+        <LoginModal modalMessage={modalMessage} setModalMessage={setModalMessage}/></>
 }
-const InteractionButton = styled.button`
+const LikeButton = styled.button`
     border: none;
     background-color: transparent;
     color: white;
@@ -102,7 +107,7 @@ const InteractionButton = styled.button`
         cursor: pointer
     }
 `
-const ActiveInteractionButton = styled(InteractionButton)`
+const FilledLikeButton = styled(LikeButton)`
     border: none;
     background-color: transparent;
     color: var(--color-accent);

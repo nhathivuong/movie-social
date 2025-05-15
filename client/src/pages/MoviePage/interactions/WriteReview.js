@@ -1,11 +1,12 @@
 //dependencies
 import { useContext, useState } from "react"
 import styled from "styled-components"
-import { NavLink } from "react-router-dom"
 import Modal from 'styled-react-modal'
 //context
 import { AllReviewsContext } from "../../../contexts/AllReviewsContext"
 import { UserContext } from "../../../contexts/UserContext"
+// component
+import LoginModal from "../../../LoginModal"
 
 const WriteReview = ({movieId, setListVisible, reviewVisible, setReviewVisible}) => {
     const {allReviews, setAllReviews, setUpdateReview} = useContext(AllReviewsContext)
@@ -99,16 +100,7 @@ const WriteReview = ({movieId, setListVisible, reviewVisible, setReviewVisible})
             </form>
         </ReviewForm>
         </Modal>}
-        <Modal isOpen={modalMessage}>
-            <AlertSection>
-                <Title>
-                    <h2>Oops!</h2>
-                    <ClosingButton type="button" onClick={()=>setModalMessage(false)}>x</ClosingButton>
-                </Title>
-                <p>You need to be logged in to access this feature</p>
-                <NavLink to="/login"><LogInButton type="button">Log in</LogInButton></NavLink>
-            </AlertSection>
-        </Modal>
+        <LoginModal modalMessage={modalMessage} setModalMessage={setModalMessage}/>
     </>
 }
 const Button = styled.button`
@@ -154,25 +146,5 @@ const ReviewWritting = styled.textarea`
     height: 5rem;
     text-align: top;
     margin-bottom: 0.5rem;
-`
-const AlertSection = styled(ReviewForm)`
-    width: 25vw;
-`
-const LogInButton = styled.button`
-    margin-top: 1rem;
-    width:100%;
-    height: 2rem;
-    border-radius: 5px;
-    background-color: var(--color-accent);
-    border: none;
-    text-transform: uppercase;
-    font-weight:bold;
-    color: var(--color-dark);
-    box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark-accent) inset;
-    cursor: pointer;
-    &:active{
-        background: transparent;
-        outline: 2px solid var(--color-accent);
-    }
 `
 export default WriteReview
