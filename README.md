@@ -78,6 +78,7 @@ To run the app locally, follow these steps:
     - Get recommendations based on the movie
     - See all user reviews
     - Save to a list or review a movie (requires login)
+    - User interaction on reviews (requires login)
 4. **Login/Sign up**
     - Easily toggle between login and sign-up forms
     - On sign-up, you can upload a profile picture
