@@ -75,7 +75,7 @@ const Header = () => {
                     <SignUpLogOut to="/" onClick={()=> {logOut(); closeGenre()}}>Log out</SignUpLogOut></>
                     :<>
                     <LogInButton to="/login" onClick={closeGenre}>Log in</LogInButton>
-                    <SignUpLogOut to="/signUp" onClick={closeGenre}>Sign up</SignUpLogOut>
+                    <SignUpLogOut to="/signup" onClick={closeGenre}>Sign up</SignUpLogOut>
                     </>}
                 </LogInLogOut>
             </NavSection>

@@ -95,7 +95,7 @@ const SignUp = () => {
         </label>
         <SignUpButton type="submit">SignUp</SignUpButton>
     </SignUpForm>
-    <p>Already a user? <LogIn to="/logIn">Log In</LogIn></p>
+    <p>Already a user? <LogIn to="/login">Log In</LogIn></p>
     </SignUpBox>
 }
 const SignUpBox = styled.div`
