@@ -50,6 +50,7 @@ const Header = () => {
         setGenreOpen(false)
     } 
     return (
+        <header>
         <nav>
             <NavSection>
                 <NavLink to="/" onClick={closeGenre}><Logo src="/assets/logo.png"/></NavLink>
@@ -80,6 +81,7 @@ const Header = () => {
             </NavSection>
             
         </nav>
+        </header>
     );
 }
 

@@ -12,6 +12,7 @@ import { useContext } from "react";
 import { AllReviewsContext } from "./contexts/AllReviewsContext";
 import styled from "styled-components"
 import Blog from "./pages/Blog"
+import Footer from "./Footer"
 
 const App = () => {
     const {allReviews} = useContext(AllReviewsContext)
@@ -27,17 +28,19 @@ const App = () => {
             <Route path="/movie/:movieId" element={<MoviePage/>}/>
             <Route path="/user/:username" element={<ProfilePage/>}/>
             <Route path="/community" element={<CommunityPage/>}/>
-            <Route path="/logIn" element={<LogIn/>}/>
-            <Route path="/signUp" element={<SignUp/>}/>
+            <Route path="/login" element={<LogIn/>}/>
+            <Route path="/signup" element={<SignUp/>}/>
             <Route path="/blog" element={<Blog/>}/>
             <Route path="*" element={<Navigate to="/" />} />
         </Routes>
         </Main>
+        <Footer/>
     </Router>}
     </>
 }
 const Main = styled.main`
 margin-top: 75px;
 margin-bottom: 2rem;
+min-height: 66vh;
 `
 export default App
