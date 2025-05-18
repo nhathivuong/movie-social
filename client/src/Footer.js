@@ -1,4 +1,4 @@
-import { NavLink, useNavigate, useLocation } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { useContext} from "react"
 import styled from "styled-components"
 //context
@@ -15,15 +15,24 @@ const Footer = () => {
         if(!loggedInUser){
                 navigate("/login")
         }
-        else navigate("/community")
+        else{
+            window.scrollTo(0,0)
+            navigate("/community")
+        } 
     }
-    
-
+    const homeClick = () =>{
+        window.scrollTo(0,0)
+        navigate("/") 
+    }
+    const blogClick = () =>{
+        window.scrollTo(0,0)
+        navigate("/blog") 
+    }
     return !isLoginPage && !isSignUpPage && <FooterSection>
         <PageNavigation>
-            <NavLink to="/">Home</NavLink>
-            <CommunityFooter onClick={communityClick}>Community</CommunityFooter>
-            <NavLink to="/blog">Blog</NavLink>
+            <ButtonFooter onClick={homeClick}>Home</ButtonFooter>
+            <ButtonFooter onClick={communityClick}>Community</ButtonFooter>
+            <ButtonFooter onClick={blogClick}>Blog</ButtonFooter>
         </PageNavigation>
     </FooterSection>
 }
@@ -42,7 +51,7 @@ const PageNavigation = styled.nav`
     line-height: 1.5;
     padding: 1rem 2rem;
 `
-const CommunityFooter = styled.button`
+const ButtonFooter = styled.button`
     background-color: transparent;
     color: var(--color-light);
     border:none;
