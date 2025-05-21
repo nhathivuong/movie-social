@@ -5,11 +5,12 @@ const Blog = () =>{
         <BlogTitle>Film Media Blog</BlogTitle>
         <MonthlyUpdate>
             <UpdateTitle>May 2025 updates</UpdateTitle>
-            <p>This month, the focus was enhancing user interactions. I aimed to improve the social media aspect of the project by allowing user to like and comment review.</p>
+            <p>This month, the focus was enhancing user interactions. I aimed to improve the social media aspect of the project by allowing users to like and comment reviews.</p>
             <UpdateSectionTitle>Overview</UpdateSectionTitle>
             <ul>
                 <ListDecoration><p>Like review</p></ListDecoration>
                 <ListDecoration><p>Comment on review</p></ListDecoration>
+                <ListDecoration><p>Footer Navigation and additional pages</p></ListDecoration>
             </ul>
             <UpdateSectionTitle>Bug Fixes</UpdateSectionTitle>
             <ul>

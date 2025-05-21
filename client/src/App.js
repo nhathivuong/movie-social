@@ -13,6 +13,7 @@ import { AllReviewsContext } from "./contexts/AllReviewsContext";
 import styled from "styled-components"
 import Blog from "./pages/Blog"
 import Footer from "./Footer"
+import About from "./pages/About"
 
 const App = () => {
     const {allReviews} = useContext(AllReviewsContext)
@@ -31,6 +32,7 @@ const App = () => {
             <Route path="/login" element={<LogIn/>}/>
             <Route path="/signup" element={<SignUp/>}/>
             <Route path="/blog" element={<Blog/>}/>
+            <Route path="/about" element={<About/>}/>
             <Route path="*" element={<Navigate to="/" />} />
         </Routes>
         </Main>

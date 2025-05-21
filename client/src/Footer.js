@@ -11,18 +11,17 @@ const Footer = () => {
     const isLoginPage = location.pathname === "/login"
     const isSignUpPage = location.pathname === "/signup"
     
-    const communityClick = () =>{
-        if(!loggedInUser){
-                navigate("/login")
-        }
-        else{
-            window.scrollTo(0,0)
-            navigate("/community")
-        } 
-    }
     const homeClick = () =>{
         window.scrollTo(0,0)
         navigate("/") 
+    }
+    const aboutClick = () =>{
+        window.scrollTo(0,0)
+        navigate("/about") 
+    }
+    const communityClick = () =>{
+        window.scrollTo(0,0)
+        navigate("/community") 
     }
     const blogClick = () =>{
         window.scrollTo(0,0)
@@ -31,7 +30,8 @@ const Footer = () => {
     return !isLoginPage && !isSignUpPage && <FooterSection>
         <PageNavigation>
             <ButtonFooter onClick={homeClick}>Home</ButtonFooter>
-            <ButtonFooter onClick={communityClick}>Community</ButtonFooter>
+            {loggedInUser && <ButtonFooter onClick={communityClick}>Community</ButtonFooter>}
+            <ButtonFooter onClick={aboutClick}>About</ButtonFooter>
             <ButtonFooter onClick={blogClick}>Blog</ButtonFooter>
         </PageNavigation>
     </FooterSection>
