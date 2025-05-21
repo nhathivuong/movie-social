@@ -1,19 +1,12 @@
-import { useContext} from "react"
+//dependencies
 import styled from "styled-components"
-//context
-import { UserContext } from "../../contexts/UserContext"
+
 // components
 import ToWatchList from "./ToWatchList"
 import Updates from "./Updates"
-import SplashScreen from "../../SplashScreen"
 
 const CommunityPage = () =>{
-    const {loggedInUser} = useContext(UserContext)
 
-    if(!loggedInUser){
-        return <SplashScreen/>
-    }
-    
     return (
     <Community>
         <ToWatchList/>

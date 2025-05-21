@@ -49,7 +49,7 @@ const LogIn = () =>{
             <UserInput type="password" id="password" name="password" required/>
             <LogInButton type="submit">Log in</LogInButton>
         </LogInForm>
-        <p>New here? <SignUp to="/signUp">Sign Up</SignUp></p>
+        <p>New here? <SignUp to="/signup">Sign Up</SignUp></p>
         </LogInBox>
 }
 
