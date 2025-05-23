@@ -35,7 +35,7 @@ const About = () =>{
         <QuestionButton onClick={OpenA2}><Question>What technologies were used for this project?</Question><IoIosArrowDown /></QuestionButton>
         {answer2 && <Answer>Film Media was built using React, Node.js, Express, MongoDB. For authentication,  I used JWT and bcrypt to securely handle user login and password.</Answer>}
         <QuestionButton onClick={OpenA3}><Question>What have you learned during this project?</Question><IoIosArrowDown /></QuestionButton>
-        {answer3 && <Answer>I learned how to integrate a third-party API and update the frontend dynamically based on the data.  I also gained a deeper appreciation for UI design, it's a creative process that requires a lot of brainstorming and careful fine-tuning .</Answer>}
+        {answer3 && <Answer>I learned how to integrate a third-party API and update the frontend dynamically based on the data.  I also gained a deeper appreciation for UI design, it's a creative process that requires a lot of brainstorming and careful fine-tuning. A visual makeover is coming soon! </Answer>}
     </AboutSize>
 }
 
