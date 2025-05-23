@@ -49,11 +49,17 @@ const Header = () => {
     const closeGenre = () => {
         setGenreOpen(false)
     } 
+
+    // home logo navigation
+    const homeClick = () =>{
+        window.scrollTo(0,0)
+        navigate("/") 
+    }
     return (
         <header>
         <nav>
             <NavSection>
-                <NavLink to="/" onClick={closeGenre}><Logo src="/assets/logo.png"/></NavLink>
+                <HomeLogoButton onClick={() => {closeGenre(); homeClick()}}><Logo src="/assets/logo.png"/></HomeLogoButton>
                 <SearchBar>
                     <form onSubmit={handleSearch}>
                         <SearchGenre type="button" onClick={genreToggle}><IoMenu/></SearchGenre>
@@ -95,6 +101,13 @@ const NavSection = styled.div`
     flex-direction: row;
     justify-content: space-between;
     z-index:10;
+`
+const HomeLogoButton = styled.button`
+    background-color: var(--color-dark);
+    border: none;
+    &:hover{
+        cursor: pointer;
+    }
 `
 const Logo = styled.img`
     height: 4rem;
