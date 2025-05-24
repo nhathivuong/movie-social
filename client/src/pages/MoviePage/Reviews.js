@@ -1,6 +1,6 @@
 //dependencies
 import styled from "styled-components"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { NavLink } from "react-router-dom"
 import DOMPurify from 'dompurify';
 
@@ -16,6 +16,7 @@ import CommentReview from "./interactions/CommentReview";
 const Reviews = ({movieReviews, movieId}) => {
     const {allReviews} = useContext(AllReviewsContext)
     const {allUsers} = useContext(AllUsersContext)
+    const [reviewExpanded, setReviewExpanded] = useState(false)
 
     if(!allUsers || !allReviews){
         return <SplashScreen/>
@@ -24,6 +25,9 @@ const Reviews = ({movieReviews, movieId}) => {
     const userMovieReviews = allReviews.filter((review)=> review.movieId === movieId)
     const Reviews = [...movieReviews, ...userMovieReviews]
 
+    const toggleReview = () =>{
+        setReviewExpanded(!reviewExpanded)
+    }
     return (
         <div>
             <h2>Reviews</h2>
@@ -39,7 +43,8 @@ const Reviews = ({movieReviews, movieId}) => {
                     </div>
                     <div>
                         <NavLink to={`/user/${review.username}`}><Username>{review.username}</Username></NavLink>
-                        <ReviewText dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.content) }}/>
+                        <ReviewText $expanded={reviewExpanded} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.content) }}/>
+                        <button onClick={toggleReview}>{reviewExpanded ? 'Read less' : 'Read more'}</button>
                         <LikeInteractionReview review={review}/>
                         <CommentReview review={review}/>
                     </div>
@@ -62,7 +67,8 @@ const Reviews = ({movieReviews, movieId}) => {
                     </div>
                     <div>
                         <Username>{review.author_details.username}</Username>
-                        <ReviewText dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.content) }}/>
+                        <ReviewText $expanded={reviewExpanded} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.content) }}/>
+                        <button onClick={toggleReview}>{reviewExpanded ? 'Read less' : 'Read more'}</button>
                     </div>
                 </ReviewBox>
             })}</div>
@@ -92,6 +98,15 @@ const Username = styled.h2`
 `
 const ReviewText = styled.div`
     margin-top: 1rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    ${({ $expanded }) =>
+    $expanded
+        ? ''
+        : `-webkit-line-clamp: 3;`
+    }
     article, section{
         font-size: 1rem;
         h1{
