@@ -9,7 +9,7 @@ import { AllUsersContext } from "../../contexts/AllUsersContext";
 import { AllReviewsContext } from "../../contexts/AllReviewsContext"
 
 // component
-import SplashScreen from "../../SplashScreen";
+import SplashScreen from "../../utilities/SplashScreen";
 import LikeInteractionReview from "./interactions/LikeInteractionReview";
 import CommentReview from "./interactions/CommentReview";
 

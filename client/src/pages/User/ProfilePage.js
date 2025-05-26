@@ -12,7 +12,7 @@ import RemoveFriend from "./RemoveFriend";
 import UserReview from "./UserReview";
 import UserList from "./UserList";
 import EditProfile from "./EditProfile";
-import SplashScreen from "../../SplashScreen";
+import SplashScreen from "../../utilities/SplashScreen";
 
 const ProfilePage = () =>{
     const { loggedInUser} = useContext(UserContext)

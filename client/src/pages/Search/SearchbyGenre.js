@@ -7,7 +7,7 @@ import { IoIosArrowForward } from "react-icons/io";
 
 //component
 import MoviePoster from "../MoviePoster";
-import SplashScreen from "../../SplashScreen";
+import SplashScreen from "../../utilities/SplashScreen";
 // this gets the movies sorted by popularity based on genre
 const SearchbyGenre = ({genreId}) => {
     const [moviesbyGenre , setMoviesbyGenre] = useState()

@@ -7,7 +7,7 @@ import ProfilePage from "./pages/User/ProfilePage"
 import BrowseMovies from "./pages/Search"
 import MoviePage from "./pages/MoviePage"
 import CommunityPage from "./pages/Community"
-import SplashScreen from "./SplashScreen"
+import SplashScreen from "./utilities/SplashScreen"
 import { useContext } from "react";
 import { AllReviewsContext } from "./contexts/AllReviewsContext";
 import styled from "styled-components"

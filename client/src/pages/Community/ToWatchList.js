@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom"
 //context
 import { UserContext } from "../../contexts/UserContext"
 // component
-import SplashScreen from "../../SplashScreen"
+import SplashScreen from "../../utilities/SplashScreen"
 const ToWatchList = () => {
     const {loggedInUser} = useContext(UserContext)
 
