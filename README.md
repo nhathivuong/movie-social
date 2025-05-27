@@ -82,12 +82,18 @@ To run the app locally, follow these steps:
 4. **Login/Sign up**
     - Easily toggle between login and sign-up forms
     - On sign-up, you can upload a profile picture
-5. **Profile page**
+5. **Profile Page**
     - See all your movie lists and reviews
     - Edit your profile (if it's your own)
     - When viewing another user’s profile:
         - Follow them
         - Save and review the movies they’ve reviewed
-6. **Community page**
+6. **Community Page**
     - Showcases your "To Watch" list
     - Displays the latest reviews from people you follow
+  
+7. **About Page**
+    - Learn more about the project
+    - Meet the developer
+8. **Blog Page**
+    - Monthly updates on website features
