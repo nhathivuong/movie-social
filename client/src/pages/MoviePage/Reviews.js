@@ -44,7 +44,7 @@ const Reviews = ({movieReviews, movieId}) => {
                     <div>
                         <NavLink to={`/user/${review.username}`}><Username>{review.username}</Username></NavLink>
                         <ReviewText $expanded={reviewExpanded} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.content) }}/>
-                        <button onClick={toggleReview}>{reviewExpanded ? 'Read less' : 'Read more'}</button>
+                        <ReadMoreButton onClick={toggleReview}>{reviewExpanded ? 'Read less' : 'Read more'}</ReadMoreButton>
                         <LikeInteractionReview review={review}/>
                         <CommentReview review={review}/>
                     </div>
@@ -68,7 +68,7 @@ const Reviews = ({movieReviews, movieId}) => {
                     <div>
                         <Username>{review.author_details.username}</Username>
                         <ReviewText $expanded={reviewExpanded} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.content) }}/>
-                        <button onClick={toggleReview}>{reviewExpanded ? 'Read less' : 'Read more'}</button>
+                        <ReadMoreButton onClick={toggleReview}>{reviewExpanded ? 'Read less' : 'Read more'}</ReadMoreButton>
                     </div>
                 </ReviewBox>
             })}</div>
@@ -123,6 +123,20 @@ const ReviewText = styled.div`
         p{
             font-size: 1rem;
         }
+    }
+`
+const ReadMoreButton = styled.button`
+    padding: 0;
+    border: none;
+    font-weight:bold;
+    display: flex;
+    text-align: top;
+    line-height: 1.5;
+    background-color: transparent;
+    color: var(--color-accent);
+    cursor: pointer;
+    &:hover{
+        text-decoration: underline;
     }
 `
 export default Reviews
