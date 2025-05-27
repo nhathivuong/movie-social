@@ -5,7 +5,7 @@ A website inspired by the social media experience of Goodreads. Film media is a 
 [🔗 Film Media](https://film-media.vercel.app/)
 
 ## Features
-
+Note: Some features are only available when logged in
 - **Browse and Search Movies** — Discover movies by genre, popularity, or search query.
 - **Detailed Movie Pages** — View trailers, recommendations, and user reviews.
 - **Save to Custom Lists** — Keep track of movies you want to watch or have watched.
@@ -63,7 +63,7 @@ To run the app locally, follow these steps:
     <pre>cd client 
     yarn start</pre>
 
-    Visit http://localhost:3000 (or whatever port you want to use) in your browser.
+    Visit http://localhost:4000 (or whatever port you want to use) in your browser.
 
 ## Pages
 
@@ -82,12 +82,18 @@ To run the app locally, follow these steps:
 4. **Login/Sign up**
     - Easily toggle between login and sign-up forms
     - On sign-up, you can upload a profile picture
-5. **Profile page**
+5. **Profile Page**
     - See all your movie lists and reviews
     - Edit your profile (if it's your own)
     - When viewing another user’s profile:
         - Follow them
         - Save and review the movies they’ve reviewed
-6. **Community page**
+6. **Community Page**
     - Showcases your "To Watch" list
     - Displays the latest reviews from people you follow
+  
+7. **About Page**
+    - Learn more about the project
+    - Meet the developer
+8. **Blog Page**
+    - Monthly updates on website features
