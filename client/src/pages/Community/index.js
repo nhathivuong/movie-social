@@ -4,11 +4,13 @@ import styled from "styled-components"
 // components
 import ToWatchList from "./ToWatchList"
 import Updates from "./Updates"
+import BackToTop from "../../utilities/BackToTop"
 
 const CommunityPage = () =>{
 
     return (
     <Community>
+        <BackToTop/>
         <ToWatchList/>
         <Updates/>
     </Community>)

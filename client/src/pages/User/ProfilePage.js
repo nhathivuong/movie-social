@@ -13,6 +13,7 @@ import UserReview from "./UserReview";
 import UserList from "./UserList";
 import EditProfile from "./EditProfile";
 import SplashScreen from "../../utilities/SplashScreen";
+import BackToTop from "../../utilities/BackToTop";
 
 const ProfilePage = () =>{
     const { loggedInUser} = useContext(UserContext)
@@ -55,6 +56,7 @@ const ProfilePage = () =>{
     }
 
     return <ProfileSection>
+        <BackToTop/>
         <Profile>
             <Picture src={userInfos.src} alt={`${userInfos.name}'s profile picture`}/>
             <EditProfile userInfos={userInfos} username={username}/>
