@@ -16,7 +16,7 @@ const getUser = async(req, res) =>{
     try{
         await client.connect()
         const db = client.db("movie")
-        const foundUser = await db.collection("users").findOne({username: username}, {projection: {password: 0, _id : 0}})
+        const foundUser = await db.collection("users").findOne({username: username}, {projection: {password: 0, _id : 0, email: 0}})
         if(!foundUser){
             return res.status(404).json({
                 status:404,

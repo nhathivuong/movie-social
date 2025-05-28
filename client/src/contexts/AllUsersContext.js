@@ -13,7 +13,6 @@ const AllUsersProvider = ({children}) => {
                 if (!res.ok) throw new Error("Failed to fetch users");
                 return res.json()})
             .then(data => {
-                console.log(data.allUsers)
                 setAllUsers(data.allUsers)
             })
             .catch(error => console.error(error))

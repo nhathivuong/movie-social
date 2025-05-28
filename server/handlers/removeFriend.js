@@ -28,7 +28,7 @@ const removeFriend = async(req, res) => {
         await client.connect()
         const db = client.db("movie")
         //
-        const findUser = await db.collection("users").findOne({username: username})
+        const findUser = await db.collection("users").findOne({username: username}, {projection: {password: 0, _id : 0, email: 0}})
         if(!findUser){
             return res.status(404).json({
             status: 404,
