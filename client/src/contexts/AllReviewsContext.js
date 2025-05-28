@@ -5,7 +5,7 @@ export const AllReviewsContext = createContext()
 const AllReviewsProvider = ({children}) => {
     const [allReviews, setAllReviews] = useState();
     const [updateReview, setUpdateReview] = useState(0)
-    //returns an array with all the users' username, name and src keys
+    //returns an array with all the reviews
     useEffect(() =>{
         const getAllReviews = () =>{
             fetch(`${process.env.REACT_APP_BACKEND_URL}/reviews`)
