@@ -36,8 +36,8 @@ const searchGenre = async(req, res) => {
         })
     }
     catch(error){
-        res.status(500).json({
-            status:500,
+        res.status(502).json({
+            status:502,
             message: error.message
         })
     }

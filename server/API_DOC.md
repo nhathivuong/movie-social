@@ -18,9 +18,8 @@
 | URL                       | Method | Description                                                    |
 | ------------------------- | ------ | -------------------------------------------------------------- |
 | `"/movie/:movieId/list"`  | `POST` | Returns a feedback message either for adding a movie to a list or creating a new list |
-| `"/movie/:movieId/review"`| `POST` | Returns the review object |
 | `"/reviews"`              | `GET`  | Returns a `reviews` array containing all the reviews |
-| `"/add-review"`           | `PATCH`| Allows the user to write a review for a movie|
+| `"/movie/:movieId/review"`| `POST` | Allows the user to write a review for a movie and returns the `review` object |
 | `"/like-review"`          | `PATCH`| Allows the user to like another user review from our database|
 | `"/unlike-review"`        | `PATCH`| Allows the user to remove their like on a review from our database|
 | `"/comment-review"`       | `PATCH`| Allows the user to comment on a review from our database|
@@ -211,6 +210,21 @@ Unsuccessful status codes: 404, 409, 502.
 
 ---
 
+### "/reviews" (GET)
+
+On success
+```js
+{
+  "status": 201,
+  "reviews": [...],
+}
+```
+Elements of the `reviews` array will be objects with all the keys.
+
+Unsuccessful status codes: 400, 409, 502.
+
+---
+
 ### "/movie/:movieId/review" (POST)
 
 On success
@@ -230,45 +244,6 @@ On success
 }
 ```
 The `likes` and `comments` arrays are placeholders 
-
-Unsuccessful status codes: 400, 409, 502.
-
----
-
-### "/reviews" (GET)
-
-On success
-```js
-{
-  "status": 201,
-  "reviews": [...],
-}
-```
-Elements of the `reviews` array will be objects with all the keys.
-
-Unsuccessful status codes: 400, 409, 502.
-
----
-
-### "/add-review" (PATCH)
-
-On success
-```js
-{
-  "status": 201,
-  "review": {
-    _id
-    movieId,
-    username,
-    rating,
-    content,
-    likes: [],
-    comments: [],
-    createdAt
-  },
-}
-```
-The `likes` and `comments` arrays are containing items see below for more details (`"/like-review" (PATCH)` and `"/comment-review" (PATCH)`)
 
 Unsuccessful status codes: 400, 409, 502.
 
