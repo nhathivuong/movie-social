@@ -22,8 +22,11 @@ const UserProvider = ({children}) =>{
             fetch(`${process.env.REACT_APP_BACKEND_URL}/profile`, options)
             .then(res => res.json())
             .then(data => {
-                if(data.status === 200){setLoggedInUser(data.user)}
+                if(data.status === 200){
+                    setLoggedInUser(data.user)
+                }
             })
+            
             .catch((error) => console.error(error))
         }
     },[updateUser])

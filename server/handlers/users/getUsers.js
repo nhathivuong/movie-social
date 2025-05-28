@@ -8,7 +8,7 @@ const getUsers = async(req, res) =>{
     try{
         await client.connect()
         const db = client.db("movie")
-        const allUsers = await db.collection("users").find().project({_id:0, password:0}).toArray()
+        const allUsers = await db.collection("users").find({}, { projection: { _id:0, name: 1, username: 1, src: 1} }).toArray()
         if (allUsers.length === 0) {
             return res.status(404).json({
                 status:404,

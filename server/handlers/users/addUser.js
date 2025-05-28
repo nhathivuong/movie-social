@@ -24,7 +24,7 @@ const addUser = async(req, res) => {
         const db = client.db("movie")
 
         // checks if the user(username or email) already exist in the database
-        const usernameTaken = await db.collection("users").findOne({username: username})
+        const usernameTaken = await db.collection("users").findOne({username: username}, {projection: {password: 0, _id : 0, email: 0}})
         if(usernameTaken){
             return res.status(400).json({
                 status:400,
