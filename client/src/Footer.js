@@ -46,7 +46,10 @@ const FooterSection = styled.footer`
 `
 const PageNavigation = styled.nav`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    gap: 2rem;
+    justify-content: center;
+    
     align-items: start;
     line-height: 1.5;
     padding: 1rem 2rem;
