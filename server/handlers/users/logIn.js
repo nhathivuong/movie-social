@@ -18,7 +18,7 @@ const logIn = async(req, res) =>{
     try{
         await client.connect()
         const db = client.db("movie")
-        const user = await db.collection("users").findOne({username: username},)
+        const user = await db.collection("users").findOne({username: username})
         if(!user){
             return res.status(400).json({
                 status: 400,
@@ -35,7 +35,7 @@ const logIn = async(req, res) =>{
         const token = jwt.sign(
             {userId: user._id, username: user.username},
             JWT_SECRET,
-            {expiresIn: "1d"}
+            {expiresIn: "7d"}
         )
         res.status(200).json({
             status: 200,

@@ -43,26 +43,41 @@ const {
     addComment
 } = require("./handlers")
 
-// this creates and account when a user sign up to the website
-app.post("/user", addUser);
-
-// this is used to get all the user's info
-app.get("/user/:username", getUser);
+//// Users endpoints ////
 
 // this get all the users basic info(name, username, src)
 app.get("/users", getUsers)
-
+// this is used to get the user's selected info
+app.get("/user/:username", getUser);
+// this creates and account when a user sign up to the website
+app.post("/user", addUser);
 // login the user
 app.post("/login", logIn)
-
 //changes the user information 
 app.patch("/user/:username", updateUser)
+//adds friend
+app.patch("/add-friend", addFriend)
+//remove friend
+app.patch("/remove-friend", removeFriend)
+// verify token and gives loggedin user info
+app.get("/profile", verifyToken, middleware)
+
+//// Interactions endpoints ////
 
 // either add a movie to a list or create a list
 app.post("/movie/:movieId/list", addList)
-
+//this gets all the reviews
+app.get("/reviews", getReviews)
 // creates a review
 app.post("/movie/:movieId/review", addReview)
+//this allows the user to like a review
+app.patch("/like-review", likeReview)
+//this allows the user to remove their like on a review
+app.patch("/unlike-review", removeLikeReview)
+// adds a comment to a review 
+app.patch("/comment-review", addComment)
+
+//// TMDB API endpoints ////
 
 // gets all the movie details from the tmdb API
 app.get("/api/movie/:movieId", movieDetails)
@@ -78,26 +93,6 @@ app.get("/api/home", homeMovies)
 
 //gives you a list of all official genres from the tmdb API
 app.get("/api/genres", getGenres)
-
-//this gets all the reviews
-app.get("/reviews", getReviews)
-
-//this allows the user to like review
-app.patch("/like-review", likeReview)
-
-//this allows the user to like review
-app.patch("/unlike-review", removeLikeReview)
-
-//adds friend
-app.patch("/add-friend", addFriend)
-//remove friend
-app.patch("/remove-friend", removeFriend)
-
-// verify token and gives login info
-app.get("/profile", verifyToken, middleware)
-
-// adds a comment to a review 
-app.patch("/comment-review", addComment)
 
 app.use('*', (req, res) => {
     res.status(404).json({status: 404, message: "Endpoint not found!"});
