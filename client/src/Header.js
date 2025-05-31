@@ -77,7 +77,7 @@ const Header = () => {
                     ?<>
                     <NavLink to="/" onClick={closeGenre}>Home</NavLink>
                     <NavLink to="/community" onClick={closeGenre}>Community</NavLink>
-                    <NavLink to={`/user/${loggedInUser.username}`} onClick={closeGenre}>Hi {loggedInUser.username}</NavLink> {/* I would like this to be the user image with name */}
+                    <ProfileNavLink to={`/user/${loggedInUser.username}`} onClick={closeGenre}>Hi {loggedInUser.username}<ProfilePicture src={loggedInUser.src} alt="profile picture"/></ProfileNavLink>
                     <SignUpLogOut to="/" onClick={()=> {logOut(); closeGenre()}}>Log out</SignUpLogOut></>
                     :<>
                     <LogInButton to="/login" onClick={closeGenre}>Log in</LogInButton>
@@ -191,6 +191,22 @@ const LogInButton = styled(NavLink)`
         box-shadow: 0 0 2px var(--color-accent) inset, 0 0 5px var(--color-dark) inset;
         text-decoration: none;
     }
+`
+const ProfileNavLink = styled(NavLink)`
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;   
+    border-radius:15px;
+    padding-left: 0.5rem;
+    &:hover{
+        background-color: var(--color-dark-accent);
+        
+    }
+`
+const ProfilePicture = styled.img`
+    width: 2rem;
+    border-radius: 50%;
 `
 const SignUpLogOut = styled(NavLink)`
     background-color: var(--color-dark-accent);

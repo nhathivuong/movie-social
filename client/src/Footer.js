@@ -37,7 +37,7 @@ const Footer = () => {
     </FooterSection>
 }
 const FooterSection = styled.footer`
-    display: sticky;
+    display: relative;
     bottom: 0;
     left: 0;
     height: fit-content;
@@ -49,7 +49,6 @@ const PageNavigation = styled.nav`
     flex-direction: row;
     gap: 2rem;
     justify-content: center;
-    
     align-items: start;
     line-height: 1.5;
     padding: 1rem 2rem;
