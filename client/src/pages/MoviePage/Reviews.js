@@ -1,6 +1,6 @@
 //dependencies
 import styled from "styled-components"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { NavLink } from "react-router-dom"
 import DOMPurify from 'dompurify';
 
@@ -9,13 +9,14 @@ import { AllUsersContext } from "../../contexts/AllUsersContext";
 import { AllReviewsContext } from "../../contexts/AllReviewsContext"
 
 // component
-import SplashScreen from "../../SplashScreen";
+import SplashScreen from "../../utilities/SplashScreen";
 import LikeInteractionReview from "./interactions/LikeInteractionReview";
 import CommentReview from "./interactions/CommentReview";
 
 const Reviews = ({movieReviews, movieId}) => {
     const {allReviews} = useContext(AllReviewsContext)
     const {allUsers} = useContext(AllUsersContext)
+    const [reviewExpanded, setReviewExpanded] = useState(false)
 
     if(!allUsers || !allReviews){
         return <SplashScreen/>
@@ -24,6 +25,9 @@ const Reviews = ({movieReviews, movieId}) => {
     const userMovieReviews = allReviews.filter((review)=> review.movieId === movieId)
     const Reviews = [...movieReviews, ...userMovieReviews]
 
+    const toggleReview = () =>{
+        setReviewExpanded(!reviewExpanded)
+    }
     return (
         <div>
             <h2>Reviews</h2>
@@ -39,7 +43,8 @@ const Reviews = ({movieReviews, movieId}) => {
                     </div>
                     <div>
                         <NavLink to={`/user/${review.username}`}><Username>{review.username}</Username></NavLink>
-                        <ReviewText dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.content) }}/>
+                        <ReviewText $expanded={reviewExpanded} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.content) }}/>
+                        <ReadMoreButton onClick={toggleReview}>{reviewExpanded ? 'Read less' : 'Read more'}</ReadMoreButton>
                         <LikeInteractionReview review={review}/>
                         <CommentReview review={review}/>
                     </div>
@@ -62,7 +67,8 @@ const Reviews = ({movieReviews, movieId}) => {
                     </div>
                     <div>
                         <Username>{review.author_details.username}</Username>
-                        <ReviewText dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.content) }}/>
+                        <ReviewText $expanded={reviewExpanded} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.content) }}/>
+                        <ReadMoreButton onClick={toggleReview}>{reviewExpanded ? 'Read less' : 'Read more'}</ReadMoreButton>
                     </div>
                 </ReviewBox>
             })}</div>
@@ -92,6 +98,15 @@ const Username = styled.h2`
 `
 const ReviewText = styled.div`
     margin-top: 1rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    ${({ $expanded }) =>
+    $expanded
+        ? ''
+        : `-webkit-line-clamp: 3;`
+    }
     article, section{
         font-size: 1rem;
         h1{
@@ -108,6 +123,20 @@ const ReviewText = styled.div`
         p{
             font-size: 1rem;
         }
+    }
+`
+const ReadMoreButton = styled.button`
+    padding: 0;
+    border: none;
+    font-weight:bold;
+    display: flex;
+    text-align: top;
+    line-height: 1.5;
+    background-color: transparent;
+    color: var(--color-accent);
+    cursor: pointer;
+    &:hover{
+        text-decoration: underline;
     }
 `
 export default Reviews

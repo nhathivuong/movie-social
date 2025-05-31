@@ -6,7 +6,7 @@ import Modal from 'styled-react-modal'
 import { AllReviewsContext } from "../../../contexts/AllReviewsContext"
 import { UserContext } from "../../../contexts/UserContext"
 // component
-import LoginModal from "../../../LoginModal"
+import LoginModal from "../../../utilities/LoginModal"
 
 const WriteReview = ({movieId, setListVisible, reviewVisible, setReviewVisible}) => {
     const {allReviews, setAllReviews, setUpdateReview} = useContext(AllReviewsContext)

@@ -11,7 +11,7 @@ import { AllReviewsContext } from "../../../contexts/AllReviewsContext";
 import { UserContext } from "../../../contexts/UserContext";
 
 //component
-import LoginModal from "../../../LoginModal";
+import LoginModal from "../../../utilities/LoginModal";
 
 const LikeInteractionReview = ({review}) =>{
     const {setUpdateReview} = useContext(AllReviewsContext)

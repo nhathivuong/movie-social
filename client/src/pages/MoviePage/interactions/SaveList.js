@@ -5,7 +5,7 @@ import Modal from 'styled-react-modal'
 //context
 import { UserContext } from "../../../contexts/UserContext"
 // component
-import LoginModal from "../../../LoginModal"
+import LoginModal from "../../../utilities/LoginModal"
 
 const SaveList = ({movieInfos, movieId, listVisible, setListVisible, setReviewVisible}) =>{
     const [listName, setListName] = useState()

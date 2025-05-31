@@ -7,7 +7,7 @@ import ProfilePage from "./pages/User/ProfilePage"
 import BrowseMovies from "./pages/Search"
 import MoviePage from "./pages/MoviePage"
 import CommunityPage from "./pages/Community"
-import SplashScreen from "./SplashScreen"
+import SplashScreen from "./utilities/SplashScreen"
 import { useContext } from "react";
 import { AllReviewsContext } from "./contexts/AllReviewsContext";
 import styled from "styled-components"
@@ -41,8 +41,8 @@ const App = () => {
     </>
 }
 const Main = styled.main`
-margin-top: 75px;
-margin-bottom: 2rem;
-min-height: 71vh;
+    margin-top: 75px;
+    margin-bottom: 2rem;
+    min-height: 77vh;
 `
 export default App

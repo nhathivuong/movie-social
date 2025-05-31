@@ -7,7 +7,7 @@ import { IoIosArrowForward } from "react-icons/io";
 
 //component
 import MoviePoster from "../MoviePoster"
-import SplashScreen from "../../SplashScreen";
+import SplashScreen from "../../utilities/SplashScreen";
 
 const SearchedMovies = ({search}) => {
     const [moviesSearched, setMoviesSearched] = useState()

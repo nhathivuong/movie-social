@@ -9,7 +9,7 @@ import { FaComment } from "react-icons/fa";
 //context
 import { AllReviewsContext } from "../../../contexts/AllReviewsContext";
 import { UserContext } from "../../../contexts/UserContext";
-import LoginModal from "../../../LoginModal";
+import LoginModal from "../../../utilities/LoginModal";
 
 const CommentReview = ({review}) =>{
     const {setUpdateReview} = useContext(AllReviewsContext)
@@ -25,9 +25,6 @@ const CommentReview = ({review}) =>{
     const commentReview = (event) => {
         event.preventDefault()
 
-        if(!loggedInUser){
-            return setModalMessage(true)
-        }
         // directly updates the front-end
         if(text){
             setComments(prev => [...prev, { username: loggedInUser.username, text: text}]);
@@ -68,6 +65,9 @@ const CommentReview = ({review}) =>{
         setCommentOpen(!commentOpen)
     }
     const WriteComment = () => {
+        if(!loggedInUser){
+            return setModalMessage(true)
+        }
         setWriteCommentOpen(!writeCommentOpen)
     }
     return <>{commentOpen

@@ -16,7 +16,7 @@ import Reviews from "./Reviews"
 import Details from "./Details"
 import SaveList from "./interactions/SaveList";
 import WriteReview from "./interactions/WriteReview";
-import SplashScreen from "../../SplashScreen";
+import SplashScreen from "../../utilities/SplashScreen";
 
 // this page gives all the informations for the selected movie
 const MoviePage = () =>{
