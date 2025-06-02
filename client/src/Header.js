@@ -77,7 +77,7 @@ const Header = () => {
                     ?<>
                     <NavLink to="/" onClick={closeGenre}>Home</NavLink>
                     <NavLink to="/community" onClick={closeGenre}>Community</NavLink>
-                    <ProfileNavLink to={`/user/${loggedInUser.username}`} onClick={closeGenre}>Hi {loggedInUser.username}<ProfilePicture src={loggedInUser.src} alt="profile picture"/></ProfileNavLink>
+                    <ProfileNavLink to={`/user/${loggedInUser.username}`} onClick={closeGenre}><ProfilePicture src={loggedInUser.src} alt="profile picture"/>{loggedInUser.username}</ProfileNavLink>
                     <SignUpLogOut to="/" onClick={()=> {logOut(); closeGenre()}}>Log out</SignUpLogOut></>
                     :<>
                     <LogInButton to="/login" onClick={closeGenre}>Log in</LogInButton>
@@ -198,7 +198,7 @@ const ProfileNavLink = styled(NavLink)`
     align-items: center;
     gap: 0.25rem;   
     border-radius:15px;
-    padding-left: 0.5rem;
+    padding-right: 0.5rem;
     &:hover{
         background-color: var(--color-dark-accent);
         
@@ -207,6 +207,7 @@ const ProfileNavLink = styled(NavLink)`
 const ProfilePicture = styled.img`
     width: 2rem;
     border-radius: 50%;
+    box-shadow: 0 0 4px var(--color-accent);
 `
 const SignUpLogOut = styled(NavLink)`
     background-color: var(--color-dark-accent);
