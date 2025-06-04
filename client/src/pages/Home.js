@@ -146,7 +146,7 @@ const Arrows = styled.button`
     cursor: pointer;
     height: 150px;
     background:none;
-    margin:35px 0;
+    margin:35px 0.5rem;
     color: var(--color-light);
     border:none;
     border-radius: 5px;

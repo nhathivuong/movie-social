@@ -110,9 +110,9 @@ const HomeLogoButton = styled.button`
     }
 `
 const Logo = styled.img`
-    height: 4rem;
+    height: 4.5rem;
     object-fit: cover;
-    margin: 5px 1rem;
+    margin: 0 1rem;
 `
 const SearchGenre = styled.button`
     position:relative;
