@@ -42,7 +42,7 @@ const FollowButton = styled.button`
     margin: 0.5rem auto;
     padding: 0.3rem 1rem;
     border-radius: 5px;
-    background-color: var(--color-dark-accent);
+    background-color: var(--color-dark);
     border: none;
     text-transform: uppercase;
     font-weight:bold;
@@ -53,7 +53,7 @@ const FollowButton = styled.button`
     &:active{
         background: transparent;
         box-shadow: 0 0 2px var(--color-dark) inset;
-        outline: 2px solid var(--color-dark-accent);
+        outline: 2px solid var(--color-dark);
     }
 `
 

@@ -66,7 +66,7 @@ const RoadmapButton = styled.button`
     border-radius: 5px;
     border: 1px solid var(--color-accent);
     &:hover{
-        color: var(--color-dark-accent);
+        color: var(--color-dark);
         background-color: var(--color-accent);
         text-decoration: underline;
     }
@@ -89,7 +89,7 @@ const RoadmapSection = styled(UpdateSection)`
     box-shadow: 0 0 2px var(--color-dark) inset, 0 0 4px white;
     border: 2px solid white;
     p, li{
-        color: var(--color-dark-accent);
+        color: var(--color-dark);
         font-weight: 500;
         };
 `
@@ -97,7 +97,7 @@ const UpdateTitle = styled.h2`
     margin: 1rem auto;
 `
 const RoadmapTitle = styled(UpdateTitle)`
-    color: var(--color-dark-accent);
+    color: var(--color-dark);
     font-weight: 700;
 `
 const UpdateSectionTitle = styled.h3`
@@ -105,7 +105,7 @@ const UpdateSectionTitle = styled.h3`
     text-transform: uppercase;
 `
 const RoadmapSectionTitle = styled(UpdateSectionTitle)`
-    color: var(--color-dark-accent);
+    color: var(--color-dark);
 `
 const ListDecoration = styled.li`
     list-style: disc;

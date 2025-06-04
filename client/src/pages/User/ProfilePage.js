@@ -99,30 +99,30 @@ const Profile = styled.div`
     background-color: var(--color-accent);
     padding: 2rem;
     border-radius: 10px;
-    box-shadow: 1px 1px 4px white inset, -2px -2px 2px var(--color-dark-accent) inset;
+    box-shadow: 1px 1px 4px white inset, -2px -2px 2px var(--color-dark) inset;
 `
 const Picture = styled.img`
     align-self:center;
     width: 150px;
     border-radius:50%;
-    border: 2px solid var(--color-dark-accent);
-    box-shadow: 0 0 3px var(--color-dark-accent);
+    border: 2px solid var(--color-dark);
+    box-shadow: 0 0 3px var(--color-dark);
 `
 const AccountName = styled.h2`
     margin-top: 0.5rem;
-    text-shadow: 0 1px 1px var(--color-dark-accent);
+    text-shadow: 0 1px 1px var(--color-dark);
 `
 const NameAlign = styled.div`
     display:flex;
     flex-direction:column;
     align-items:baseline;
-    text-shadow: 0 1px 1px var(--color-dark-accent);
+    text-shadow: 0 1px 1px var(--color-dark);
 `
 const PronounsCapitalize = styled.p`
     text-transform:capitalize;
 `
 const BioText = styled.p`
     margin-top: 0.7rem;
-    color: var(--color-dark-accent);
+    color: var(--color-dark);
 `
 export default ProfilePage

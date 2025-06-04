@@ -166,7 +166,7 @@ const Arrows = styled.button`
     border-radius: 5px;
     &:hover{
         background-color: var(--color-accent);
-        box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark-accent) inset;
+        box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark) inset;
     }
     &:active{
         background: transparent;

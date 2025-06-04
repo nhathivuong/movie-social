@@ -45,7 +45,11 @@ const Home = () => {
         ref.current.scrollLeft -= 495;
     }
 
-    return <>
+    return <>  
+    <h1>discover your next movie</h1>
+    <LandingText>Explore upcoming, top-rated, and popular movies. Filter by genre or search on your own to build personalized watchlists. Engage with the community by liking and commenting on reviews.</LandingText>
+    <ExploreButton>explore</ExploreButton>
+    <HomeImage src="/assets/myke-simon-atsUqIm3wxo-unsplash.jpg" alt="Pink cinema"/>
     <CategoryWrapper>
         <CategoryTitle>upcoming</CategoryTitle>
         <MoviesWrapper>
@@ -84,17 +88,44 @@ const Home = () => {
     </CategoryWrapper>
     </>
 }
+
+const LandingText = styled.p`
+    width: 40%;
+    line-height: 1.5;
+`
+const ExploreButton = styled.button`
+    background-color: var(--color-accent);
+    padding: 0.5rem 0.8rem;
+    border-radius: 5px;
+    border: 3px solid var(--color-accent);
+    color: var(--color-dark);
+    text-transform: capitalize;
+    margin: 1rem 0 ;
+    font-weight: bold;
+    &:hover{
+        cursor: pointer;
+        box-shadow: 0 0 7px var(--color-accent);
+    }
+    &:active{
+        background-color: transparent;
+        border: 3px solid var(--color-accent);
+        color: var(--color-accent);
+    }
+`
+const HomeImage = styled.img`
+    width: 100%;
+    border-radius: 5px;
+`
 const CategoryWrapper = styled.div`
-    margin-top: 1rem 0 0.5rem 0;
+    margin: 1rem 0 0.5rem 0;
 `
 const CategoryTitle = styled.h2`
     text-transform:uppercase;
-    padding: 1rem 1rem 0 1rem;
+    padding-top: 1rem;
     margin: auto;
     margin-bottom: 1rem;
-    border-bottom: 2px solid var(--color-light);
     width: 95%;
-    
+    color: var(--color-accent);
 `
 const MoviesWrapper = styled.div`
     display:flex;
@@ -115,13 +146,13 @@ const Arrows = styled.button`
     cursor: pointer;
     height: 150px;
     background:none;
-    margin:35px 1rem;
+    margin:35px 0;
     color: var(--color-light);
     border:none;
     border-radius: 5px;
     &:hover{
         background-color: var(--color-accent);
-        box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark-accent) inset;
+        box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark) inset;
     }
     &:active{
         background: transparent;

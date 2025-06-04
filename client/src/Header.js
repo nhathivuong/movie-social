@@ -68,16 +68,16 @@ const Header = () => {
                     </form>
                     {genreOpen && <NavGenreSection>
                         {genresList && genresList.map(genre =>{
-                            return <NavLink key={genre.id} to={`/browse?genre=${genre.name.toLowerCase()}`} state={{genreId: genre.id}} onClick={closeGenre}>{genre.name}</NavLink>
+                            return <Navigation key={genre.id} to={`/browse?genre=${genre.name.toLowerCase()}`} state={{genreId: genre.id}} onClick={closeGenre}>{genre.name}</Navigation>
                         })}
                     </NavGenreSection>}
                 </SearchBar>
                 <LogInLogOut> 
                     {loggedInUser
                     ?<>
-                    <NavLink to="/" onClick={closeGenre}>Home</NavLink>
-                    <NavLink to="/community" onClick={closeGenre}>Community</NavLink>
-                    <ProfileNavLink to={`/user/${loggedInUser.username}`} onClick={closeGenre}><ProfilePicture src={loggedInUser.src} alt="profile picture"/>{loggedInUser.username}</ProfileNavLink>
+                    <Navigation to="/" onClick={closeGenre}>Home</Navigation>
+                    <Navigation to="/community" onClick={closeGenre}>Community</Navigation>
+                    <ProfileNavLink to={`/user/${loggedInUser.username}`} onClick={closeGenre}><ProfilePicture src={loggedInUser.src} alt="profile picture"/></ProfileNavLink>
                     <SignUpLogOut to="/" onClick={()=> {logOut(); closeGenre()}}>Log out</SignUpLogOut></>
                     :<>
                     <LogInButton to="/login" onClick={closeGenre}>Log in</LogInButton>
@@ -95,8 +95,8 @@ const NavSection = styled.div`
     position: fixed;
     top:0;
     width:100%;
-    background-color: black;
-    margin:0;
+    margin: 0 3rem 0 1rem;
+    background-color: var(--color-dark);
     display:flex;
     flex-direction: row;
     justify-content: space-between;
@@ -143,7 +143,7 @@ const SearchInput = styled.input`
     border: 3px solid var(--color-accent);
     box-shadow: 0 0 4px var(--color-accent);
     &:focus{
-        border: 2px solid var(--color-dark-accent);
+        border: 2px solid var(--color-dark);
         outline: 2px solid var(--color-accent);
     }
 `
@@ -172,24 +172,31 @@ const NavGenreSection = styled(NavSection)`
     flex-direction: column;
     justify-content: space-evenly;
 `
+const Navigation = styled(NavLink)`
+    &:hover{
+        text-decoration-color: var(--color-accent);
+    }
+`
 const LogInLogOut = styled.div`
     display: flex;
     gap: 0.7rem;
-    margin: 0 1.5rem;
+    margin-right: 3rem;
     align-items: center;
 `
 const LogInButton = styled(NavLink)`
     background-color: var(--color-accent);
-    padding: 0.3rem 0.8rem;
-    border-radius: 3px;
+    padding: 0.5rem 0.8rem;
+    border-radius: 5px;
+    border: 3px solid var(--color-accent);
     color: var(--color-dark);
     &:hover{
-        box-shadow: 0 0 5px var(--color-accent);
+        cursor: pointer;
+        box-shadow: 0 0 7px var(--color-accent);
     }
     &:active{
-        border: 1px solid var(--color-dark-accent);
-        box-shadow: 0 0 2px var(--color-accent) inset, 0 0 5px var(--color-dark) inset;
-        text-decoration: none;
+        background-color: transparent;
+        border: 3px solid var(--color-accent);
+        color: var(--color-accent);
     }
 `
 const ProfileNavLink = styled(NavLink)`
@@ -200,27 +207,33 @@ const ProfileNavLink = styled(NavLink)`
     border-radius:15px;
     padding-right: 0.5rem;
     &:hover{
-        background-color: var(--color-dark-accent);
-        
+        background-color: var(--color-dark);
     }
 `
 const ProfilePicture = styled.img`
     width: 2rem;
     border-radius: 50%;
-    box-shadow: 0 0 4px var(--color-accent);
+    border: 2px solid var(--color-dark);
+    &:hover{
+        border: 2px solid var(--color-accent);
+        box-shadow: 0 0 5px var(--color-accent);
+        
+    }
 `
 const SignUpLogOut = styled(NavLink)`
-    background-color: var(--color-dark-accent);
-    padding: 0.3rem 0.8rem;
-    border-radius: 3px;
-    box-shadow: 0 0 2px var(--color-accent);
+    background-color: var(--color-dark);
+    padding: 0.5rem 0.8rem;
+    border-radius: 5px;
+    background-color: transparent;
+    border: 3px solid var(--color-accent);
+    text-decoration: none;
+    color: var(--color-accent);
     &:hover{
-        box-shadow: 0 0 5px var(--color-dark-accent);
+        cursor: pointer;
+        text-decoration: underline;
     }
     &:active{
-        border: 1px solid var(--color-dark-accent);
-        box-shadow: 0 0 2px var(--color-accent) inset, 0 0 5px var(--color-dark) inset;
-        text-decoration: none;
+        box-shadow: 0 0 5px var(--color-accent) inset, 0 0 5px var(--color-accent);
     }
 `
 export default Header

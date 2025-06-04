@@ -84,7 +84,7 @@ const LogInButton = styled.button`
     text-transform: uppercase;
     font-weight:bold;
     color: var(--color-dark);
-    box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark-accent) inset;
+    box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark) inset;
     cursor: pointer;
     &:active{
         background: transparent;
