@@ -14,7 +14,7 @@ const ToWatchList = () => {
         return <SplashScreen/>
     }
 
-    return <WatchSection>
+    return <div>
             <h2>To Watch</h2>
             {toWatchList.movies.length > 0 
             ?<MoviesToWatch>
@@ -27,15 +27,10 @@ const ToWatchList = () => {
                     </NavLink>
             })}</MoviesToWatch>
             :<p>No movies in the list</p>}
-        </WatchSection>
+        </div>
 }
 
-const WatchSection = styled.div`
-    margin:0 1rem;
-
-`
 const MoviesToWatch = styled.div`
-    margin: 2rem 0;
     display: grid;
     grid-template-columns: repeat(4, auto);
     gap: 0.75rem;

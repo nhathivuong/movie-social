@@ -89,7 +89,7 @@ const Updates =() =>{
 const ReviewBox = styled.div`
     display: flex;
     flex-direction: column;
-    width: 70vw;
+    width: 100%;
     margin: 2rem 1rem;
     padding: 1rem;
     gap: 1rem;
