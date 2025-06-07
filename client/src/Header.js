@@ -217,7 +217,6 @@ const ProfilePicture = styled.img`
     &:hover{
         border: 2px solid var(--color-accent);
         box-shadow: 0 0 5px var(--color-accent);
-        
     }
 `
 const SignUpLogOut = styled(NavLink)`

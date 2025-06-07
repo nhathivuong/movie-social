@@ -53,7 +53,7 @@ const UserList = ({userInfos}) =>{
     </MovieListElement>
 }
 const MovieListElement = styled.div`
-    width:fit-content;    
+    max-width:100%;    
 `
 const ListName = styled.h2`
     margin: 1rem 0 0.3rem 0;
@@ -67,7 +67,6 @@ const MovieScroll = styled.div`
     display: flex;
     flex-direction:row;
     font-size: 1rem;
-    width: 60vw;
     overflow-x: scroll;
     gap: 15px;
     &::-webkit-scrollbar{

@@ -55,16 +55,10 @@ const LogIn = () =>{
 
 const LogInBox = styled.div`
     width:30svw;
-    position:absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin: 2rem auto;
+    margin: 8rem auto 1rem auto;
     padding: 1rem;
     display:flex;
     flex-direction:column;
-    border-radius: 10px;
-    background-color: black;
     gap: 0.5rem;
 `
 const LogInForm = styled.form`

@@ -8,6 +8,7 @@ import { IoIosArrowForward } from "react-icons/io";
 
 //component
 import MoviePoster from "./MoviePoster"
+import BackToTop from "../utilities/BackToTop";
 
 const Home = () => {
     const [upcomingMovies, setUpcomingMovies] = useState()
@@ -45,7 +46,8 @@ const Home = () => {
         ref.current.scrollLeft -= 495;
     }
 
-    return <>  
+    return <>
+    <BackToTop/>  
     <h1>discover your next movie</h1>
     <LandingText>Explore upcoming, top-rated, and popular movies. Filter by genre or search on your own to build personalized watchlists. Engage with the community by liking and commenting on reviews.</LandingText>
     <ExploreButton>explore</ExploreButton>

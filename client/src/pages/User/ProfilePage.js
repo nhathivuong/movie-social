@@ -55,8 +55,9 @@ const ProfilePage = () =>{
         return <SplashScreen/>
     }
 
-    return <ProfileSection>
-        <BackToTop/>
+    return <>
+    <BackToTop/>
+    <ProfileSection>
         <Profile>
             <Picture src={userInfos.src} alt={`${userInfos.name}'s profile picture`}/>
             <EditProfile userInfos={userInfos} username={username}/>
@@ -70,47 +71,38 @@ const ProfilePage = () =>{
             {loggedInUser && userInfos.username !== loggedInUser.username && loggedInUser.follows.includes(userInfos.username) && <RemoveFriend currentUser={loggedInUser.username} unfollowUser={userInfos.username}/>}
         </Profile>
         <ListsReviews>
-            <UserList userInfos={userInfos}/>
+            
             <UserReview userReviews={userReviews} movies={movies}/>
         </ListsReviews>
     </ProfileSection>
+    </>
 }
 const ProfileSection = styled.div`
-    display:flex;
-    flex-direction: row;
-    margin: 6rem 1rem 1rem 2rem;
-    gap: 2rem;
+    max-width: 85%;
+    display: grid;
+    grid-template-columns: 3fr 6fr;
+    gap: 10rem;
+    margin: 2rem auto;
+    padding: 2rem;
+    line-height: 1.5;
 `
 const ListsReviews = styled.div`
     display:flex;
     flex-direction:column;
-    width: fit-content;
-    margin-right: 0;
-    margin-left: auto;
 `
 const Profile = styled.div`
-    position: fixed;
-    width: 19vw;
     height: fit-content;
     display:flex;
     flex-direction: column;
     justify-content:center;
     align-items:start;
-    background-color: var(--color-accent);
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 1px 1px 4px white inset, -2px -2px 2px var(--color-dark) inset;
 `
 const Picture = styled.img`
-    align-self:center;
-    width: 150px;
-    border-radius:50%;
-    border: 2px solid var(--color-dark);
-    box-shadow: 0 0 3px var(--color-dark);
+    max-width: 100%;
+    border-radius:10px;
 `
 const AccountName = styled.h2`
     margin-top: 0.5rem;
-    text-shadow: 0 1px 1px var(--color-dark);
 `
 const NameAlign = styled.div`
     display:flex;
@@ -123,6 +115,5 @@ const PronounsCapitalize = styled.p`
 `
 const BioText = styled.p`
     margin-top: 0.7rem;
-    color: var(--color-dark);
 `
 export default ProfilePage

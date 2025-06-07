@@ -17,6 +17,7 @@ import Details from "./Details"
 import SaveList from "./interactions/SaveList";
 import WriteReview from "./interactions/WriteReview";
 import SplashScreen from "../../utilities/SplashScreen";
+import BackToTop from "../../utilities/BackToTop";
 
 // this page gives all the informations for the selected movie
 const MoviePage = () =>{
@@ -79,6 +80,7 @@ const MoviePage = () =>{
     }
 
     return <>
+    <BackToTop/>
     <Backdrop 
         src={movieInfos.backdrop_path 
         ? `https://image.tmdb.org/t/p/original${movieInfos.backdrop_path}` 
