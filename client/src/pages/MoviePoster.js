@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 //this will used for all movies quick display
 const MoviePoster = ({movie}) =>{
-    return <NavLink to={`/movie/${movie.id}`} draggable="false">
+    return <Navigation to={`/movie/${movie.id}`} draggable="false">
         <img  
         src={movie.poster_path 
         ? `https://image.tmdb.org/t/p/original${movie.poster_path}` 
@@ -11,11 +11,17 @@ const MoviePoster = ({movie}) =>{
         alt={movie.title} 
         width={150} height={225}/>
         <MovieTitle>{movie.title}</MovieTitle>
-    </NavLink>
+    </Navigation>
 }
+const Navigation = styled(NavLink)`
+    &:hover{
+        text-decoration-color: var(--color-accent);
+    }
+`
 const MovieTitle = styled.h3`
     width:150px;
     display: -webkit-box;
+    line-height: 1.2;
     -webkit-line-clamp: 2;
     overflow:hidden;
     -webkit-box-orient: vertical;

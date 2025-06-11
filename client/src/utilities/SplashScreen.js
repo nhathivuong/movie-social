@@ -23,7 +23,7 @@ const Loading = styled.div`
     width: 60px;
     height: 60px;
     margin: auto;
-    background-color: var(--color-dark-accent);
+    background-color: var(--color-dark);
     position: relative;
     top: 10px;
     &:after{

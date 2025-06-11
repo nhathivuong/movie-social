@@ -1,6 +1,6 @@
 {
-  "name": "Film Media",
-  "short_name": "Film Media",
+  "name": "MyWebSite",
+  "short_name": "MySite",
   "icons": [
     {
       "src": "/assets/web-app-manifest-192x192.png",

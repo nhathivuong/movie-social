@@ -21,6 +21,7 @@ const fadeIn = keyframes`
 `
 
 const BackToTopButton = styled.button`
+    z-index: 100;
     display: flex;
     position: fixed;
     left: 50%;

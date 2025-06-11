@@ -129,7 +129,7 @@ const Edit = styled.button`
     cursor: pointer;
     height: fit-content;
     background:none;
-    color: var(--color-dark);
+    color: var(--color-accent);
     font-weight:bold;
     border:none;
     border-radius: 5px;
@@ -211,6 +211,7 @@ const ClosingButton = styled.button`
     display:flex;
     justify-self: right;
     height:fit-content;
+    cursor: pointer;
 `
 const BioWritting = styled.textarea`
     height: 5rem;
@@ -230,11 +231,11 @@ const Button = styled.button`
     text-transform: uppercase;
     font-weight:bold;
     color: var(--color-dark);
-    box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark-accent) inset;
     margin-bottom: 0.5rem;
     cursor: pointer;
     &:active{
         background: transparent;
+        color: var(--color-accent);
         outline: 2px solid var(--color-accent);
     }
 `

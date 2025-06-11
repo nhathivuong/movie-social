@@ -9,15 +9,21 @@ import BackToTop from "../../utilities/BackToTop"
 const CommunityPage = () =>{
 
     return (
-    <Community>
+    <>
         <BackToTop/>
-        <ToWatchList/>
-        <Updates/>
-    </Community>)
+        <CommunityLayout>
+            <ToWatchList/>
+            <Updates/>
+        </CommunityLayout>
+    </>)
 }
-const Community = styled.div`
-    margin: 6rem 0 1rem 0;
-    display:flex;
-    flex-direction: row;
+const CommunityLayout = styled.div`
+    max-width: 85%;
+    display: grid;
+    grid-template-columns: 3fr 6fr;
+    gap: 10rem;
+    margin: 2rem auto;
+    padding: 2rem;
+    line-height: 1.5;
 `
 export default CommunityPage

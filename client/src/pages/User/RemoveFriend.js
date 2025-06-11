@@ -40,18 +40,17 @@ const FollowButton = styled.button`
     margin: 0.5rem auto;
     padding: 0.3rem 1rem;
     border-radius: 5px;
-    background-color: var(--color-dark-accent);
+    background-color: var(--color-other);
     border: none;
     text-transform: uppercase;
     font-weight:bold;
-    color: var(--color-light);
-    text-shadow: 0 0 1px black;
-    box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark) inset;
+    color: var(--color-dark);
     cursor: pointer;
     &:active{
         background: transparent;
-        box-shadow: 0 0 2px var(--color-dark) inset;
-        outline: 2px solid var(--color-dark-accent);
+        color: var(--color-other);
+        box-shadow: 0 0 2px var(--color-other) inset;
+        outline: 2px solid var(--color-other);
     }
 `
 

@@ -63,6 +63,7 @@ const ButtonFooter = styled.button`
     &:hover{
         text-decoration: underline;
         cursor: pointer;
+        text-decoration-color: var(--color-accent);
     }  
 `
 export default Footer

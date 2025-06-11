@@ -53,7 +53,7 @@ const UserList = ({userInfos}) =>{
     </MovieListElement>
 }
 const MovieListElement = styled.div`
-    width:fit-content;    
+    max-width:100%;    
 `
 const ListName = styled.h2`
     margin: 1rem 0 0.3rem 0;
@@ -67,7 +67,6 @@ const MovieScroll = styled.div`
     display: flex;
     flex-direction:row;
     font-size: 1rem;
-    width: 60vw;
     overflow-x: scroll;
     gap: 15px;
     &::-webkit-scrollbar{
@@ -86,16 +85,17 @@ const Arrows = styled.button`
     cursor: pointer;
     height: 150px;
     background:none;
-    margin:35px 1rem;
+    margin: 4rem 0.5rem;
     color: var(--color-light);
     border:none;
     border-radius: 5px;
     &:hover{
         background-color: var(--color-accent);
-        box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark-accent) inset;
+        color: var(--color-dark);
     }
     &:active{
         background: transparent;
+        color: var(--color-accent);
         outline: 2px solid var(--color-accent);
     }
 `

@@ -52,10 +52,10 @@ table {
 /* The colors */
 :root{
     --color-dark: #000000;
-    --color-dark-accent: #00272B;
-    --color-accent: #9AE19D;
-    --color-light: #EEEEEE;
-    background-color: #00272B;
+    --color-accent: #FD87AA;
+    --color-other: #FD336A;
+    --color-light: #FFFFFF;
+    background-color: #000000;
 }
 
 /* headers */
@@ -69,15 +69,14 @@ body{
 h1{
     font-size: 3rem;
     color:var(--color-accent);
-    text-shadow: 2px 2px 0 var(--color-dark-accent), 3px 3px 0 var(--color-light);
-    padding: 0.5rem;
+    padding: 0.5rem 0;
+    text-transform: capitalize;
 }
 h2{
     font-size: 2rem;
     color:var(--color-light);
     text-shadow: 0 0 3px var(--color-accent);
 }
-
 /* other */
 a{
     text-decoration: none;

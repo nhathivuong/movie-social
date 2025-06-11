@@ -41,8 +41,7 @@ const App = () => {
     </>
 }
 const Main = styled.main`
-    margin-top: 75px;
-    margin-bottom: 2rem;
+    margin: 5rem 2rem 2rem 2rem;
     min-height: 77vh;
 `
 export default App

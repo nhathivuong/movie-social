@@ -148,7 +148,6 @@ const SubmitComment = styled.button`
     text-transform: uppercase;
     font-weight:bold;
     color: var(--color-dark);
-    box-shadow: 1px 1px 1px white inset, -1px -1px 1px var(--color-dark-accent) inset;
     margin-bottom: 0.5rem;
     cursor: pointer;
     &:active{

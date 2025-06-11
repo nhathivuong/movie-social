@@ -78,8 +78,10 @@ const Updates =() =>{
                         <MovieInfo>
                             <NavLink to={`/movie/${movie.id}`}><h2>{movie.title}</h2></NavLink>
                             <MovieOverview>{movie.overview}</MovieOverview>
-                            <SaveList movieInfos={movie} movieId={movie.id} listVisible={listVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible}/>
-                            <WriteReview movieId={movie.id} reviewVisible={reviewVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible} />
+                            <SaveReviewMovieSection>
+                                <SaveList movieInfos={movie} movieId={movie.id} listVisible={listVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible}/>
+                                <WriteReview movieId={movie.id} reviewVisible={reviewVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible} />
+                            </SaveReviewMovieSection>
                         </MovieInfo>
                     </MovieSection>
                 </ReviewBox>})
@@ -89,7 +91,7 @@ const Updates =() =>{
 const ReviewBox = styled.div`
     display: flex;
     flex-direction: column;
-    width: 70vw;
+    width: 100%;
     margin: 2rem 1rem;
     padding: 1rem;
     gap: 1rem;
@@ -141,5 +143,11 @@ const MovieInfo = styled.div`
 `
 const MovieOverview = styled.p`
     margin:0.5rem 0;
+`
+const SaveReviewMovieSection = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
 `
 export default Updates

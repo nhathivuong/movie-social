@@ -100,16 +100,10 @@ const SignUp = () => {
 }
 const SignUpBox = styled.div`
     width:30svw;
-    position:absolute;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin: 2rem auto;
+    margin: 8rem auto 1rem auto;
     padding: 1rem;
     display:flex;
     flex-direction:column;
-    border-radius: 10px;
-    background-color: black;
     gap: 0.5rem;
 `
 const SignUpForm = styled.form`
@@ -129,10 +123,10 @@ const SignUpButton = styled.button`
     text-transform: uppercase;
     font-weight:bold;
     color: var(--color-dark);
-    box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark-accent) inset;
     cursor: pointer;
     &:active{
         background: transparent;
+        color: var(--color-accent);
         outline: 2px solid var(--color-accent);
     }
 `
@@ -140,7 +134,10 @@ const LogIn = styled(NavLink)`
     color: var(--color-accent);
 `
 const ProfilePicture = styled.img`
+    margin-top: 0.5rem;
     width:50%;
     border-radius:50%;
+    border: 2px solid var(--color-accent);
+    box-shadow: 0 0 5px var(--color-accent);
 `
 export default SignUp

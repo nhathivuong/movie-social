@@ -17,6 +17,7 @@ import Details from "./Details"
 import SaveList from "./interactions/SaveList";
 import WriteReview from "./interactions/WriteReview";
 import SplashScreen from "../../utilities/SplashScreen";
+import BackToTop from "../../utilities/BackToTop";
 
 // this page gives all the informations for the selected movie
 const MoviePage = () =>{
@@ -79,6 +80,7 @@ const MoviePage = () =>{
     }
 
     return <>
+    <BackToTop/>
     <Backdrop 
         src={movieInfos.backdrop_path 
         ? `https://image.tmdb.org/t/p/original${movieInfos.backdrop_path}` 
@@ -92,10 +94,10 @@ const MoviePage = () =>{
                     ? `https://image.tmdb.org/t/p/original${movieInfos.poster_path}` 
                     : "/assets/no_poster.jpg"} 
                     alt={`${movieInfos.title} poster`} width={300}/>
-                <div>
+                <SaveReviewMovieSection>
                     <SaveList movieInfos={movieInfos} movieId={movieId} listVisible={listVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible}/>
                     <WriteReview movieId={movieId} reviewVisible={reviewVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible} />
-                </div>
+                </SaveReviewMovieSection>
             </div>
             <Details movieInfos={movieInfos} directors={directors}/>
         </Synopsis>
@@ -151,6 +153,12 @@ const Synopsis = styled.div`
     flex-direction:row;
     gap: 2rem;
 `
+const SaveReviewMovieSection = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+`
 const ScrollWrapper = styled.div`
     display:flex;
     flex-direction:row;
@@ -160,16 +168,17 @@ const Arrows = styled.button`
     cursor: pointer;
     height: 150px;
     background:none;
-    margin: 4rem 1rem;
+    margin: 4rem 0.5rem;
     color: var(--color-light);
     border:none;
     border-radius: 5px;
     &:hover{
         background-color: var(--color-accent);
-        box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark-accent) inset;
+        color: var(--color-dark);
     }
     &:active{
         background: transparent;
+        color: var(--color-accent);
         outline: 2px solid var(--color-accent);
     }
 `
