@@ -52,7 +52,7 @@ const Updates =() =>{
         });
     }
     return <div>
-            <h2>Updates</h2>
+            <h1>Updates</h1>
             {sortedReviews && moviesInfos && allUsers
             ? sortedReviews.map((review, index) => 
                 {const reviewUserInfos = allUsers.find((user)=> user.username === review.username)
@@ -63,7 +63,7 @@ const Updates =() =>{
                         <TopSection>
                             <TopLine>
                                 <UserAndRating>
-                                    <NavLink to={`/user/${review.username}`}><Username>{review.username}</Username></NavLink>
+                                    <Username to={`/user/${review.username}`}>{review.username}</Username>
                                     {review.rating && <p>rated a movie {review.rating} out of 10</p>}
                                 </UserAndRating>
                                 <p>posted on {formatDate(review.createdAt)}</p>
@@ -92,8 +92,7 @@ const ReviewBox = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin: 2rem 1rem;
-    padding: 1rem;
+    margin: 0 1rem 2rem 1rem;
     gap: 1rem;
     box-shadow: 0 0 5px var(--color-dark);
     border-radius: 10px;
@@ -123,9 +122,11 @@ const UserAndRating = styled.div`
     flex-direction: row;
     align-items: baseline;
 `
-const Username = styled.h2`
+const Username = styled(NavLink)`
     font-size: 1.5rem;
     margin-right: 0.5rem;
+    color: var(--color-accent);
+    text-decoration-color: var(--color-accent);
 `
 const ReviewText = styled.p`
     margin-top: 1rem;

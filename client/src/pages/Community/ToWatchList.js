@@ -15,7 +15,7 @@ const ToWatchList = () => {
     }
 
     return <div>
-            <h2>To Watch</h2>
+            <h1>To Watch</h1>
             {toWatchList.movies.length > 0 
             ?<MoviesToWatch>
             {toWatchList.movies.map((movie)=>{
