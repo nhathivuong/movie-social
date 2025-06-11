@@ -154,10 +154,11 @@ const Arrows = styled.button`
     border-radius: 5px;
     &:hover{
         background-color: var(--color-accent);
-        box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark) inset;
+        color: var(--color-dark);
     }
     &:active{
         background: transparent;
+        color: var(--color-accent);
         outline: 2px solid var(--color-accent);
     }
 `

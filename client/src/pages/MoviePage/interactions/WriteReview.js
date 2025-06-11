@@ -111,10 +111,10 @@ const Button = styled.button`
     text-transform: uppercase;
     font-weight:bold;
     color: var(--color-dark);
-    box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark) inset;
     cursor: pointer;
     &:active{
         background: transparent;
+        color: var(--color-accent);
         outline: 2px solid var(--color-accent);
     }
 `
@@ -140,6 +140,9 @@ const ClosingButton = styled.button`
     display:flex;
     justify-self: right;
     height:fit-content;
+    &:hover{
+        cursor: pointer;
+    }
 `
 const ReviewWritting = styled.textarea`
     width: 100%;

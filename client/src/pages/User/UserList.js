@@ -85,16 +85,17 @@ const Arrows = styled.button`
     cursor: pointer;
     height: 150px;
     background:none;
-    margin:35px 1rem;
+    margin: 4rem 0.5rem;
     color: var(--color-light);
     border:none;
     border-radius: 5px;
     &:hover{
         background-color: var(--color-accent);
-        box-shadow: 1px 1px 2px white inset, -2px -2px 2px var(--color-dark) inset;
+        color: var(--color-dark);
     }
     &:active{
         background: transparent;
+        color: var(--color-accent);
         outline: 2px solid var(--color-accent);
     }
 `

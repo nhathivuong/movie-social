@@ -97,17 +97,17 @@ const SaveList = ({movieInfos, movieId, listVisible, setListVisible, setReviewVi
 
 const Button = styled.button`
     height: 2rem;
-    margin: 0.5rem 1rem;
+    margin: 0.5rem 0;
     border-radius: 5px;
     background-color: var(--color-accent);
     border: none;
     text-transform: uppercase;
     font-weight:bold;
     color: var(--color-dark);
-    box-shadow: 1px 1px 2px white inset, -1px -1px 2px var(--color-dark) inset;
     cursor: pointer;
     &:active{
         background: transparent;
+        color: var(--color-accent);
         outline: 2px solid var(--color-accent);
     }
 `
@@ -136,6 +136,9 @@ const ClosingButton = styled.button`
     display:flex;
     justify-self: right;
     height:fit-content;
+    &:hover{
+        cursor: pointer;
+    }
 `
 const NewListSection = styled.div`
     display:flex;

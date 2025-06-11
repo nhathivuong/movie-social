@@ -53,6 +53,7 @@ table {
 :root{
     --color-dark: #000000;
     --color-accent: #FD87AA;
+    --color-other: #FD336A;
     --color-light: #FFFFFF;
     background-color: #000000;
 }
