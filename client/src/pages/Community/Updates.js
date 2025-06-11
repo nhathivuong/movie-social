@@ -92,7 +92,7 @@ const ReviewBox = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin: 2rem 1rem;
+    margin: 0 1rem 2rem 1rem;
     gap: 1rem;
     box-shadow: 0 0 5px var(--color-dark);
     border-radius: 10px;
