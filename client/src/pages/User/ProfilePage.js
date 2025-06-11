@@ -98,7 +98,7 @@ const Profile = styled.div`
     align-items:start;
 `
 const Picture = styled.img`
-    max-width: 100%;
+    width: 100%;
     border-radius:10px;
 `
 const AccountName = styled.h2`

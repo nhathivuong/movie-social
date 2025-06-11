@@ -22,8 +22,10 @@ const UserReview = ({userReviews, movies}) =>{
                         <NavLink to={`/movie/${review.movieId}`}><h2>{movie.title}</h2></NavLink>
                         <p>Rating: {review.rating}</p>
                         <ReviewContent>{review.content}</ReviewContent>
-                        <SaveList movieInfos={movie} movieId={movie.id} listVisible={listVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible}/>
-                        <WriteReview movieId={movie.id} reviewVisible={reviewVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible} />
+                        <SaveReviewMovieSection>
+                            <SaveList movieInfos={movie} movieId={movie.id} listVisible={listVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible}/>
+                            <WriteReview movieId={movie.id} reviewVisible={reviewVisible} setListVisible={setListVisible} setReviewVisible={setReviewVisible} />
+                        </SaveReviewMovieSection>
                     </div>
                 </ReviewBox>)
             })
@@ -45,5 +47,11 @@ const ReviewBox = styled.div`
 `
 const ReviewContent = styled.p`
     margin-top: 0.5rem;
+`
+const SaveReviewMovieSection = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
 `
 export default UserReview
