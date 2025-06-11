@@ -45,12 +45,14 @@ const Home = () => {
         ref.current.style.scrollBehavior = "smooth";
         ref.current.scrollLeft -= 495;
     }
-
+    const goToUpcomming = () =>{
+        window.scrollTo({ top: 1300 , behavior: "smooth" });
+    }
     return <>
     <BackToTop/>  
     <h1>discover your next movie</h1>
     <LandingText>Explore upcoming, top-rated, and popular movies. Filter by genre or search on your own to build personalized watchlists. Engage with the community by liking and commenting on reviews.</LandingText>
-    <ExploreButton>explore</ExploreButton>
+    <ExploreButton onClick={goToUpcomming}>explore</ExploreButton>
     <HomeImage src="/assets/myke-simon-atsUqIm3wxo-unsplash.jpg" alt="Pink cinema"/>
     <CategoryWrapper>
         <CategoryTitle>upcoming</CategoryTitle>
