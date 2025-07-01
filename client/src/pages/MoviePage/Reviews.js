@@ -16,7 +16,7 @@ import CommentReview from "./interactions/CommentReview";
 const Reviews = ({movieReviews, movieId}) => {
     const {allReviews} = useContext(AllReviewsContext)
     const {allUsers} = useContext(AllUsersContext)
-    const [reviewExpanded, setReviewExpanded] = useState(false)
+    const [reviewExpanded, setReviewExpanded] = useState({})
 
     if(!allUsers || !allReviews){
         return <SplashScreen/>
@@ -25,8 +25,11 @@ const Reviews = ({movieReviews, movieId}) => {
     const userMovieReviews = allReviews.filter((review)=> review.movieId === movieId)
     const Reviews = [...movieReviews, ...userMovieReviews]
 
-    const toggleReview = () =>{
-        setReviewExpanded(!reviewExpanded)
+    const toggleReview = (id) =>{
+        setReviewExpanded((reviewExpanded) => ({
+            ...reviewExpanded, 
+            [id]: !reviewExpanded[id],
+        }))
     }
     return (
         <div>
@@ -35,7 +38,9 @@ const Reviews = ({movieReviews, movieId}) => {
             ?<div>
                 {userMovieReviews.length > 0 && userMovieReviews.map((review) => {
                     const reviewUser = allUsers.find(user => user.username === review.username)
-                return (<div key={review._id}>{reviewUser 
+                    const isExpanded = reviewExpanded[review._id];
+                return (<div key={review._id}>
+                    {reviewUser 
                     ?<><ReviewBox>
                     <div>
                         <ProfilePicture src={reviewUser.src} alt={`${review.username} profile picture`} />
@@ -43,8 +48,8 @@ const Reviews = ({movieReviews, movieId}) => {
                     </div>
                     <div>
                         <NavLink to={`/user/${review.username}`}><Username>{review.username}</Username></NavLink>
-                        <ReviewText $expanded={reviewExpanded} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.content) }}/>
-                        <ReadMoreButton onClick={toggleReview}>{reviewExpanded ? 'Read less' : 'Read more'}</ReadMoreButton>
+                        <ReviewText $expanded={isExpanded} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.content) }}/>
+                        <ReadMoreButton onClick={() => toggleReview(review._id)}>{isExpanded ? 'Read less' : 'Read more'}</ReadMoreButton>
                         <LikeInteractionReview review={review}/>
                         <CommentReview review={review}/>
                     </div>
@@ -57,6 +62,7 @@ const Reviews = ({movieReviews, movieId}) => {
                     </ReviewBox>}</div>)
                 })}
                 {movieReviews.map((review) => {
+                    const isExpanded = reviewExpanded[review.id];
                 return <ReviewBox key={review.id}>
                     <div>
                         <ProfilePicture src={review.author_details.avatar_path
@@ -67,8 +73,8 @@ const Reviews = ({movieReviews, movieId}) => {
                     </div>
                     <div>
                         <Username>{review.author_details.username}</Username>
-                        <ReviewText $expanded={reviewExpanded} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.content) }}/>
-                        <ReadMoreButton onClick={toggleReview}>{reviewExpanded ? 'Read less' : 'Read more'}</ReadMoreButton>
+                        <ReviewText $expanded={isExpanded} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.content) }}/>
+                        <ReadMoreButton onClick={() => toggleReview(review.id)}>{isExpanded ? 'Read less' : 'Read more'}</ReadMoreButton>
                     </div>
                 </ReviewBox>
             })}</div>
@@ -98,14 +104,14 @@ const Username = styled.h2`
 `
 const ReviewText = styled.div`
     margin-top: 1rem;
-    text-overflow: ellipsis;
     overflow: hidden;
+    text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     ${({ $expanded }) =>
     $expanded
-        ? ''
-        : `-webkit-line-clamp: 3;`
+        ? '-webkit-line-clamp: unset;'
+        : '-webkit-line-clamp: 3;'
     }
     article, section{
         font-size: 1rem;

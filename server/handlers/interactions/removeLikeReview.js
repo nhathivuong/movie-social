@@ -10,12 +10,17 @@ const removeLikeReview = async(req, res) =>{
             message: `The request is not complete`
         })
     }
+    if (!ObjectId.isValid(reviewId)) {
+    return res.status(400).json({
+    status: 400,
+    message: "Invalid reviewId format"
+    });
+    }
     const client = new MongoClient(MONGO_URI)
     try{
         await client.connect()
         const db = client.db("movie")
-        const id = new ObjectId(reviewId)
-        const removeLike = await db.collection("reviews").updateOne({_id: id}, {$pull:{likes: {username: username, name: name}}})
+        const removeLike = await db.collection("reviews").updateOne({_id: new ObjectId(`${reviewId}`)}, {$pull:{likes: {username: username, name: name}}})
         if(removeLike.matchedCount === 0){
             return res.status(404).json({
             status:404,
