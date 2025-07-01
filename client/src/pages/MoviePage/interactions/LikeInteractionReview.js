@@ -77,7 +77,7 @@ const LikeInteractionReview = ({review}) =>{
         fetch(`${process.env.REACT_APP_BACKEND_URL}/unlike-review`, options)
         .then(res => {
             if(!res.ok){
-                throw new Error("The review was like was not removed")
+                throw new Error("The review like was not removed")
             }
             return res.json()
         })
