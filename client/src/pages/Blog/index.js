@@ -54,6 +54,16 @@ const Blog = () =>{
                 <ListDecoration><p>Fixed styling issues with imported reviews from TMDB to improve readability</p></ListDecoration>
             </ul>
         </UpdateSection >
+        <UpdateSection>
+            <UpdateTitle>JUNE 2025 updates</UpdateTitle>
+            <p>This month, I modified the design using Figma to improve the overall cohesion across all the pages.</p>
+            <UpdateSectionTitle>Bug Fixes</UpdateSectionTitle>
+            <ul>
+                <ListDecoration><p>Fixed read more opening all the review</p></ListDecoration>
+                <ListDecoration><p>Fixed unliking review not being saved</p></ListDecoration>
+                <ListDecoration><p>Fixed back to top not being missing in some pages </p></ListDecoration>
+            </ul>
+        </UpdateSection >
     </BlogBoard>
 }
 const BlogTitle = styled.h1`
@@ -81,7 +91,7 @@ const RoadmapButton = styled.button`
     }
 `
 const UpdateSection = styled.div`
-    max-width: 85%;
+    width: 85%;
     display:flex;
     flex-direction: column;
     gap:0.5rem;
